@@ -3,6 +3,8 @@ from unidecode import unidecode
 import numpy as np
 from thefuzz import fuzz
 import pandas as pd
+import regex
+import emoji
 
 def remove_repetitions(string, exceptions = ["r", "l", "n", "c", "a", "e", "o"]):
     """This function deletes any consecutive repetition of characters in a string. For example, the string 
@@ -62,16 +64,27 @@ def remove_RT(string):
     """
     return re.sub("^RT ", '', string)
 
-def remove_accents(string):
+def remove_accents(string, delete_emojis = True):
     """Remove accents and emojis of a string
 
     Args:
         string (str): String with accents.
-
+        delete_emojis (bool): Decide whether it is necessary to remove the emojis from the string. The default value
+            is set to True.
     Returns:
         str: String without accents.
     """
-    return unidecode(string)
+
+    if delete_emojis:
+        string = unidecode(string)
+    else:
+        string = re.sub(u"[àáâãäå]", 'a', string)
+        string = re.sub(u"[èéêë]", 'e', string)
+        string = re.sub(u"[ìíîï]", 'i', string)
+        string = re.sub(u"[òóôõö]", 'o', string)
+        string = re.sub(u"[ùúûü]", 'u', string)
+        # string = re.sub(u"[ñ]", 'n', string)
+    return string
 
 def remove_hashtags(string):
     """Remove hashtags
@@ -119,7 +132,8 @@ def remove_special_characters(string):
     Returns:
         str: String without special characters.
     """
-    return re.sub('[^a-z ]+', '', string)
+    # return re.sub('[^a-z ]+', '', string)
+    return regex.sub('[^a-z\p{So} ]+', '', string)
 
 def remove_extra_spaces(string):
     """Remove all extra spaces between words, at the beginning or at the end of any sentence.
@@ -133,7 +147,19 @@ def remove_extra_spaces(string):
     string = re.sub(" +", " ", string)
     return string.strip()
 
-def preprocess(string, extract = True, exceptions = ["r", "l", "n", "c", "a", "e", "o"]):
+def space_between_emojis(string):
+    """_summary_
+
+    Args:
+        string (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    return remove_extra_spaces(''.join((' '+c+' ') if c in emoji.UNICODE_EMOJI['en'] else c for c in string))
+
+def preprocess(string, delete_emojis = True, extract = True, 
+               exceptions = ["r", "l", "n", "c", "a", "e", "o"]):
     """This function compile other cleaning functions of tidytweets to ease de cleaning process of 
     tweets. The steps that this function makes are:
     1. Remove the 'RT' string at the beginning of the retweeted tweets. (remove_RT)
@@ -148,6 +174,8 @@ def preprocess(string, extract = True, exceptions = ["r", "l", "n", "c", "a", "e
 
     Args:
         string (str): Raw tweet
+        delete_emojis (bool): Decide whether it is necessary to remove the emojis from the string. The default value
+            is set to True.
         extract (bool): If it's True, the function will return a list with 
             all accounts mentioned in the string. Defaults to True.
         exceptions (list): List of characters that are allowed to have two repetitions. For example,
@@ -163,7 +191,7 @@ def preprocess(string, extract = True, exceptions = ["r", "l", "n", "c", "a", "e
     # Lowercase all characters
     string = string.lower()
     # Remove accents:
-    string = remove_accents(string)
+    string = remove_accents(string, delete_emojis = delete_emojis)
     # Extract and remove all mentions
     if extract:
         string, mentions = remove_mentions(string, extract = True)
