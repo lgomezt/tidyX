@@ -18,7 +18,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires = ">=3.6"
+    python_requires = ">=3.6",
     setup_requires = ['pytest-runner'],
     tests_require = ['pytest'],
     install_requires = [
@@ -28,5 +28,5 @@ setup(
     ],
     # Running `python setup.py pytest`
     # will execute all tests stored in the "tests" folder.
-    test_suite = 'tests'
+    test_suite = 'tests',
 )
