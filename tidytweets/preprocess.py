@@ -7,25 +7,23 @@ import regex
 import emoji
 
 def remove_repetitions(string, exceptions = ["r", "l", "n", "c", "a", "e", "o"]):
-    """This function deletes any consecutive repetition of characters in a string. For example, the string 
-    'coooroosooo' will be changed to 'coroso'. As in many languages it's common to have some special characters
-    that can be repeated, for example the 'l' in spanish to form 'll', the exception argument could be used to
-    specify which characters are allowed to repeat once.
+    """This function deletes any consecutive repetition of characters in a string. For example, the string 'coooroosooo' will be changed to 'coroso'. As in many languages it's common to have some special characters that can be repeated, for example the 'l' in spanish to form 'll', the exception argument could be used to specify which characters are allowed to repeat once.
 
     Args:
         string (str): Text to be formatted.
-        exceptions (list): List of characters that are allowed to have two repetitions. For example,
-        if exceptions is ['r'] words like 'carrro' are going to be cleaned as 'carro'. 
-        Defaults to ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
+        exceptions (list): List of characters that are allowed to have two repetitions. For example, if exceptions is ['r'] words like 'carrro' are going to be cleaned as 'carro'.  Defaults to ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
 
     Returns:
         str: Initial text without consecutive repetition of characters (exceptions may apply, see Args).
     """
-    # Only allow one repetition of the exceptions
-    exceptions = "|".join(exceptions)
-    string = re.sub('({})\\1+'.format(exceptions), r'\1\1', string)
-    # Delete the repetition of the other words
-    string = re.sub('([^{}])\\1+'.format(exceptions), r'\1', string)
+    if (exceptions == None):
+        string = re.sub('(.)\\1+', r'\1', string)
+    else:
+        # Only allow one repetition of the exceptions
+        exceptions = "|".join(exceptions)
+        string = re.sub('({})\\1+'.format(exceptions), r'\1\1', string)
+        # Delete the repetition of the other words
+        string = re.sub('([^{}])\\1+'.format(exceptions), r'\1', string)
     return string
 
 def remove_last_repetition(string): 
@@ -102,14 +100,13 @@ def remove_mentions(string, extract = True):
 
     Args:
         string (str): String with mentions.
-        extract (bool): If it's True, the function will return a list with 
-            all accounts mentioned in the string. Defaults to True.
+        extract (bool, optional): If it's True, the function will return a list with all accounts mentioned in the string. Defaults to True.
 
     Returns:
         string (str): String without mentions.
-        mentions (list): if extract = True, then mentions will be a list with the mentioned
-            accounts in the tweet.
+        mentions (list): if extract = True, then mentions will be a list with the mentioned accounts in the tweet.
     """
+
     # Extract mentions
     if extract:
         mentions = np.unique(re.findall(pattern = "@[^ ]+", string = string))
@@ -162,14 +159,23 @@ def preprocess(string, delete_emojis = True, extract = True,
                exceptions = ["r", "l", "n", "c", "a", "e", "o"]):
     """This function compile other cleaning functions of tidytweets to ease de cleaning process of 
     tweets. The steps that this function makes are:
+
     1. Remove the 'RT' string at the beginning of the retweeted tweets. (remove_RT)
+
     2. Lowercase all the string. (.lower)
+
     3. Remove all the accents and emojis. We suggest to treat the emojis separately to this cleaning process. (remove_accents)
+
     4. Save and/or remove all the mentions i.e. @elonmusk. (remove_mentions)
+
     5. Remove the urls. (remove_urls)
+
     6. Remove hashtags. (remove_hashtags)
+
     7. Remove special characters i.e. !?-;, among others. (remove_special_characters)
+
     8. Remove extra spaces. (remove_extra_spaces)
+    
     9. Remove repetitions of characters, with some exceptions defined in the `exceptions` parameter. (remove_repetitions and remove_last_repetition)
 
     Args:
@@ -286,8 +292,7 @@ def create_bol(lemmas, verbose = True):
         lemmas (np.array): Numpy array of lemmas.
 
     Returns:
-        DataFrame: With 4 columns ["bow_id", "bow_name", "lemma", "threshold"]. Each row represents a word of the
-            input array (lemmas) and the bag of words/lemmas that it belongs
+        DataFrame: With 4 columns ["bow_id", "bow_name", "lemma", "threshold"]. Each row represents a word of the input array (lemmas) and the bag of words/lemmas that it belongs.
     """
     
     # Create an empty dataframe to store the bags of words (lemmas)

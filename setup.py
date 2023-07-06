@@ -4,7 +4,7 @@ setup(
     name = 'tidytweets',
     packages = find_packages(include = ['tidytweets']),
     version = '1.0',
-    description = 'Clean tweets to perform topic analysis',
+    description = ' clean tweets for performing various NLP tasks, such as topic analysis, word embeddings, sentiment analysis, and more.',
     author = 'Lucas Gómez Tobón, Jose Fernando Barrera',
     author_email  = "lucasgomeztobon@hotmail.com, jf.barrera10@uniandes.edu.co",
     license = 'MIT',
