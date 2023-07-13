@@ -393,7 +393,10 @@ def spacy_pipeline(documents, custom_lemmatizer = False, pipeline = ['tokenize',
     nlp = spacy.load(model,enable=pipeline)
     spanish_stopwords=stopwords.words(stopwords_language)
     if custom_lemmatizer:
-        nlp.replace_pipe("lemmatizer", SpacyCustomLemmatizer())
+        if 'lemmatizer' in pipeline:
+            nlp.replace_pipe("lemmatizer", SpacyCustomLemmatizer())
+        else:
+            nlp.add_pipe(SpacyCustomLemmatizer(), name="lemmatizer", after=pipeline[-1])
     # Clean stopwords from each document and lemmatize:
     for document in tqdm.tqdm(documents, total=len(documents)):
         doc = nlp(document)
