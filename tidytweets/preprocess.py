@@ -350,6 +350,15 @@ def create_bol(lemmas, verbose = True):
     return bow.reset_index(drop = True)
 
 def get_most_common_strings(texts, num_strings):
+    '''
+    Get the most common strings in a list of texts. This is mostly a validation of the preprocessing or for giving some descriptive information.
+
+    Args:
+        texts (list): A list of texts.
+        num_strings (int): An integer with the number of most common words to be returned.
+    Returns:
+        most_common_strings: A list of the most common words in the documents.
+    '''
     # Initialize a defaultdict to store word counts
     word_counts = defaultdict(int)
 
