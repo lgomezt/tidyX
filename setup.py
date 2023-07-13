@@ -22,7 +22,7 @@ setup(
     install_requires = [
         'pandas','numpy','nltk','spacy','gensim','textblob','tweepy',
         'emoji','unidecode','scikit-learn','matplotlib','seaborn','wordcloud',
-        'plotly','pyLDAvis','thefuzz'
+        'plotly','pyLDAvis','thefuzz','tqdm','spacy_spanish_lemmatizer'
     ],
     # Running `python setup.py pytest`
     # will execute all tests stored in the "tests" folder.

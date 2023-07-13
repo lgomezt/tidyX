@@ -380,7 +380,7 @@ def spacy_pipeline(documents, custom_lemmatizer = False, pipeline = ['tokenize',
     Default model called is "es_core_news_sm" for efficiency. This function also returns the most common strings after preprocessing the documents. This is mostly a validation of the preprocessing.
     Args:
         documents (list): A list of documents (texts) to be processed.
-        custom_lemmatizer: A Spanish rule-based lemmatizer for spaCy. Default to False for default Spacy options for lemmatizing.
+        custom_lemmatizer: A Spanish rule-based lemmatizer for spaCy. Default to False for default Spacy options for lemmatizing. Ensure to run !python -m spacy_spanish_lemmatizer download wiki before using this.
         pipeline (list): A list of spaCy pipeline components to be used for processing the documents. Default to just do lemmatization: ['tokenize','lemmatizer'].
         stopwords (str): A string with the language of the stopwords to be used. Default to Spanish. We use nltk stopwords for this.
         model (str): A string with the name of the spaCy model to be used. Default to "es_core_news_sm" for efficiency.
