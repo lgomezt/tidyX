@@ -400,6 +400,6 @@ def spacy_pipeline(documents, custom_lemmatizer = False, pipeline = ['tokenize',
     # Clean stopwords from each document and lemmatize:
     for document in tqdm.tqdm(documents, total=len(documents)):
         doc = nlp(document)
-        processed_documents.append([token.lemma_ for token in doc if token.text not in spanish_stopwords])
+        processed_documents.append([token.lemma_ for token in doc if (token.text not in spanish_stopwords) and (token.lemma_ not in spanish_stopwords)])
     most_common_words = get_most_common_strings(processed_documents, num_strings)
     return processed_documents, most_common_words
