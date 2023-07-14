@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name = 'tidytweets',
     packages = find_packages('tidytweets',include = ['tidytweets']),
-    version = '0.1',
+    version = '0.15',
     description = 'Clean tweets to perform various NLP tasks such as topic analysis, word embeddings, sentiment analysis, etc.',
     author = 'Lucas Gómez Tobón, Jose Fernando Barrera',
     author_email  = "lucasgomeztobon@hotmail.com, jf.barrera10@uniandes.edu.co",
