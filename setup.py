@@ -34,7 +34,16 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent"
     ],
-    packages = ["TidyX"],
+    # packages = ["TidyX"],
+    packages = find_packages(),
     include_package_data = True,
-    install_requires = ["numpy"]
+    install_requires = [
+        "numpy",
+        "emoji",
+        "pandas",
+        "regex",
+        "spacy",
+        "thefuzz",
+        "Unidecod"
+        ]
 )
