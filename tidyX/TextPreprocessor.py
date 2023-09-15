@@ -492,3 +492,9 @@ class TextPreprocessor:
             processed_documents.append([token.lemma_ for token in doc if (token.text not in spanish_stopwords) and (token.lemma_ not in spanish_stopwords)])
         most_common_words = get_most_common_strings(processed_documents, num_strings)
         return processed_documents, most_common_words
+    @staticmethod
+    def entity_recognition_text():
+        return None
+    @staticmethod
+    def dependency_parse_visualizer_text():
+        return None
