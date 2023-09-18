@@ -15,8 +15,9 @@ from nltk.corpus import stopwords
 import nltk
 nltk.download('stopwords')
 import tqdm
-from spacy_spanish_lemmatizer import SpacyCustomLemmatizer
+import spacy_spanish_lemmatizer
 from collections import defaultdict, Counter
+from spacy.language import Language
 # pip install python-Levenshtein
 
 class TextPreprocessor:
@@ -460,8 +461,11 @@ class TextPreprocessor:
         return most_common_strings
 
     # HERE STARTS SPACY FUNCTIONS
+    @Language.factory("custom_lemmatizer")
+    def custom_lemmatizer(nlp,name):
+        return spacy_spanish_lemmatizer.main.create_spanish_lemmatizer(nlp,name)
     @staticmethod
-    def spacy_pipeline(documents, custom_lemmatizer = False, pipeline = ['tokenize','lemmatizer'], stopwords_language = 'Spanish', model = 'es_core_news_sm', num_strings = 30):
+    def spacy_pipeline(documents, custom_lemmatizer = False, pipeline = ['tokenize','lemmatizer'], stopwords_language = 'Spanish', model = 'es_core_news_sm', num_strings = 0):
         '''
         Calls the spacy pipeline to process documents and returns the lemmatized well preprocessed documents wiithout stopwords. We additionally add a custom lemmatizer to the pipeline in order to
         accomplish a Spanish rule-based lemmatization for spaCy. See more information in: https://github.com/pablodms/spacy-spanish-lemmatizer. Also, you may need to download a spaCy model for 
@@ -473,7 +477,7 @@ class TextPreprocessor:
             pipeline (list): A list of spaCy pipeline components to be used for processing the documents. Default to just do lemmatization: ['tokenize','lemmatizer'].
             stopwords (str): A string with the language of the stopwords to be used. Default to Spanish. We use nltk stopwords for this.
             model (str): A string with the name of the spaCy model to be used. Default to "es_core_news_sm" for efficiency.
-            num_strings (int): An integer with the number of most common words to be returned. Default to 30.
+            num_strings (int): An integer with the number of most common words to be returned. Default to 0.
         Returns:
             list: A list of processed documents.
             most_common_words: A list of the most common words in the documents. This is mostly a validation of the preprocessing.
@@ -482,16 +486,21 @@ class TextPreprocessor:
         nlp = spacy.load(model,enable=pipeline)
         spanish_stopwords=stopwords.words(stopwords_language)
         if custom_lemmatizer:
+            # Add custom lemmatizer to the pipeline
             if 'lemmatizer' in pipeline:
-                nlp.replace_pipe("lemmatizer", SpacyCustomLemmatizer())
+                nlp.replace_pipe("lemmatizer", "custom_lemmatizer")
             else:
-                nlp.add_pipe(SpacyCustomLemmatizer(), name="lemmatizer", after=pipeline[-1])
+                nlp.add_pipe("custom_lemmatizer", name="custom_lemmatizer", last=True)
         # Clean stopwords from each document and lemmatize:
         for document in tqdm.tqdm(documents, total=len(documents)):
             doc = nlp(document)
-            processed_documents.append([token.lemma_ for token in doc if (token.text not in spanish_stopwords) and (token.lemma_ not in spanish_stopwords)])
-        most_common_words = get_most_common_strings(processed_documents, num_strings)
-        return processed_documents, most_common_words
+            processed_documents.append([TextPreprocessor.remove_accents(token.lemma_) for token in doc if (token.text not in spanish_stopwords) and (token.lemma_ not in spanish_stopwords)])
+        if num_strings==0:
+            return processed_documents
+        else:
+            most_common_words = TextPreprocessor.get_most_common_strings(processed_documents, num_strings)
+            return processed_documents, most_common_words
+        
     @staticmethod
     def entity_recognition_text():
         return None
