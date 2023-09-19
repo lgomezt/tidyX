@@ -1,8 +1,8 @@
 import re
 from unidecode import unidecode
 import numpy as np
-import regex
 import emoji
+import regex
 from pandas import DataFrame
 from typing import Union
 import spacy
@@ -11,6 +11,14 @@ import pandas as pd
 from thefuzz import fuzz
 from collections import Counter
 from typing import List, Tuple
+from nltk.corpus import stopwords
+import nltk
+nltk.download('stopwords')
+import tqdm
+import spacy_spanish_lemmatizer
+from collections import defaultdict, Counter
+from spacy.language import Language
+from spacy import displacy
 # pip install python-Levenshtein
 
 class TextPreprocessor:
@@ -231,7 +239,7 @@ class TextPreprocessor:
             str: The processed text with spaces inserted around each emoji.
         """
         
-        return TextPreprocessor.remove_extra_spaces(''.join((' ' + c + ' ') if c in emoji.UNICODE_EMOJI['en'] else c for c in string))
+        return TextPreprocessor.remove_extra_spaces(''.join((' ' + c + ' ') if c in emoji.EMOJI_DATA else c for c in string))
 
     @staticmethod
     def preprocess(string: str, delete_emojis = True, extract = True, 
@@ -440,4 +448,100 @@ class TextPreprocessor:
                 break
         
         return bow_df.reset_index(drop = True)
+    
+    @staticmethod   
+    def get_most_common_strings(texts, num_strings):
+        '''
+        Get the most common strings in a list of texts. This is mostly a validation of the preprocessing or for giving some descriptive information.
 
+        Args:
+            texts (list): A list of texts.
+            num_strings (int): An integer with the number of most common words to be returned.
+        Returns:
+            most_common_strings: A list of the most common words in the documents.
+        '''
+        # Initialize a defaultdict to store word counts
+        word_counts = defaultdict(int)
+        # List of lists
+        list_of_lists_verifier = any(isinstance(i, list) for i in texts)
+        if list_of_lists_verifier:
+            # Flatten the list of lists
+            texts = [item for sublist in texts for item in sublist]
+        # Iterate through the texts and update word counts
+        for text in texts:
+            words = text.split()
+            for word in words:
+                word_counts[word] += 1  # Manual update here
+        # Get the most common words
+        most_common_strings = Counter(word_counts).most_common(num_strings)
+
+        return most_common_strings
+
+    # HERE STARTS SPACY FUNCTIONS
+    @Language.factory("custom_lemmatizer")
+    def custom_lemmatizer(nlp,name):
+        '''
+        Creates a Spanish rule-based lemmatizer for spaCy. See more information in: https://github.com/pablodms/spacy-spanish-lemmatizer
+        Args:
+            nlp (spacy.lang.es.Spanish): A Spacy language model object.
+            name (str): A string with the name of the lemmatizer.
+        Returns:
+            spacy_spanish_lemmatizer.main.create_spanish_lemmatizer: A Spanish rule-based lemmatizer for spaCy.
+        '''
+        return spacy_spanish_lemmatizer.main.create_spanish_lemmatizer(nlp,name)
+    @staticmethod
+    def spacy_pipeline(documents, custom_lemmatizer = False, pipeline = ['tokenize','lemmatizer'], stopwords_language = 'Spanish', model = 'es_core_news_sm', num_strings = 0):
+        '''
+        Calls the spacy pipeline to process documents and returns the lemmatized well preprocessed documents wiithout stopwords. We additionally add a custom lemmatizer to the pipeline in order to
+        accomplish a Spanish rule-based lemmatization for spaCy. See more information in: https://github.com/pablodms/spacy-spanish-lemmatizer. Also, you may need to download a spaCy model for 
+        Spanish, you can do it directly from the terminal: python -m spacy download name_of_model (where name_of_model could be "es_core_news_sm", "es_core_news_md", "es_core_news_lg", "es_dep_news_trf").
+        Default model called is "es_core_news_sm" for efficiency. This function also returns the most common strings after preprocessing the documents. This is mostly a validation of the preprocessing.
+        Args:
+            documents (list): A list of documents (texts) to be processed.
+            custom_lemmatizer: A Spanish rule-based lemmatizer for spaCy. Default to False for default Spacy options for lemmatizing. Ensure to run !python -m spacy_spanish_lemmatizer download wiki before using this.
+            pipeline (list): A list of spaCy pipeline components to be used for processing the documents. Default to just do lemmatization: ['tokenize','lemmatizer'].
+            stopwords (str): A string with the language of the stopwords to be used. Default to Spanish. We use nltk stopwords for this.
+            model (str): A string with the name of the spaCy model to be used. Default to "es_core_news_sm" for efficiency.
+            num_strings (int): An integer with the number of most common words to be returned. Default to 0.
+        Returns:
+            list: A list of processed documents.
+            most_common_words: A list of the most common words in the documents. This is mostly a validation of the preprocessing.
+        '''
+        processed_documents = []
+        nlp = spacy.load(model,enable=pipeline)
+        spanish_stopwords=stopwords.words(stopwords_language)
+        if custom_lemmatizer:
+            # Add custom lemmatizer to the pipeline
+            if 'lemmatizer' in pipeline:
+                nlp.replace_pipe("lemmatizer", "custom_lemmatizer")
+            else:
+                nlp.add_pipe("custom_lemmatizer", name="custom_lemmatizer", last=True)
+        # Clean stopwords from each document and lemmatize:
+        for document in tqdm.tqdm(documents, total=len(documents)):
+            doc = nlp(document)
+            processed_documents.append([TextPreprocessor.remove_accents(token.lemma_) for token in doc if (token.text not in spanish_stopwords) and (token.lemma_ not in spanish_stopwords)])
+        if num_strings==0:
+            return processed_documents
+        else:
+            most_common_words = TextPreprocessor.get_most_common_strings(processed_documents, num_strings)
+            return processed_documents, most_common_words
+    @staticmethod
+    def dependency_parse_visualizer_text(document, style = 'dep', jupyter = True, model = 'es_core_news_sm'):
+        '''
+        Visualize the dependency parse of a document, you can also use "ent" style to visualize entities in provided texts. See more information in: https://spacy.io/usage/visualizers. Also, you may need to download a spaCy model for
+        Spanish, you can do it directly from the terminal: python -m spacy download name_of_model (where name_of_model could be "es_core_news_sm", "es_core_news_md", "es_core_news_lg", "es_dep_news_trf").
+        Default model called is "es_core_news_sm" for efficiency.
+        Args:
+            document (list): A list containing one document to be visualized.
+            style (str): A string with the style of the visualization. Default to 'dep'. See https://spacy.io/usage/visualizers for more visualizers.
+            jupyter (bool): A boolean to indicate if the visualization is going to be used in a jupyter notebook. Default to True.
+            model (str): A string with the name of the spaCy model to be used. Default to "es_core_news_sm" for efficiency.
+        Returns:
+            None
+        '''
+        nlp = spacy.load(model)
+        doc = nlp(document)
+        if jupyter:
+            return displacy.render(doc, style = style, jupyter = jupyter)
+        else:
+            return displacy.serve(doc, style = style, jupyter = jupyter)
