@@ -228,7 +228,7 @@ class TextPreprocessor:
             str: The processed text with spaces inserted around each emoji.
         """
         
-        return TextPreprocessor.remove_extra_spaces(''.join((' ' + c + ' ') if c in emoji.EMOJI_DATA['en'] else c for c in string))
+        return TextPreprocessor.remove_extra_spaces(''.join((' ' + c + ' ') if c in emoji.EMOJI_DATA else c for c in string))
 
     @staticmethod
     def preprocess(string: str, delete_emojis = True, extract = True, 
@@ -455,14 +455,11 @@ class TextPreprocessor:
         if list_of_lists_verifier:
             # Flatten the list of lists
             texts = [item for sublist in texts for item in sublist]
-            for text in texts:
-                words = text.split()
-                word_counts.update(words)
-        else:
-            # Iterate through the texts and update word counts
-            for text in texts:
-                words = text.split()
-                word_counts.update(words)
+        # Iterate through the texts and update word counts
+        for text in texts:
+            words = text.split()
+            for word in words:
+                word_counts[word] += 1  # Manual update here
         # Get the most common words
         most_common_strings = Counter(word_counts).most_common(num_strings)
 
