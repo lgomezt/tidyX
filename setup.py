@@ -34,7 +34,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent"
     ],
-    packages = ["TidyX"],
+    packages = ["tidyX"],
     include_package_data = True,
     install_requires = [
         "numpy",
