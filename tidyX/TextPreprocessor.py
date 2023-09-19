@@ -181,23 +181,6 @@ class TextPreprocessor:
         return string, mentions
 
     @staticmethod
-    def remove_special_characters(string: str) -> str:
-        """
-        Removes all characters from a string except for lowercase letters and spaces.
-        
-        This function scans the string and removes any character that is not a lowercase letter or a space.
-        As a result, punctuation marks, exclamation marks, special characters, numbers, and uppercase letters are eliminated.
-        
-        Args:
-            string (str): The text that may contain special characters.
-            
-        Returns:
-            str: The processed text with special characters removed.
-        """
-        
-        return regex.sub('[^a-z\p{So} ]+', '', string)
-
-    @staticmethod
     def remove_extra_spaces(string: str) -> str:
         """
         Removes extra spaces within and surrounding a given string.
@@ -213,6 +196,34 @@ class TextPreprocessor:
         
         string = re.sub(" +", " ", string)
         return string.strip()
+
+    @staticmethod
+    def remove_special_characters(string: str, allow_numbers: bool = False) -> str:
+        """
+        Removes all characters from a string except for lowercase letters and spaces.
+        
+        This function scans the string and removes any character that is not a lowercase letter or a space.
+        Optionally, numbers can be retained.
+        As a result, punctuation marks, exclamation marks, special characters, and uppercase letters are eliminated.
+        
+        Args:
+            string (str): The text that may contain special characters.
+            allow_numbers (bool): Whether to allow numbers in the string. Default is False.
+                
+        Returns:
+            str: The processed text with special characters removed.
+        """
+    
+        pattern = '[^a-z\p{So} ]+'
+        
+        if allow_numbers:
+            pattern = '[^a-z0-9\p{So} ]+'
+
+        string = regex.sub(pattern, '', string)
+
+        string = TextPreprocessor.remove_extra_spaces(string)
+            
+        return string
 
     @staticmethod
     def space_between_emojis(string: str) -> str:
@@ -232,7 +243,7 @@ class TextPreprocessor:
 
     @staticmethod
     def preprocess(string: str, delete_emojis = True, extract = True, 
-                exceptions = ["r", "l", "n", "c", "a", "e", "o"]):
+                exceptions = ["r", "l", "n", "c", "a", "e", "o"], allow_numbers: bool = False):
         """
         Preprocesses tweets by applying a series of cleaning functions. The function performs the following steps:
 
@@ -251,6 +262,7 @@ class TextPreprocessor:
             delete_emojis (bool): Whether to remove emojis from the string. Default is True.
             extract (bool): If True, returns a list of all accounts mentioned in the tweet. Default is True.
             exceptions (list): List of characters allowed to be repeated. Default is ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
+            allow_numbers (bool): Whether to allow numbers in the string. Default is False.
 
         Returns:
             str: The cleaned tweet text.
@@ -270,7 +282,7 @@ class TextPreprocessor:
         # Remove hashtags
         string = TextPreprocessor.remove_hashtags(string)
         # Remove special characters:
-        string = TextPreprocessor.remove_special_characters(string)
+        string = TextPreprocessor.remove_special_characters(string, allow_numbers = allow_numbers)
         # Allow only one space between words
         string = TextPreprocessor.remove_extra_spaces(string)
         # Remove repetited characters

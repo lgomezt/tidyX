@@ -1,7 +1,4 @@
-# Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-
-# To use a consistent encoding
 from codecs import open
 from os import path
 
@@ -15,7 +12,7 @@ with open(path.join(HERE, 'README.md'), encoding = 'utf-8') as f:
 # This call to setup() does all the work
 setup(
     name = "tidyX",
-    version = "0.1.0",
+    version = "1.0.4",
     description = "Python package to clean raw tweets for ML applications",
     long_description = long_description,
     long_description_content_type = "text/markdown",
@@ -34,7 +31,15 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent"
     ],
-    packages = ["TidyX"],
+    packages = ["tidyX"],
     include_package_data = True,
-    install_requires = ["numpy"]
+    install_requires = [
+        "numpy",
+        "emoji",
+        "pandas",
+        "regex",
+        "spacy",
+        "thefuzz",
+        "Unidecode"
+        ]
 )
