@@ -1,12 +1,12 @@
 import unittest
 import sys
-sys.path.insert(1, r'C:\Users\JOSE\Desktop\Trabajo\Paper_no_supervisado\Tidytweets')
-from tidyX import TextPreprocessor
+from tidyX import TextPreprocessor as tp
 import unidecode
 import pandas as pd
 import spacy
 import numpy as np
 from nltk.corpus import stopwords
+
 class TestTextPreprocessor(unittest.TestCase):
 
     def setUp(self):
@@ -26,218 +26,218 @@ class TestTextPreprocessor(unittest.TestCase):
 
     def test_remove_repetitions(self):
         # Testing first tweet: "¡Hola! ¿Cómo estás? 😀 #buenasvibes"
-        processed = TextPreprocessor.remove_repetitions(self.sample_tweets[0])
+        processed = tp.remove_repetitions(self.sample_tweets[0])
         self.assertEqual(processed, "¡Hola! ¿Cómo estás? 😀 #buenasvibes")
         
         # Testing second tweet: "Me encantó este libro 📚👏👏"
-        processed = TextPreprocessor.remove_repetitions(self.sample_tweets[1])
+        processed = tp.remove_repetitions(self.sample_tweets[1])
         self.assertEqual(processed, "Me encantó este libro 📚👏")
         
         # Testing sixth tweet: "Ahoraaaa, me encantaaaaas masssss! Que rico bb! 😍��"
-        processed = TextPreprocessor.remove_repetitions(self.sample_tweets[5])
+        processed = tp.remove_repetitions(self.sample_tweets[5])
         self.assertEqual(processed, "Ahoraaa, me encantaaaas masss! Que rico b! 😍��")
 
         # Testing seventh tweet: "Ya se 'tá poniendo de mañana. No no' vamo' a quedar con la' ganas. La disco ya 'tá cerrada. Hoy te quiero decir cosas mala' !! 😏"
-        processed = TextPreprocessor.remove_repetitions(self.sample_tweets[6])
+        processed = tp.remove_repetitions(self.sample_tweets[6])
         self.assertEqual(processed, "Ya se 'tá poniendo de mañana. No no' vamo' a quedar con la' ganas. La disco ya 'tá cerrada. Hoy te quiero decir cosas mala' ! 😏")
 
         # Test with custom exceptions
-        processed = TextPreprocessor.remove_repetitions(self.sample_tweets[5], exceptions=["a", "s"])
+        processed = tp.remove_repetitions(self.sample_tweets[5], exceptions=["a", "s"])
         self.assertEqual(processed, "Ahoraaa, me encantaaaas masss! Que rico b! 😍��")
     
     def test_remove_last_repetition(self):
         # Testing the sixth tweet: "Ahoraaaa, me encantaaaaas masssss! Que rico bb! 😍��"
-        processed = TextPreprocessor.remove_last_repetition(self.sample_tweets[5])
+        processed = tp.remove_last_repetition(self.sample_tweets[5])
         self.assertEqual(processed, "Ahora, me encantas mas! Que rico b! 😍��")
 
         # Testing the seventh tweet: "Ya se 'tá poniendo de mañana. No no' vamo' a quedar con la' ganas. La disco ya 'tá cerrada. Hoy te quiero decir cosas mala' !! 😏"
-        processed = TextPreprocessor.remove_last_repetition(self.sample_tweets[6])
+        processed = tp.remove_last_repetition(self.sample_tweets[6])
         self.assertEqual(processed, "Ya se 'tá poniendo de mañana. No no' vamo' a quedar con la' ganas. La disco ya 'tá cerrada. Hoy te quiero decir cosas mala' ! 😏")
 
         # Testing a sentence where each word ends with the last character repeated: "Holaaaa amigooo"
-        processed = TextPreprocessor.remove_last_repetition("Holaaaa amigooo")
+        processed = tp.remove_last_repetition("Holaaaa amigooo")
         self.assertEqual(processed, "Hola amigo")
 
         # Testing a sentence where each word ends with the last character repeated multiple times: "Holaaaaaa amigooooo"
-        processed = TextPreprocessor.remove_last_repetition("Holaaaaaa amigooooo")
+        processed = tp.remove_last_repetition("Holaaaaaa amigooooo")
         self.assertEqual(processed, "Hola amigo")
 
         # Testing sentence without any repetition at the end of words
-        processed = TextPreprocessor.remove_last_repetition("This is a normal sentence.")
+        processed = tp.remove_last_repetition("This is a normal sentence.")
         self.assertEqual(processed, "This is a normal sentence.")
 
     def test_remove_urls(self):
         # Testing the third tweet: "¡Increíble! 😲 No puedo creerlo... https://example.com"
-        processed = TextPreprocessor.remove_urls(self.sample_tweets[2])
+        processed = tp.remove_urls(self.sample_tweets[2])
         self.assertEqual(processed, "¡Increíble! 😲 No puedo creerlo... ")
 
         # Testing sentence with multiple URLs
-        processed = TextPreprocessor.remove_urls("Visit http://example1.com and https://example2.com")
+        processed = tp.remove_urls("Visit http://example1.com and https://example2.com")
         self.assertEqual(processed, "Visit  and ")
 
         # Testing sentence without any URLs
-        processed = TextPreprocessor.remove_urls("This is a normal sentence.")
+        processed = tp.remove_urls("This is a normal sentence.")
         self.assertEqual(processed, "This is a normal sentence.")
         
         # Testing sentence with an incomplete URL
-        processed = TextPreprocessor.remove_urls("Visit http")
+        processed = tp.remove_urls("Visit http")
         self.assertEqual(processed, "Visit ")
 
         # Testing sentence with URL followed by a special character
-        processed = TextPreprocessor.remove_urls("Visit https://example.com.")
+        processed = tp.remove_urls("Visit https://example.com.")
         self.assertEqual(processed, "Visit .")
 
     def test_remove_RT(self):
 
-        processed = TextPreprocessor.remove_RT(self.sample_tweets[1])
+        processed = tp.remove_RT(self.sample_tweets[1])
         self.assertEqual(processed, "Me encantó este libro 📚👏👏")
 
         # Testing a tweet with "RT" inside but not as prefix: "Nice RT! This is awesome."
-        processed = TextPreprocessor.remove_RT("Nice RT! This is awesome.")
+        processed = tp.remove_RT("Nice RT! This is awesome.")
         self.assertEqual(processed, "Nice RT! This is awesome.")    
 
     def test_remove_accents(self):
         # Test with delete_emojis = True (Default)
-        processed = TextPreprocessor.remove_accents(self.sample_tweets[0])
+        processed = tp.remove_accents(self.sample_tweets[0])
         self.assertEqual(processed, unidecode(self.sample_tweets[0]))
 
         # Test with delete_emojis = False
-        processed = TextPreprocessor.remove_accents(self.sample_tweets[0], delete_emojis=False)
+        processed = tp.remove_accents(self.sample_tweets[0], delete_emojis=False)
         self.assertEqual(processed, "¡Hola! ¿Como estas? 😀 #buenasvibes")
 
         # Test with accented characters but no emojis
-        processed = TextPreprocessor.remove_accents("Me encantó este libro", delete_emojis=False)
+        processed = tp.remove_accents("Me encantó este libro", delete_emojis=False)
         self.assertEqual(processed, "Me encanto este libro")
 
         # Test without accented characters but with emojis
-        processed = TextPreprocessor.remove_accents("Awesome 😀👏👏", delete_emojis=True)
+        processed = tp.remove_accents("Awesome 😀👏👏", delete_emojis=True)
         self.assertEqual(processed, "Awesome ")
 
         # Test with neither accented characters nor emojis
-        processed = TextPreprocessor.remove_accents("Awesome", delete_emojis=True)
+        processed = tp.remove_accents("Awesome", delete_emojis=True)
         self.assertEqual(processed, "Awesome")
 
     def test_remove_hashtags(self):
         # Test tweet with a single hashtag
-        processed = TextPreprocessor.remove_hashtags(self.sample_tweets[4])
+        processed = tp.remove_hashtags(self.sample_tweets[4])
         self.assertEqual(processed, "🤔 Pienso, luego existo. ")
 
         # Test tweet with multiple hashtags
-        processed = TextPreprocessor.remove_hashtags("This is #amazing! #awesome #fantastic")
+        processed = tp.remove_hashtags("This is #amazing! #awesome #fantastic")
         self.assertEqual(processed, "This is !  ")
 
         # Test tweet with no hashtags
-        processed = TextPreprocessor.remove_hashtags("This is amazing!")
+        processed = tp.remove_hashtags("This is amazing!")
         self.assertEqual(processed, "This is amazing!")
 
         # Test tweet with hashtag embedded in text (should be removed)
-        processed = TextPreprocessor.remove_hashtags("This#notcool is amazing!")
+        processed = tp.remove_hashtags("This#notcool is amazing!")
         self.assertEqual(processed, "This is amazing!")
 
     def test_remove_mentions(self):
         # Test tweet with a single mention
-        processed, mentions = TextPreprocessor.remove_mentions("@user1 This is a test.")
+        processed, mentions = tp.remove_mentions("@user1 This is a test.")
         self.assertEqual(processed, " This is a test.")
         self.assertEqual(mentions, ["@user1"])
 
         # Test tweet with multiple mentions
-        processed, mentions = TextPreprocessor.remove_mentions("@user1 @user2 This is a test.")
+        processed, mentions = tp.remove_mentions("@user1 @user2 This is a test.")
         self.assertEqual(processed, "  This is a test.")
         self.assertEqual(set(mentions), set(["@user1", "@user2"]))  # Convert to sets for unordered comparison
 
         # Test tweet with no mentions
-        processed, mentions = TextPreprocessor.remove_mentions("This is a test.")
+        processed, mentions = tp.remove_mentions("This is a test.")
         self.assertEqual(processed, "This is a test.")
         self.assertEqual(mentions, [])
 
         # Test tweet with repeated mentions
-        processed, mentions = TextPreprocessor.remove_mentions("@user1 @user1 This is a test.")
+        processed, mentions = tp.remove_mentions("@user1 @user1 This is a test.")
         self.assertEqual(processed, "  This is a test.")
         self.assertEqual(mentions, ["@user1"])  # Mentions should be unique
 
         # Test tweet where mentions are part of the words
-        processed, mentions = TextPreprocessor.remove_mentions("This is a test @work.")
+        processed, mentions = tp.remove_mentions("This is a test @work.")
         self.assertEqual(processed, "This is a test .")
         self.assertEqual(mentions, ["@work"])
     
     def test_remove_special_characters(self):
         # Test tweet containing special characters
-        processed = TextPreprocessor.remove_special_characters("Th!s @ 1s a t3st.")
+        processed = tp.remove_special_characters("Th!s @ 1s a t3st.")
         self.assertEqual(processed, "Ths   s a tst")
 
         # Test tweet containing no special characters
-        processed = TextPreprocessor.remove_special_characters("This is a test")
+        processed = tp.remove_special_characters("This is a test")
         self.assertEqual(processed, "This is a test")
 
         # Test tweet containing uppercase letters
-        processed = TextPreprocessor.remove_special_characters("This Is A Test")
+        processed = tp.remove_special_characters("This Is A Test")
         self.assertEqual(processed, "This Is A Test")
 
         # Test tweet containing special characters and numbers
-        processed = TextPreprocessor.remove_special_characters("Th!s 1s a t3st!")
+        processed = tp.remove_special_characters("Th!s 1s a t3st!")
         self.assertEqual(processed, "Ths  s a tst")
 
         # Test tweet containing only special characters
-        processed = TextPreprocessor.remove_special_characters("@!#@$%")
+        processed = tp.remove_special_characters("@!#@$%")
         self.assertEqual(processed, "     ")
 
         # Test empty string
-        processed = TextPreprocessor.remove_special_characters("")
+        processed = tp.remove_special_characters("")
         self.assertEqual(processed, "")
     
     def test_remove_extra_spaces(self):
         # Test tweet containing multiple consecutive spaces
-        processed = TextPreprocessor.remove_extra_spaces("This  is  a  test.")
+        processed = tp.remove_extra_spaces("This  is  a  test.")
         self.assertEqual(processed, "This is a test.")
 
         # Test tweet containing leading spaces
-        processed = TextPreprocessor.remove_extra_spaces("  This is a test.")
+        processed = tp.remove_extra_spaces("  This is a test.")
         self.assertEqual(processed, "This is a test.")
 
         # Test tweet containing trailing spaces
-        processed = TextPreprocessor.remove_extra_spaces("This is a test.  ")
+        processed = tp.remove_extra_spaces("This is a test.  ")
         self.assertEqual(processed, "This is a test.")
 
         # Test tweet containing leading and trailing spaces
-        processed = TextPreprocessor.remove_extra_spaces("  This is a test.  ")
+        processed = tp.remove_extra_spaces("  This is a test.  ")
         self.assertEqual(processed, "This is a test.")
 
         # Test empty string
-        processed = TextPreprocessor.remove_extra_spaces("   ")
+        processed = tp.remove_extra_spaces("   ")
         self.assertEqual(processed, "")
 
         # Test string with only a single space
-        processed = TextPreprocessor.remove_extra_spaces(" ")
+        processed = tp.remove_extra_spaces(" ")
         self.assertEqual(processed, "")
     
     def test_space_between_emojis(self):
         # Test tweet containing consecutive emojis without spaces
-        processed = TextPreprocessor.space_between_emojis("I love this😀😀")
+        processed = tp.space_between_emojis("I love this😀😀")
         self.assertEqual(processed, "I love this 😀 😀")
 
         # Test tweet containing emoji attached to a word
-        processed = TextPreprocessor.space_between_emojis("I love this😀")
+        processed = tp.space_between_emojis("I love this😀")
         self.assertEqual(processed, "I love this 😀")
 
         # Test tweet containing emojis with existing spaces in between
-        processed = TextPreprocessor.space_between_emojis("I love this 😀 😀")
+        processed = tp.space_between_emojis("I love this 😀 😀")
         self.assertEqual(processed, "I love this 😀 😀")
 
         # Test tweet with emojis separated by extra spaces
-        processed = TextPreprocessor.space_between_emojis("I love this 😀  😀")
+        processed = tp.space_between_emojis("I love this 😀  😀")
         self.assertEqual(processed, "I love this 😀 😀")
 
         # Test tweet with emojis attached to words
-        processed = TextPreprocessor.space_between_emojis("Love😍Hate😡")
+        processed = tp.space_between_emojis("Love😍Hate😡")
         self.assertEqual(processed, "Love 😍 Hate 😡")
 
         # Test empty string
-        processed = TextPreprocessor.space_between_emojis("")
+        processed = tp.space_between_emojis("")
         self.assertEqual(processed, "")
     
     def test_preprocess(self):
         # Full pipeline test, with all options enabled
-        processed, mentions = TextPreprocessor.preprocess(
+        processed, mentions = tp.preprocess(
             "RT @john: Check out this link! http://example.com #example 😍😍 Sooo cool!!!", 
             delete_emojis=True, 
             extract=True
@@ -246,7 +246,7 @@ class TestTextPreprocessor(unittest.TestCase):
         self.assertEqual(mentions, ["@john"])
 
         # Test without removing emojis and without extracting mentions
-        processed = TextPreprocessor.preprocess(
+        processed = tp.preprocess(
             "RT @john: 😍😍 Sooo cool!!!", 
             delete_emojis=False, 
             extract=False
@@ -254,7 +254,7 @@ class TestTextPreprocessor(unittest.TestCase):
         self.assertEqual(processed, "😍 😍 so cool")
 
         # Test with a different exceptions list
-        processed, _ = TextPreprocessor.preprocess(
+        processed, _ = tp.preprocess(
             "RT @john: Checkk out thiss linkk! http://example.com #example 😍😍 Sooo cool!!!", 
             delete_emojis=True, 
             extract=True,
@@ -263,7 +263,7 @@ class TestTextPreprocessor(unittest.TestCase):
         self.assertEqual(processed, "checkk out thiss link so cool")
 
         # Test with an empty string
-        processed, mentions = TextPreprocessor.preprocess(
+        processed, mentions = tp.preprocess(
             "", 
             delete_emojis=True, 
             extract=True
@@ -273,50 +273,50 @@ class TestTextPreprocessor(unittest.TestCase):
     
     def test_remove_words(self):
         # Test with a basic example
-        processed = TextPreprocessor.remove_words("This is a sample sentence.", ["this", "a", "sample"])
+        processed = tp.remove_words("This is a sample sentence.", ["this", "a", "sample"])
         self.assertEqual(processed, "is sentence.")
 
         # Test with an empty bag_of_words
-        processed = TextPreprocessor.remove_words("This is another sample.", [])
+        processed = tp.remove_words("This is another sample.", [])
         self.assertEqual(processed, "This is another sample.")
 
         # Test with a bag_of_words containing special characters
-        processed = TextPreprocessor.remove_words("This is .?* another ? sample.", [".", "?", "*", "another"])
+        processed = tp.remove_words("This is .?* another ? sample.", [".", "?", "*", "another"])
         self.assertEqual(processed, "This is sample.")
 
         # Test with an empty string
-        processed = TextPreprocessor.remove_words("", ["this", "is", "empty"])
+        processed = tp.remove_words("", ["this", "is", "empty"])
         self.assertEqual(processed, "")
 
         # Test with an all-stopword string
-        processed = TextPreprocessor.remove_words("This is a sample", ["This", "is", "a", "sample"])
+        processed = tp.remove_words("This is a sample", ["This", "is", "a", "sample"])
         self.assertEqual(processed, "")
     
     def test_unnest_tokens(self):
         # Test with a simple DataFrame
         df = pd.DataFrame({'text': ['Hello world', 'Python is great']})
-        result = TextPreprocessor.unnest_tokens(df, 'text')
+        result = tp.unnest_tokens(df, 'text')
         self.assertEqual(result['text'].tolist(), ['Hello', 'world', 'Python', 'is', 'great'])
 
         # Test with an "id" column
         df = pd.DataFrame({'text': ['Hello world', 'Python is great']})
-        result = TextPreprocessor.unnest_tokens(df, 'text', create_id=True)
+        result = tp.unnest_tokens(df, 'text', create_id=True)
         self.assertEqual(result['id'].tolist(), [0, 0, 1, 1, 1])
         self.assertEqual(result['text'].tolist(), ['Hello', 'world', 'Python', 'is', 'great'])
 
         # Test with an empty DataFrame
         df = pd.DataFrame({'text': []})
-        result = TextPreprocessor.unnest_tokens(df, 'text')
+        result = tp.unnest_tokens(df, 'text')
         self.assertTrue(result.empty)
 
         # Test with a DataFrame that has NaN values
         df = pd.DataFrame({'text': ['Hello world', None]})
-        result = TextPreprocessor.unnest_tokens(df, 'text')
+        result = tp.unnest_tokens(df, 'text')
         self.assertEqual(result['text'].tolist(), ['Hello', 'world', None])
 
         # Test with a DataFrame that has a single word in each row
         df = pd.DataFrame({'text': ['Hello', 'Python']})
-        result = TextPreprocessor.unnest_tokens(df, 'text')
+        result = tp.unnest_tokens(df, 'text')
         self.assertEqual(result['text'].tolist(), ['Hello', 'Python'])
 
     def test_lemmatization(self):
