@@ -24,6 +24,12 @@ Once installed, you can use the functionalities provided by tidyX in your Python
 
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
+
+   examples/tutorial
+   
+.. toctree::
+   :maxdepth: 2
    :caption: Modules:
 
    api/TextPreprocessor
