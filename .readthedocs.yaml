@@ -16,4 +16,4 @@ formats: all
 # to build the documentation automatically.
 python:
   install:
-    - requirements: requirements.txt
+    - requirements: docs-requirements.txt
