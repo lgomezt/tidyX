@@ -1,5 +1,5 @@
-emoji==2.8.0
-numpy>=1.24.3
+emoji
+numpy==1.21.6
 pandas==2.0.1
 regex==2022.7.9
 spacy==3.6.1
