@@ -17,8 +17,8 @@ setup(
     long_description = long_description,
     long_description_content_type = "text/markdown",
     url = "",
-    author = "Lucas Gómez Tobón",
-    author_email = "lucasgomeztobon@gmail.com",
+    author = "Lucas Gómez Tobón, Jose Fernando Barrera",
+    author_email = "lucasgomeztobon@gmail.com, jf.barrera10@uniandes.edu.co",
     license = "MIT",
     classifiers = [
         "Intended Audience :: Developers",
