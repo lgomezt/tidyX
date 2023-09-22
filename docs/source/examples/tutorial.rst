@@ -1,4 +1,4 @@
-Tidytweets
+Tutorial
 ==========
 
 Clean text extracted from social networks to perform various NLP tasks
