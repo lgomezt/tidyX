@@ -8,6 +8,7 @@ from pandas import DataFrame
 from typing import List, Union, Tuple, Optional
 from thefuzz import fuzz
 import tqdm
+import emoji
 from collections import defaultdict, Counter
 
 class TextPreprocessor:
@@ -207,7 +208,7 @@ class TextPreprocessor:
         if allow_numbers:
             pattern = '[^a-z0-9\p{So} ]+'
 
-        string = regex.sub(pattern, '', string)
+        string = regex.sub(pattern, ' ', string)
 
         string = TextPreprocessor.remove_extra_spaces(string)
             
