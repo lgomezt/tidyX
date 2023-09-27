@@ -1,3 +1,3 @@
-from tidyX import TextPreprocessor
+from tidyX import text_preprocessor
 
-TextPreprocessor.preprocess("Hola! ¿Cómo estás?")
+text_preprocessor.preprocess("Hola! ¿Cómo estás?")
