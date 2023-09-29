@@ -8,6 +8,7 @@ spacy_spanish_lemmatizer==0.7
 thefuzz==0.20.0
 tqdm==4.64.1  
 Unidecode==1.3.6
+spacy_spanish_lemmatizer==0.7
 # fastapi>=0.69.0,<0.89.0  # added to resolve lightning dependency
 # starlette  # added to resolve lightning dependency
 # uvicorn<2.0  # added to resolve lightning dependency
