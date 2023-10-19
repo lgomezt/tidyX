@@ -973,7 +973,7 @@ In the age of social media, Twitter has become a fertile ground for data
 mining, sentiment analysis, and various other natural language
 processing (NLP) tasks. However, dealing with Spanish tweets adds
 another layer of complexity due to language-specific nuances, slang,
-abbreviations, and other colloquial expressions. ‘TidyX’ aims to
+abbreviations, and other colloquial expressions. ‘tidyX’ aims to
 streamline the preprocessing pipeline for Spanish tweets, making them
 ready for various NLP tasks such as text classification, topic modeling,
 sentiment analysis, and more. In this tutorial, we will focus on a
@@ -983,10 +983,9 @@ modeling and results with real data snippets.
 **Context**
 
 Using data provided by `Barómetro de
-Xenofobia <https://barometrodexenofobia.org/>`__, a world-class,
-renowned non-profit organization that quantifies the amount of hate
-speech against migrants on social media, we aim to classify the overall
-conversation related to migrants. This is a **common NLP task** that
+Xenofobia <https://barometrodexenofobia.org/>`, a non-profit organization that 
+quantifies the amount of hate speech against migrants on social media, we aim to 
+classify the overall conversation related to migrants. This is a **common NLP task** that
 involves preprocessing poorly-written social media posts. Subsequently,
 these processed posts are fed into an unsupervised Topic Classification
 Model (LDA) to identify an optimal number of cluster topics. This helps
