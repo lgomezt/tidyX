@@ -3,7 +3,8 @@ import spacy
 from typing import List, Union, Tuple
 from spacy.lang.es import Spanish
 from spacy.language import Language
-from .TextPreprocessor import TextPreprocessor 
+from .TextPreprocessor import TextPreprocessor
+import spacy_spanish_lemmatizer
 
 class SpacyPreprocessor:
 
