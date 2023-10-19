@@ -30,7 +30,7 @@ instance. One simple solution to this issue is to use the
 .. raw:: html
 
     <center>
-    <img src="C:\Users\Lucas\Documents\Tidytweets\docs\source\examples\remove_repetitions1.png" alt="remove_repetitions1" height=300px />
+    <img src="remove_repetitions1.png" alt="remove_repetitions1" height=300px />
     </center>
 
 
@@ -70,7 +70,7 @@ transformed into ‘happy’. The default value for this parameter is
 .. raw:: html
 
     <center>
-    <img src="C:\Users\Lucas\Documents\Tidytweets\docs\source\examples\remove_repetitions2.png" alt="remove_repetitions2" height=300px />
+    <img src="remove_repetitions2.png" alt="remove_repetitions2" height=300px />
     </center>
 
 
@@ -274,7 +274,7 @@ text, let’s process a Spanish common example:
 .. raw:: html
 
     <center>
-    <img src="C:\Users\Lucas\Documents\Tidytweets\docs\source\examples\remove_accents.png" alt="remove_accents" height=300px />
+    <img src="remove_accents.png" alt="remove_accents" height=300px />
     </center>
 
 
