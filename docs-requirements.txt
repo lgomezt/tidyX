@@ -4,6 +4,7 @@ nbsphinx
 sphinx_rtd_theme
 pypandoc
 pygments
+ipython
 emoji==2.8.0
 nltk==3.8.1
 numpy==1.23.5  
