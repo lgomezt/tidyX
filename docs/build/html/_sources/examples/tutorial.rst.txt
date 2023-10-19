@@ -30,7 +30,7 @@ instance. One simple solution to this issue is to use the
 .. raw:: html
 
     <center>
-    <img src="remove_repetitions1.png" alt="remove_repetitions1" height=300px />
+    <img src="https://raw.githubusercontent.com/lgomezt/tidyX/main/docs/source/examples/remove_repetitions1.png" alt="remove_repetitions1" height=300px />
     </center>
 
 
