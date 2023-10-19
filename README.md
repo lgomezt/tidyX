@@ -208,7 +208,6 @@ TextVisualizer.dependency_parse_visualizer_text(document)
 - Raises a `ValueError` if an invalid style is provided.
 
 This visualization tool is versatile and can be adapted for various NLP visualization needs, such as understanding syntactic structures or identifying named entities within texts.
-```
 
 ## Contributing
 
