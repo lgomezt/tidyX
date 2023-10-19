@@ -1,66 +1,12 @@
-Tutorial
-==========
-
-Clean text extracted from social networks to perform various NLP tasks
-such as topic analysis, word embeddings, sentiment analysis, etc.
-
-Table of contents
------------------
-
-1.  ``remove_repetitions``
-2.  ``remove_last_repetition``
-3.  ``remove_urls``
-4.  ``remove_RT``
-5.  ``remove_accents``
-6.  ``remove_hashtags``
-7.  ``remove_mentions``
-8.  ``remove_special_characters``
-9.  ``remove_extra_spaces``
-10. ``space_between_emojis``
-11. ``preprocess``
-12. ``remove_words``
-13. ``unnest_tokens``
-14. ``spanish_lemmatizer``
-15. ``create_bol``
-16. Tutorial: Topic Modelling
-
-.. code:: ipython3
-
-    !pip show tidyX
-
-
-.. parsed-literal::
-
-    Name: tidyX
-    Version: 1.1.1
-    Summary: Python package to clean raw tweets for ML applications
-    Home-page: 
-    Author: Lucas Gómez Tobón, Jose Fernando Barrera
-    Author-email: lucasgomeztobon@gmail.com, jf.barrera10@uniandes.edu.co
-    License: MIT
-    Location: c:\users\lucas\anaconda3\lib\site-packages
-    Requires: emoji, numpy, pandas, regex, spacy, thefuzz, Unidecode
-    Required-by: 
-    
-
-.. parsed-literal::
-
-    WARNING: Ignoring invalid distribution -rotobuf (c:\users\lucas\anaconda3\lib\site-packages)
-    
+First, you need to import the modules from the package:
 
 .. code:: ipython3
 
     import tidyX.TextPreprocessor as tp
+    import tidyX.SpacyPreprocessor as sp
+    import tidyX.SpacyVisualizer as tv
 
-
-.. parsed-literal::
-
-    [nltk_data] Downloading package stopwords to
-    [nltk_data]     C:\Users\Lucas\AppData\Roaming\nltk_data...
-    [nltk_data]   Package stopwords is already up-to-date!
-    
-
-1. ``remove_repetitions``
+``remove_repetitions``
 -------------------------
 
 **Description of the function**
@@ -83,11 +29,10 @@ instance. One simple solution to this issue is to use the
 
 .. raw:: html
 
-   <center>
+    <center>
+    <img src="remove_repetitions1.png" alt="remove_repetitions1" height=300px />
+    </center>
 
-.. raw:: html
-
-   </center>
 
 In this particular case, the author writes “Goooal” and “Goal.”
 Consequently, it becomes necessary for us to eliminate the repeated “o”s
@@ -98,12 +43,10 @@ in the first word in order to make both words equal.
     string_example = "Goooal ⚽️⚽️⚽️ Christiano Ronaldo Amazing Goal Juventus vs Real Madrid 1-3 Champions League Final #JUVRMA #UCLFinal2017 #JuventusRealMadrid"
     print("Before:", string_example)
 
-
 .. parsed-literal::
 
     Before: Goooal ⚽️⚽️⚽️ Christiano Ronaldo Amazing Goal Juventus vs Real Madrid 1-3 Champions League Final #JUVRMA #UCLFinal2017 #JuventusRealMadrid
     
-
 .. code:: ipython3
 
     string_without_repetitions = tp.remove_repetitions(string = string_example, exceptions = None)
@@ -126,17 +69,15 @@ transformed into ‘happy’. The default value for this parameter is
 
 .. raw:: html
 
-   <center>
+    <center>
+    <img src="remove_repetitions2.png" alt="remove_repetitions2" height=300px />
+    </center>
 
-.. raw:: html
-
-   </center>
 
 .. code:: ipython3
 
     string_example = "HAPPPYYYYY GRADUATION TO US!! THANKYOUUUU LORD!!! 🫶🤍"
     print("Before:", string_example)
-
 
 .. parsed-literal::
 
@@ -155,7 +96,7 @@ transformed into ‘happy’. The default value for this parameter is
     After: HAPPY GRADUATION TO US! THANKYOU LORD! 🫶🤍
     
 
-2. ``remove_last_repetition``
+``remove_last_repetition``
 -----------------------------
 
 **Description of the function**
@@ -170,12 +111,12 @@ repetitions.
 
 **When is it useful to use it?**
 
-Imagine you are analyzing text data from social media platforms, and you
-want to ensure consistency in your analysis by removing repetitive
-characters at the end of words. For example, in Spanish, words typically
-do not end with a repeated character, but social media users often add
-emphasis by repeating the last character. Let’s explore a practical use
-case with a tweet:
+Suppose you're analyzing text data from social media platforms, and you aim 
+to maintain consistency in your analysis by eliminating repetitive characters 
+at the ends of words. In Spanish, for instance, words usually don't conclude 
+with repeated characters. However, social media users frequently emphasize 
+words by duplicating the last letter. Let's delve into a practical example 
+using a tweet:
 
 .. code:: ipython3
 
@@ -199,7 +140,7 @@ of words, like “Holaaaa” and “amigooo.” To ensure consistent analysis,
 you can use the ``remove_last_repetition`` function, which removes the
 last-character repetitions and transforms the text into “Hola amigo.”
 
-3. ``remove_urls``
+``remove_urls``
 ------------------
 
 **Description of the function**
@@ -241,7 +182,7 @@ and “http://example2.com.” To focus on the textual content without the
 distraction of URLs, you can use the ``remove_urls`` function, which
 removes them and results in cleaner text.
 
-4. ``remove_RT``
+``remove_RT``
 ----------------
 
 **Description of the function**
@@ -284,7 +225,7 @@ To focus on the tweet’s content and remove the “RT” prefix, you can use
 the ``remove_RT`` function, which standardizes the text and results in a
 tweet without the “RT” prefix.
 
-5. ``remove_accents``
+``remove_accents``
 ---------------------
 
 **Description of the function**
@@ -332,11 +273,10 @@ text, let’s process a Spanish common example:
 
 .. raw:: html
 
-   <center>
+    <center>
+    <img src="remove_accents.png" alt="remove_accents" height=300px />
+    </center>
 
-.. raw:: html
-
-   </center>
 
 .. code:: ipython3
 
@@ -364,7 +304,7 @@ wildcard emoji converter expressions on X’s documentation in
 https://twemoji.twitter.com/ and some examples in
 https://twitter.com/FakeUnicode/status/1251505174348095488
 
-6. ``remove_hashtags``
+``remove_hashtags``
 ----------------------
 
 **Description of the function**
@@ -404,7 +344,7 @@ In this case, the input text contains hashtags such as “#nature,”
 without the distraction of hashtags, you can use the ``remove_hashtags``
 function, which removes them and results in a cleaner text.
 
-7. ``remove_mentions``
+``remove_mentions``
 ----------------------
 
 **Description of the function**
@@ -449,7 +389,7 @@ content without the distraction of mentions and to extract mentioned
 accounts, you can use the ``remove_mentions`` function, which removes
 mentions and provides a list of unique mentions found in the tweet.
 
-8. ``remove_special_characters``
+``remove_special_characters``
 --------------------------------
 
 **Description of the function**
@@ -493,7 +433,7 @@ characters and results in a cleaner text. Beware to lowercase your text
 before applying this method over your corpus, as you can see on the past
 example, it can remove useful strings.
 
-9. ``remove_extra_spaces``
+``remove_extra_spaces``
 --------------------------
 
 **Description of the function**
@@ -536,7 +476,7 @@ spaces, you can use the ``remove_extra_spaces`` function, which trims
 leading/trailing spaces and replaces consecutive spaces with a single
 space.
 
-10. ``space_between_emojis``
+``space_between_emojis``
 ----------------------------
 
 **Description of the function**
@@ -579,7 +519,7 @@ other text and from each other, you can use the ``space_between_emojis``
 function, which inserts spaces around emojis and removes any extra
 spaces resulting from the insertion.
 
-11. ``preprocess``
+``preprocess``
 ------------------
 
 **Description of the function**
@@ -627,7 +567,7 @@ text for analysis, you can use the ``preprocess`` function, which
 performs a series of cleaning operations to remove or extract various
 elements and return cleaned text and mentions.
 
-12. ``remove_words``
+``remove_words``
 --------------------
 
 **Description of the function**
@@ -675,7 +615,7 @@ In this case, the input text contains stopwords such as “the,” “is,” and
 ``remove_words`` function, which removes the specified words from the
 text.
 
-13. ``unnest_tokens``
+``unnest_tokens``
 ---------------------
 
 **Description of the function**
@@ -743,7 +683,7 @@ with sentences. To tokenize the text and transform it into a long format
 where each token is a separate row, you can use the ``unnest_tokens``
 function.
 
-14. ``spanish_lemmatizer``
+``spanish_lemmatizer``
 --------------------------
 
 **Description of the function**
@@ -795,7 +735,7 @@ In this case, we have an input token, “corriendo,” in Spanish that we
 want to lemmatize to its base form. We use the ``spanish_lemmatizer``
 function to perform the lemmatization.
 
-15. ``create_bol``
+``create_bol``
 ------------------
 
 **Description of the function**
@@ -852,7 +792,7 @@ of the lemmas are misspelled or have variations. We want to group
 similar lemmas together into bags of lemmas using the ``create_bol``
 function.
 
-16. ``get_most_common_strings``
+``get_most_common_strings``
 -------------------------------
 
 **Description of the function**
@@ -901,7 +841,7 @@ In this case, we have a list of example texts, and we want to find the
 most common words within these texts using the
 ``get_most_common_strings`` function.
 
-17. ``spacy_pipeline``
+``spacy_pipeline``
 ----------------------
 
 **Description of the function**
@@ -963,7 +903,7 @@ use case:
     print("\nMost Common Words:")
     print(most_common_words)
 
-18. ``dependency_parse_visualizer_text``
+``dependency_parse_visualizer_text``
 ----------------------------------------
 
 **Description of the function**
@@ -1024,7 +964,7 @@ In this example, we have a list of Spanish documents, and we want to
 preprocess them using the ``spacy_pipeline`` function with specific
 configuration options.
 
-19. Tutorial: Topic Modelling
+Tutorial: Topic Modelling
 -----------------------------
 
 **Introduction**

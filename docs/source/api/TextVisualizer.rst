@@ -1,9 +1,10 @@
-.. _TextVisualizer:
+TextVisualizer
+=================
 
-TextVisualizer Module
-=====================
+.. automodule:: tidyX.text_visualizer
+    :members:
 
-.. automodule:: tidyX.TextVisualizer
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. currentmodule:: tidyX.text_visualizer
+
+.. autoclass:: TextVisualizer
+    :members:
