@@ -30,8 +30,11 @@ author = 'Lucas Gómez Tobón, Jose Fernando Barrera'
 extensions = [
     'recommonmark',
     'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode'
+    'sphinx.ext.viewcode',
+    'IPython.sphinxext.ipython_console_highlighting',
+    'IPython.sphinxext.ipython_directive'
 ]
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

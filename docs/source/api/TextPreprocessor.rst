@@ -1,9 +1,10 @@
-.. _TextPreprocessor:
+TextPreprocessor
+=================
 
-TextPreprocessor Module
-=======================
+.. automodule:: tidyX.text_preprocessor
+    :members:
 
-.. automodule:: tidyX.TextPreprocessor
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. currentmodule:: tidyX.text_preprocessor
+
+.. autoclass:: TextPreprocessor
+    :members:

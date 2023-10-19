@@ -19,27 +19,18 @@ To install tidyX, you can use pip. Run the following command in your terminal or
 
 Usage
 -----
-
-Once installed, you can use the functionalities provided by tidyX in your Python programs. 
+In the tutorial below, you will find examples for using each function within our package. Additionally, there's a tutorial on Topic Modelling utilizing this package.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: How to use this package?:
 
    examples/tutorial
    
 .. toctree::
-   :maxdepth: 2
-   :caption: Modules:
+   :maxdepth: 3
+   :caption: User Documentation:
 
    api/TextPreprocessor
    api/SpacyPreprocessor
    api/TextVisualizer
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

@@ -3,7 +3,8 @@ import spacy
 from typing import List, Union, Tuple
 from spacy.lang.es import Spanish
 from spacy.language import Language
-from .TextPreprocessor import TextPreprocessor
+from .text_preprocessor import TextPreprocessor 
+import warnings
 import spacy_spanish_lemmatizer
 
 class SpacyPreprocessor:
@@ -40,41 +41,58 @@ class SpacyPreprocessor:
             print(f"An error occurred: {e}")
             return token
 
-    @Language.factory("custom_lemmatizer")
-    def custom_lemmatizer(nlp: Spanish, name: str) -> 'spacy_spanish_lemmatizer.main.create_spanish_lemmatizer':
+    def is_component_registered(name: str) -> bool:
         """
-        Creates and returns a Spanish rule-based lemmatizer for spaCy.
-        
-        This factory function leverages the `spacy-spanish-lemmatizer` package
-        to provide a rule-based lemmatizer for the Spanish language, enhancing
-        the spaCy pipeline's capability to extract the base or dictionary form
-        of a word, which is crucial for various NLP tasks like text normalization,
-        text analysis, and information retrieval.
-        
-        For additional details on the lemmatizer, refer to:
-        https://github.com/pablodms/spacy-spanish-lemmatizer
+        Check if a spaCy pipeline component with the given name is already registered.
         
         Args:
-            nlp (spacy.lang.es.Spanish): 
-                The spaCy language model object.
             name (str): 
-                The name of the lemmatizer, utilized by spaCy to register the component.
-            
-        Returns:
-            spacy_spanish_lemmatizer.main.create_spanish_lemmatizer: 
-                A Spanish rule-based lemmatizer for spaCy.
+                The name of the spaCy pipeline component.
                 
-        Example:
-            >>> import spacy
-            >>> nlp = spacy.load('es_core_news_sm')
-            >>> nlp.add_pipe('custom_lemmatizer', name='lemmatizer')
-            >>> doc = nlp("El gato está en la casa")
-            >>> [token.lemma_ for token in doc]
-            ['El', 'gato', 'estar', 'en', 'el', 'casa']
+        Returns:
+            conditional (bool) True if the component is already registered. False otherwise.
         """
-        import spacy_spanish_lemmatizer.main
+        return name in Language.factories
 
-        return spacy_spanish_lemmatizer.main.create_spanish_lemmatizer(nlp, name)
+    def register_component():
+        """
+        Conditionally register the custom_lemmatizer component.
+        """
+        if not SpacyPreprocessor.is_component_registered("custom_lemmatizer"):
+
+            @Language.factory("custom_lemmatizer")
+            def custom_lemmatizer(nlp: Spanish, name: str) -> 'spacy_spanish_lemmatizer.main.create_spanish_lemmatizer':
+                """
+                Creates and returns a Spanish rule-based lemmatizer for spaCy.
+                
+                This factory function leverages the `spacy-spanish-lemmatizer` package
+                to provide a rule-based lemmatizer for the Spanish language, enhancing
+                the spaCy pipeline's capability to extract the base or dictionary form
+                of a word, which is crucial for various NLP tasks like text normalization,
+                text analysis, and information retrieval.
+                
+                For additional details on the lemmatizer, refer to:
+                https://github.com/pablodms/spacy-spanish-lemmatizer
+                
+                Args:
+                    nlp (spacy.lang.es.Spanish): 
+                        The spaCy language model object.
+                    name (str): 
+                        The name of the lemmatizer, utilized by spaCy to register the component.
+                    
+                Returns:
+                    spacy_spanish_lemmatizer.main.create_spanish_lemmatizer: 
+                        A Spanish rule-based lemmatizer for spaCy.
+                        
+                Example:
+                    >>> import spacy
+                    >>> nlp = spacy.load('es_core_news_sm')
+                    >>> nlp.add_pipe('custom_lemmatizer', name='lemmatizer')
+                    >>> doc = nlp("El gato está en la casa")
+                    >>> [token.lemma_ for token in doc]
+                    ['El', 'gato', 'estar', 'en', 'el', 'casa']
+                """
+                return spacy_spanish_lemmatizer.main.create_spanish_lemmatizer(nlp, name)
 
     @staticmethod
     def spacy_pipeline(documents: List[str], custom_lemmatizer: bool = False, pipeline: List[str] = ['tokenize', 'lemmatizer'],
@@ -113,8 +131,12 @@ class SpacyPreprocessor:
 
         if not documents:
             raise ValueError("The documents list must not be empty.")
-        
-        nlp = spacy.load(model, disable=[comp for comp in spacy.lang.es.LANGUAGES_DICT['es'].pipe_names if comp not in pipeline])
+        try:
+            nlp = spacy.load(model, disable=[comp for comp in spacy.lang.es.LANGUAGES_DICT['es'].pipe_names if comp not in pipeline])
+        except:
+            default_pipeline = ['tagger', 'parser', 'ner', 'lemmatizer']  # Adjust this list based on the components of the specific model you're using
+            nlp = spacy.load(model, disable=[comp for comp in default_pipeline if comp not in pipeline])
+
         # Download resources
         nltk.download('stopwords')
         spanish_stopwords = stopwords.words(stopwords_language)
@@ -136,4 +158,7 @@ class SpacyPreprocessor:
             return processed_documents, most_common_words
         
         return processed_documents
+
+SpacyPreprocessor.register_component()
+
 

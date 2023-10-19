@@ -23,11 +23,14 @@ class TextPreprocessor:
         For example, the string 'coooroosooo' would be transformed to 'coroso'.
 
         Args:
-            string (str): The text to be processed.
-            exceptions (list, optional): A list of characters that can be repeated once consecutively without being removed. Defaults to ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
+            string (str): 
+                The text to be processed.
+            exceptions (list, optional): 
+                A list of characters that can be repeated once consecutively without being removed. Defaults to ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
 
         Returns:
-            str: The processed text with consecutive repetitions removed, except for characters in the exceptions list.
+            str: 
+                The processed text with consecutive repetitions removed, except for characters in the exceptions list.
         """
 
         if not exceptions: # (exceptions == None):
@@ -55,10 +58,12 @@ class TextPreprocessor:
         For example, the input "Holaaaa amigooo" would be transformed to "Hola amigo".
         
         Args:
-            string (str): The text to be processed.
+            string (str): 
+                The text to be processed.
             
         Returns:
-            str: The processed text with the last character of each word de-duplicated.
+            str: 
+                The processed text with the last character of each word de-duplicated.
         """
         
         return re.sub(r'(\w)\1+\b', r'\1', string) 
@@ -72,10 +77,12 @@ class TextPreprocessor:
         starts with "http" and continues until a space or end of line is encountered.
         
         Args:
-            string (str): The text to be processed.
+            string (str): 
+                The text to be processed.
             
         Returns:
-            str: The processed text with URLs removed.
+            str: 
+                The processed text with URLs removed.
         """
         
         return re.sub(r"http\S+", '', string) # re.sub(r"http[^ ]+", '', string)
@@ -89,10 +96,12 @@ class TextPreprocessor:
         It accounts for the possibility of varying white-space after "RT".
         
         Args:
-            string (str): The tweet text to be processed.
+            string (str): 
+                The tweet text to be processed.
             
         Returns:
-            str: The processed tweet text with the "RT" prefix removed if it appears at the beginning.
+            str: 
+                The processed tweet text with the "RT" prefix removed if it appears at the beginning.
         """
         
         return re.sub(r"^RT\s+", '', string) # re.sub("^RT ", '', string)
@@ -105,11 +114,14 @@ class TextPreprocessor:
         This function removes accent marks from characters in a given string. If specified, it can also remove emojis.
 
         Args:
-            string (str): The input string potentially containing accented characters and/or emojis.
-            delete_emojis (bool, optional): If True, removes emojis from the string. Default is True.
+            string (str): 
+                The input string potentially containing accented characters and/or emojis.
+            delete_emojis (bool, optional): 
+                If True, removes emojis from the string. Default is True.
 
         Returns:
-            str: The string with accented characters and optionally emojis removed.
+            str: 
+                The string with accented characters and optionally emojis removed.
         """
         
         if delete_emojis:
@@ -134,10 +146,12 @@ class TextPreprocessor:
         and is followed by alphanumeric characters.
         
         Args:
-            string (str): The text that may contain hashtags.
+            string (str): 
+                The text that may contain hashtags.
             
         Returns:
-            str: The processed text with hashtags removed.
+            str: 
+                The processed text with hashtags removed.
         """
         
         return re.sub(r'#\w+', '', string)
@@ -151,12 +165,16 @@ class TextPreprocessor:
         followed by the username. Optionally, it can also return a list of unique mentions.
 
         Args:
-            string (str): The tweet text that may contain mentions.
-            extract (bool, optional): If True, returns a list of unique mentions. Defaults to True.
+            string (str): 
+                The tweet text that may contain mentions.
+            extract (bool, optional): 
+                If True, returns a list of unique mentions. Defaults to True.
 
         Returns:
-            str: The processed tweet text with mentions removed.
-            list: If `extract` is True, returns a list of unique mentioned accounts in the tweet.
+            str: 
+                The processed tweet text with mentions removed.
+            list: 
+                If `extract` is True, returns a list of unique mentioned accounts in the tweet.
         """
         
         mentions = []
@@ -177,10 +195,12 @@ class TextPreprocessor:
         This function trims leading and trailing spaces and replaces any occurrence of consecutive spaces between words with a single space.
         
         Args:
-            string (str): The text that may contain extra spaces.
+            string (str): 
+                The text that may contain extra spaces.
             
         Returns:
-            str: The processed text with extra spaces removed.
+            str: 
+                The processed text with extra spaces removed.
         """
         
         string = re.sub(" +", " ", string)
@@ -196,17 +216,20 @@ class TextPreprocessor:
         As a result, punctuation marks, exclamation marks, special characters, and uppercase letters are eliminated.
         
         Args:
-            string (str): The text that may contain special characters.
-            allow_numbers (bool): Whether to allow numbers in the string. Default is False.
+            string (str): 
+                The text that may contain special characters.
+            allow_numbers (bool): 
+                Whether to allow numbers in the string. Default is False.
                 
         Returns:
-            str: The processed text with special characters removed.
+            str: 
+                The processed text with special characters removed.
         """
     
-        pattern = '[^a-z\p{So} ]+'
+        pattern = r'[^a-z\p{So} ]+'
         
         if allow_numbers:
-            pattern = '[^a-z0-9\p{So} ]+'
+            pattern = r'[^a-z0-9\p{So} ]+'
 
         string = regex.sub(pattern, ' ', string)
 
@@ -222,10 +245,12 @@ class TextPreprocessor:
         This function adds a space before and after each emoji character in the given string to ensure that emojis are separated from other text or emojis. Extra spaces are then removed.
 
         Args:
-            string (str): The text that may contain emojis.
+            string (str): 
+                The text that may contain emojis.
 
         Returns:
-            str: The processed text with spaces inserted around each emoji.
+            str: 
+                The processed text with spaces inserted around each emoji.
         """
         
         return TextPreprocessor.remove_extra_spaces(''.join((' ' + c + ' ') if c in emoji.EMOJI_DATA else c for c in string))
@@ -247,15 +272,22 @@ class TextPreprocessor:
         9. Removes consecutive repeated characters, with exceptions defined in the `exceptions` parameter. (remove_repetitions and remove_last_repetition)
         
         Args:
-            string (str): The raw tweet text.
-            delete_emojis (bool): Whether to remove emojis from the string. Default is True.
-            extract (bool): If True, returns a list of all accounts mentioned in the tweet. Default is True.
-            exceptions (list): List of characters allowed to be repeated. Default is ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
-            allow_numbers (bool): Whether to allow numbers in the string. Default is False.
+            string (str): 
+                The raw tweet text.
+            delete_emojis (bool): 
+                Whether to remove emojis from the string. Default is True.
+            extract (bool): 
+                If True, returns a list of all accounts mentioned in the tweet. Default is True.
+            exceptions (list): 
+                List of characters allowed to be repeated. Default is ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
+            allow_numbers (bool): 
+                Whether to allow numbers in the string. Default is False.
 
         Returns:
-            str: The cleaned tweet text.
-            mentions (list): If `extract` is True, a list of mentioned accounts is returned.
+            str: 
+                The cleaned tweet text.
+            mentions (list): 
+                If `extract` is True, a list of mentioned accounts is returned.
         """
 
         # Remove RT at the beginning of the tweets
@@ -293,11 +325,14 @@ class TextPreprocessor:
         meaning it won't remove variations of the words not appearing in the bag_of_words.
 
         Args:
-            string (str): The input string containing unwanted words.
-            bag_of_words (list): List of words to be removed from the string.
+            string (str): 
+                The input string containing unwanted words.
+            bag_of_words (list): 
+                List of words to be removed from the string.
 
         Returns:
-            str: The string with unwanted words removed.
+            str: 
+                The string with unwanted words removed.
         """
         
         # Create a regex pattern to match any word from bag_of_words surrounded by word boundaries
@@ -323,12 +358,16 @@ class TextPreprocessor:
         Each token becomes a row in the resulting DataFrame. Tokens are separated by spaces.
 
         Args:
-            df (DataFrame): The input DataFrame to be flattened.
-            input_column (str): The name of the column to tokenize.
-            create_id (bool, optional): If True, adds an "id" column based on the DataFrame's index. Defaults to True.
+            df (DataFrame): 
+                The input DataFrame to be flattened.
+            input_column (str): 
+                The name of the column to tokenize.
+            create_id (bool, optional): 
+                If True, adds an "id" column based on the DataFrame's index. Defaults to True.
 
         Returns:
-            DataFrame: A DataFrame where each row corresponds to a token.
+            DataFrame: 
+                A DataFrame where each row corresponds to a token.
         """
         
         # Reset the index and create an "id" column if create_id is True
@@ -345,17 +384,33 @@ class TextPreprocessor:
     
     @staticmethod
     def create_bol(lemmas: np.ndarray, verbose: bool = True) -> pd.DataFrame:
-        """Group lemmas based on Levenshtein distance to handle misspelled words in social media data.
-        
-        Args:
-            lemmas (np.ndarray): An array containing lemmas to be grouped.
-            verbose (bool, optional): If True, prints the progress at each 5% increment. Defaults to True.
-            
-        Returns:
-            pd.DataFrame: A DataFrame with four columns ["bow_id", "bow_name", "lemma", "threshold"].
-                        Each row represents a lemma and the bag of lemmas it belongs to.
         """
+        Groups lemmas based on Levenshtein distance to handle misspelled words in social media data.
         
+        This method clusters lemmas that are similar to each other based on their 
+        Levenshtein distance. The aim is to group together possibly misspelled 
+        versions of the same lemma.
+        
+        Args: 
+            lemmas (np.ndarray): 
+                An array containing lemmas to be grouped.
+            verbose (bool, optional): 
+                If set to True, progress will be printed at every 5% increment. Defaults to True.
+        
+        Returns: 
+            pd.DataFrame: A DataFrame with columns: 
+                - "bow_id": An ID for the bag of lemmas (int).
+                - "bow_name": The representative name for the bag of lemmas (str).
+                - "lemma": The original lemma (str).
+                - "similarity": The similarity score based on fuzz.ratio (int).
+                - "threshold": The similarity threshold used (int).
+                
+        Notes:
+            The method utilizes the `fuzz.ratio` function to determine similarity 
+            between lemmas. The threshold for similarity depends on the length of 
+            the lemma being compared, to accommodate the sensitivity of `fuzz.ratio` 
+            towards shorter words.
+        """
         # Create an empty dataframe to store the bags of words (lemmas)
         bow_df = pd.DataFrame()
         # How many lemmas do we have?

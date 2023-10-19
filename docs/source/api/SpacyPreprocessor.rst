@@ -1,9 +1,10 @@
-.. _SpacyPreprocessor:
+SpacyPreprocessor
+=================
 
-SpacyPreprocessor Module
-========================
+.. automodule:: tidyX.spacy_preprocessor
+    :members:
 
-.. automodule:: tidyX.SpacyPreprocessor
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. currentmodule:: tidyX.spacy_preprocessor
+
+.. autoclass:: SpacyPreprocessor
+    :members:
