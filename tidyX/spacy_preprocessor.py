@@ -42,19 +42,24 @@ class SpacyPreprocessor:
             return token
 
     def is_component_registered(name: str) -> bool:
-        """Check if a spaCy pipeline component with the given name is already registered.
-            Args:
-                name (str): 
+        """
+        Check if a spaCy pipeline component with the given name is already registered.
+        
+        Args:
+            name (str): 
                 The name of the spaCy pipeline component.
-                    
-            Returns:
-                conditional (bool) True if the component is already registered. False otherwise.
+                
+        Returns:
+            conditional (bool) True if the component is already registered. False otherwise.
         """
         return name in Language.factories
 
     def register_component():
-        """Conditionally register the custom_lemmatizer component."""
+        """
+        Conditionally register the custom_lemmatizer component.
+        """
         if not SpacyPreprocessor.is_component_registered("custom_lemmatizer"):
+
             @Language.factory("custom_lemmatizer")
             def custom_lemmatizer(nlp: Spanish, name: str) -> 'spacy_spanish_lemmatizer.main.create_spanish_lemmatizer':
                 """
@@ -87,10 +92,7 @@ class SpacyPreprocessor:
                     >>> [token.lemma_ for token in doc]
                     ['El', 'gato', 'estar', 'en', 'el', 'casa']
                 """
-                import spacy_spanish_lemmatizer.main
-
                 return spacy_spanish_lemmatizer.main.create_spanish_lemmatizer(nlp, name)
-            pass
 
     @staticmethod
     def spacy_pipeline(documents: List[str], custom_lemmatizer: bool = False, pipeline: List[str] = ['tokenize', 'lemmatizer'],

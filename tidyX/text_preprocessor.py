@@ -226,10 +226,10 @@ class TextPreprocessor:
                 The processed text with special characters removed.
         """
     
-        pattern = '[^a-z\p{So} ]+'
+        pattern = r'[^a-z\p{So} ]+'
         
         if allow_numbers:
-            pattern = '[^a-z0-9\p{So} ]+'
+            pattern = r'[^a-z0-9\p{So} ]+'
 
         string = regex.sub(pattern, ' ', string)
 
