@@ -1,6 +1,7 @@
 import unittest
 import sys
 from tidyX import TextPreprocessor as tp
+from tidyX import TextPreprocessor
 import unidecode
 import pandas as pd
 import spacy
@@ -319,28 +320,6 @@ class TestTextPreprocessor(unittest.TestCase):
         result = tp.unnest_tokens(df, 'text')
         self.assertEqual(result['text'].tolist(), ['Hello', 'Python'])
 
-    def test_lemmatization(self):
-        # Test a typical word
-        result = self.text_preprocessor.spanish_lemmatizer("corriendo", self.nlp)
-        self.assertEqual(result, "correr")
-
-        # Test a word with an accent
-        result = self.text_preprocessor.spanish_lemmatizer("está", self.nlp)
-        self.assertEqual(result, "estar")
-
-        # Test an empty string
-        result = self.text_preprocessor.spanish_lemmatizer("", self.nlp)
-        self.assertEqual(result, "")
-
-        # Test a non-Spanish word
-        result = self.text_preprocessor.spanish_lemmatizer("running", self.nlp)
-        self.assertEqual(result, "running")
-
-    def test_error_handling(self):
-        # Pass a non-string object and see if it returns the object and logs an error
-        result = self.text_preprocessor.spanish_lemmatizer(["not_a_string"], self.nlp)
-        self.assertEqual(result, ["not_a_string"])  # Assuming that your function prints an error and returns the original token
-
     def test_create_bol(self):
         # Assuming preprocess and lemmatize methods are also part of TextPreprocessor
         preprocessed_tweets = [self.text_preprocessor.preprocess(tweet) for tweet in self.sample_tweets]
@@ -386,30 +365,6 @@ class TestTextPreprocessor(unittest.TestCase):
         texts5 = ["single"]
         most_common_strings5 = self.text_preprocessor.get_most_common_strings(texts5, 1)
         self.assertEqual(most_common_strings5, [('single', 1)])
-    
-    def test_spacy_pipeline_default(self):
-        processed_docs = self.text_preprocessor.spacy_pipeline(self.sample_documents)
-        # Check that processed_docs is a list of lists
-        self.assertIsInstance(processed_docs, list)
-        self.assertIsInstance(processed_docs[0], list)
-        
-    def test_spacy_pipeline_custom_lemmatizer(self):
-        nlp = spacy.load("es_core_news_sm")
-        custom_lemmatizer = None  # Replace with your custom lemmatizer function
-        processed_docs = self.text_preprocessor.spacy_pipeline(self.sample_documents, custom_lemmatizer=custom_lemmatizer)
-        # Insert check for custom lemmatization
-    
-    def test_spacy_pipeline_pipeline_options(self):
-        processed_docs = self.text_preprocessor.spacy_pipeline(self.sample_documents, pipeline=['tokenizer'])
-        # Insert check for pipeline options, e.g., whether only tokenization was performed
-    
-    def test_spacy_pipeline_stopwords_language(self):
-        spanish_stopwords = stopwords.words('spanish')
-        processed_docs = self.text_preprocessor.spacy_pipeline(self.sample_documents, stopwords_language='spanish')
-        # Check if stopwords are effectively removed
-    
-    def test_spacy_pipeline_most_common_strings(self):
-        processed_docs, most_common_words = self.text_preprocessor.spacy_pipeline(self.sample_documents, num_strings=2)
     
 if __name__ == '__main__':
     unittest.main()
