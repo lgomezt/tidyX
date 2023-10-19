@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>remove_repetitions &mdash; tidyX  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="TextPreprocessor" href="../api/TextPreprocessor.html" />
+    <link rel="prev" title="Welcome to tidyX’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            tidyX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">How to use this package?:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">remove_repetitions</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-last-repetition"><code class="docutils literal notranslate"><span class="pre">remove_last_repetition</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-urls"><code class="docutils literal notranslate"><span class="pre">remove_urls</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-rt"><code class="docutils literal notranslate"><span class="pre">remove_RT</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-accents"><code class="docutils literal notranslate"><span class="pre">remove_accents</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-hashtags"><code class="docutils literal notranslate"><span class="pre">remove_hashtags</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-mentions"><code class="docutils literal notranslate"><span class="pre">remove_mentions</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-special-characters"><code class="docutils literal notranslate"><span class="pre">remove_special_characters</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-extra-spaces"><code class="docutils literal notranslate"><span class="pre">remove_extra_spaces</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#space-between-emojis"><code class="docutils literal notranslate"><span class="pre">space_between_emojis</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#preprocess"><code class="docutils literal notranslate"><span class="pre">preprocess</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#remove-words"><code class="docutils literal notranslate"><span class="pre">remove_words</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#unnest-tokens"><code class="docutils literal notranslate"><span class="pre">unnest_tokens</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#spanish-lemmatizer"><code class="docutils literal notranslate"><span class="pre">spanish_lemmatizer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#create-bol"><code class="docutils literal notranslate"><span class="pre">create_bol</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#get-most-common-strings"><code class="docutils literal notranslate"><span class="pre">get_most_common_strings</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#spacy-pipeline"><code class="docutils literal notranslate"><span class="pre">spacy_pipeline</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#dependency-parse-visualizer-text"><code class="docutils literal notranslate"><span class="pre">dependency_parse_visualizer_text</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#tutorial-topic-modelling">Tutorial: Topic Modelling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/TextPreprocessor.html">TextPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/SpacyPreprocessor.html">SpacyPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/TextVisualizer.html">TextVisualizer</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tidyX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">remove_repetitions</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/tutorial.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p>First, you need to import the modules from the package:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tidyX.TextPreprocessor</span> <span class="k">as</span> <span class="nn">tp</span>
+<span class="kn">import</span> <span class="nn">tidyX.SpacyPreprocessor</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">tidyX.SpacyVisualizer</span> <span class="k">as</span> <span class="nn">tv</span>
+</pre></div>
+</div>
+<section id="remove-repetitions">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_repetitions</span></code><a class="headerlink" href="#remove-repetitions" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>This function deletes any consecutive repetition of characters in a
+string. For example, the string ‘coooroosooo’ will be changed to
+‘coroso’. As in many languages it’s common to have some special
+characters that can be repeated, for example the ‘l’ in spanish to form
+‘ll’, the exception argument could be used to specify which characters
+are allowed to repeat once.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>In social media, it is common for people to repeat certain characters of
+a word in order to add more emotion to a sentence. However, when we
+attempt to count the occurrences of a word, the various ways in which a
+word can be written make it difficult to uniquely identify each
+instance. One simple solution to this issue is to use the
+<code class="docutils literal notranslate"><span class="pre">remove_repetitions</span></code> function. Let’s consider the following tweet:</p>
+<center>
+<img src="remove_repetitions1.png" alt="remove_repetitions1" height=300px />
+</center><p>In this particular case, the author writes “Goooal” and “Goal.”
+Consequently, it becomes necessary for us to eliminate the repeated “o”s
+in the first word in order to make both words equal.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;Goooal ⚽️⚽️⚽️ Christiano Ronaldo Amazing Goal Juventus vs Real Madrid 1-3 Champions League Final #JUVRMA #UCLFinal2017 #JuventusRealMadrid&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: Goooal ⚽️⚽️⚽️ Christiano Ronaldo Amazing Goal Juventus vs Real Madrid 1-3 Champions League Final #JUVRMA #UCLFinal2017 #JuventusRealMadrid
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string_without_repetitions</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_repetitions</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">,</span> <span class="n">exceptions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">string_without_repetitions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>After: Goal ⚽️⚽️⚽️ Christiano Ronaldo Amazing Goal Juventus vs Real Madrid 1-3 Champions League Final #JUVRMA #UCLFinal2017 #JuventusRealMadrid
+</pre></div>
+</div>
+<p>However, it’s worth noting that there exist numerous words that feature
+the repetition of a single character. To address this, the
+<code class="docutils literal notranslate"><span class="pre">remove_repetitions</span></code> function incorporates the <code class="docutils literal notranslate"><span class="pre">exceptions</span></code>
+parameter, which allows for specifying a list of characters that are
+permitted to appear twice. For instance, if we set
+<code class="docutils literal notranslate"><span class="pre">exceptions</span> <span class="pre">=</span> <span class="pre">['p']</span></code>, words such as ‘happpy’ will be cleaned and
+transformed into ‘happy’. The default value for this parameter is
+<code class="docutils literal notranslate"><span class="pre">['r',</span> <span class="pre">'l',</span> <span class="pre">'n',</span> <span class="pre">'c',</span> <span class="pre">'a',</span> <span class="pre">'e',</span> <span class="pre">'o']</span></code>. Let’s see another example:</p>
+<center>
+<img src="remove_repetitions2.png" alt="remove_repetitions2" height=300px />
+</center><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;HAPPPYYYYY GRADUATION TO US!! THANKYOUUUU LORD!!! 🫶🤍&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: HAPPPYYYYY GRADUATION TO US!! THANKYOUUUU LORD!!! 🫶🤍
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string_without_repetitions</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_repetitions</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">,</span>
+    <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;P&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">string_without_repetitions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>After: HAPPY GRADUATION TO US! THANKYOU LORD! 🫶🤍
+</pre></div>
+</div>
+</section>
+<section id="remove-last-repetition">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_last_repetition</span></code><a class="headerlink" href="#remove-last-repetition" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_last_repetition</span></code> function is designed to remove the
+repetition of the last character in each word of a given string. It’s
+particularly useful when dealing with text that contains repeated
+characters at the end of words, a common occurrence in social media
+posts where users emphasize words for expression. This function helps
+clean and standardize the text by eliminating these last-character
+repetitions.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>Suppose you’re analyzing text data from social media platforms, and you aim
+to maintain consistency in your analysis by eliminating repetitive characters
+at the ends of words. In Spanish, for instance, words usually don’t conclude
+with repeated characters. However, social media users frequently emphasize
+words by duplicating the last letter. Let’s delve into a practical example
+using a tweet:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original tweet with last-character repetitions</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;Holaaaa amigooo&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_last_repetition function to clean the text</span>
+<span class="n">string_without_last_repetitions</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_last_repetition</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">string_without_last_repetitions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Before</span><span class="p">:</span> <span class="n">Holaaaa</span> <span class="n">amigooo</span>
+<span class="n">After</span><span class="p">:</span> <span class="n">Hola</span> <span class="n">amigo</span>
+</pre></div>
+</div>
+<p>In this case, the input string contains repeated characters at the end
+of words, like “Holaaaa” and “amigooo.” To ensure consistent analysis,
+you can use the <code class="docutils literal notranslate"><span class="pre">remove_last_repetition</span></code> function, which removes the
+last-character repetitions and transforms the text into “Hola amigo.”</p>
+</section>
+<section id="remove-urls">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_urls</span></code><a class="headerlink" href="#remove-urls" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_urls</span></code> function is designed to remove all URLs that start
+with “http” from a given string. It’s a handy tool for text processing
+when you want to eliminate URLs from a text dataset, making it cleaner
+and more focused on textual content. This function scans the entire
+string, identifies any sequences of characters that start with “http”
+and continue until a space or end of the line, and removes them.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>You may encounter situations where you want to analyze or visualize the
+textual content of a dataset, but the presence of URLs can clutter the
+text and skew your analysis. This is especially common in social media
+data, chat messages, or web scraping scenarios. Let’s explore a
+practical use case with a sample text containing URLs:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original text with URLs</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;Check out our website: http://example.com. For more info, visit http://example2.com&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_urls function to clean the text</span>
+<span class="n">string_without_urls</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_urls</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">string_without_urls</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Before</span><span class="p">:</span> <span class="n">Check</span> <span class="n">out</span> <span class="n">our</span> <span class="n">website</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">.</span> <span class="n">For</span> <span class="n">more</span> <span class="n">info</span><span class="p">,</span> <span class="n">visit</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example2</span><span class="o">.</span><span class="n">com</span>
+<span class="n">After</span><span class="p">:</span> <span class="n">Check</span> <span class="n">out</span> <span class="n">our</span> <span class="n">website</span><span class="p">:</span>  <span class="n">For</span> <span class="n">more</span> <span class="n">info</span><span class="p">,</span> <span class="n">visit</span>
+</pre></div>
+</div>
+<p>In this case, the input string contains two URLs, “<a class="reference external" href="http://example.com">http://example.com</a>”
+and “<a class="reference external" href="http://example2.com">http://example2.com</a>.” To focus on the textual content without the
+distraction of URLs, you can use the <code class="docutils literal notranslate"><span class="pre">remove_urls</span></code> function, which
+removes them and results in cleaner text.</p>
+</section>
+<section id="remove-rt">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_RT</span></code><a class="headerlink" href="#remove-rt" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_RT</span></code> function is designed to remove the “RT” prefix from
+tweets. In the context of social media, “RT” typically stands for
+“Retweet” and is often used as a prefix when users share or retweet
+content. This function is useful for cleaning and standardizing tweet
+text data by removing the “RT” prefix, accounting for varying amounts of
+white space after “RT.”</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>When you’re working with tweet data and you want to analyze or visualize
+the content of tweets without the distraction of the “RT” prefix, the
+remove_RT function comes in handy. Retweets often have the “RT” prefix
+at the beginning, but the amount of white space after “RT” can vary.
+Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original tweet with &quot;RT&quot; prefix</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;RT     @username: Check out this amazing article!&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_RT function to clean the tweet</span>
+<span class="n">cleaned_tweet</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_RT</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_tweet</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: RT     @username: Check out this amazing article!
+After: @username: Check out this amazing article!
+</pre></div>
+</div>
+<p>In this case, the input tweet contains the “RT” prefix followed by
+varying amounts of white space before the actual content of the tweet.
+To focus on the tweet’s content and remove the “RT” prefix, you can use
+the <code class="docutils literal notranslate"><span class="pre">remove_RT</span></code> function, which standardizes the text and results in a
+tweet without the “RT” prefix.</p>
+</section>
+<section id="remove-accents">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_accents</span></code><a class="headerlink" href="#remove-accents" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_accents</span></code> function serves two purposes: it removes accent
+marks from characters in a given string and can optionally remove
+emojis. Accent marks can be common in languages like French or Spanish
+(this specific use case), and removing them can be helpful for text
+processing tasks. This function provides flexibility by allowing you to
+choose whether to remove emojis as well.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_accents</span></code> function is particularly useful when working with
+text data that contains accented characters, and you want to simplify
+the text for analysis or comparison. Additionally, if your text data
+includes emojis that are not relevant to your analysis, you can choose
+to remove them as well. Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original text with accents and emojis</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;Café ☕️ à côté de l&#39;hôtel. 😃&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_accents function to clean the text (removing emojis)</span>
+<span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_accents</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: Café ☕️ à côté de l&#39;hôtel. 😃
+After: Cafe  a cote de l&#39;hotel.
+</pre></div>
+</div>
+<p>In this case, the input text contains accented characters (e.g., “é”)
+and emojis (e.g., “☕️” and “😃”). To simplify the text for analysis and
+remove emojis, you can use the <code class="docutils literal notranslate"><span class="pre">remove_accents</span></code> function with the
+<code class="docutils literal notranslate"><span class="pre">delete_emojis</span></code> option set to True, resulting in cleaned text without
+accents or emojis.</p>
+<p>This method is flexible over the total number of followed emojis on a
+text, let’s process a Spanish common example:</p>
+<center>
+<img src="remove_accents.png" alt="remove_accents" height=300px />
+</center><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original text with accents and emojis</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;‼️ La función de traductor no funciona así que este tweet es solo para nuestros seguidores hispanohablantes, siempre van a ser nuestros favoritos y ahora vamos a poner emojis tristes para que los que no hablan español se preocupen 😭  y también esta foto fuera de contexto 😔💔&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_accents function to clean the text (removing emojis)</span>
+<span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_accents</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: ‼️ La función de traductor no funciona así que este tweet es solo para nuestros seguidores hispanohablantes, siempre van a ser nuestros favoritos y ahora vamos a poner emojis tristes para que los que no hablan español se preocupen 😭  y también esta foto fuera de contexto 😔💔
+After: !! La funcion de traductor no funciona asi que este tweet es solo para nuestros seguidores hispanohablantes, siempre van a ser nuestros favoritos y ahora vamos a poner emojis tristes para que los que no hablan espanol se preocupen   y tambien esta foto fuera de contexto
+</pre></div>
+</div>
+<p>As we saw, the method removed continuously repeated emojis, but passes
+over “!!” v2 class emojis (Link to the emoji:
+<a class="reference external" href="https://abs-0.twimg.com/emoji/v2/svg/203c.svg">https://abs-0.twimg.com/emoji/v2/svg/203c.svg</a>). This is due to the fact
+that it is considered an expression, rather not a direct emoji, when you
+type double exclamation on Twitter. You can see a full list of this
+wildcard emoji converter expressions on X’s documentation in
+<a class="reference external" href="https://twemoji.twitter.com/">https://twemoji.twitter.com/</a> and some examples in
+<a class="reference external" href="https://twitter.com/FakeUnicode/status/1251505174348095488">https://twitter.com/FakeUnicode/status/1251505174348095488</a></p>
+</section>
+<section id="remove-hashtags">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_hashtags</span></code><a class="headerlink" href="#remove-hashtags" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_hashtags</span></code> function is designed to remove hashtags from a
+given string. In social media and text data, hashtags are often used to
+categorize or highlight content. This function scans the input string
+and removes any text that starts with a ‘#’ and is followed by
+alphanumeric characters, effectively removing hashtags from the text.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>You might encounter situations where you want to analyze or visualize
+text data without the presence of hashtags. Hashtags can be prevalent in
+social media posts and may not be relevant to your analysis. Let’s
+explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original text with hashtags</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;Exploring the beauty of #nature in #springtime. #NaturePhotography 🌼&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_hashtags function to clean the text</span>
+<span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_hashtags</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: Exploring the beauty of #nature in #springtime. #NaturePhotography 🌼
+After: Exploring the beauty of  in .  🌼
+</pre></div>
+</div>
+<p>In this case, the input text contains hashtags such as “#nature,”
+“#springtime,” and “#NaturePhotography.” To focus on the textual content
+without the distraction of hashtags, you can use the <code class="docutils literal notranslate"><span class="pre">remove_hashtags</span></code>
+function, which removes them and results in a cleaner text.</p>
+</section>
+<section id="remove-mentions">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_mentions</span></code><a class="headerlink" href="#remove-mentions" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_mentions</span></code> function is designed to remove mentions (e.g.,
+&#64;username) from a given tweet string. In the context of social media,
+mentions are often used to reference or tag other users. This function
+scans the input tweet string and removes any text that starts with ‘&#64;’
+followed by a username. Optionally, it can also return a list of unique
+mentions found in the tweet.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>You may encounter situations where you want to analyze or visualize
+tweet text data without the presence of mentions. Mentions can be common
+in social media posts and may not be relevant to your analysis.
+Additionally, you might want to extract and track mentioned accounts
+separately. Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original tweet with mentions</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;Exploring the beauty of nature with @NatureExplorer and @WildlifeEnthusiast. #NaturePhotography 🌼&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_mentions function to clean the tweet and extract mentions</span>
+<span class="n">cleaned_text</span><span class="p">,</span> <span class="n">extracted_mentions</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_mentions</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="n">string_example</span><span class="p">,</span> <span class="n">extract</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracted Mentions:&quot;</span><span class="p">,</span> <span class="n">extracted_mentions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Before</span><span class="p">:</span> <span class="n">Exploring</span> <span class="n">the</span> <span class="n">beauty</span> <span class="n">of</span> <span class="n">nature</span> <span class="k">with</span> <span class="nd">@NatureExplorer</span> <span class="ow">and</span> <span class="nd">@WildlifeEnthusiast</span><span class="o">.</span> <span class="c1">#NaturePhotography 🌼</span>
+<span class="n">After</span><span class="p">:</span> <span class="n">Exploring</span> <span class="n">the</span> <span class="n">beauty</span> <span class="n">of</span> <span class="n">nature</span> <span class="k">with</span>  <span class="ow">and</span> <span class="o">.</span> <span class="c1">#NaturePhotography 🌼</span>
+<span class="n">Extracted</span> <span class="n">Mentions</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;@WildlifeEnthusiast&#39;</span><span class="p">,</span> <span class="s1">&#39;@NatureExplorer&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In this case, the input tweet text contains mentions such as
+“&#64;NatureExplorer” and “&#64;WildlifeEnthusiast.” To focus on the textual
+content without the distraction of mentions and to extract mentioned
+accounts, you can use the <code class="docutils literal notranslate"><span class="pre">remove_mentions</span></code> function, which removes
+mentions and provides a list of unique mentions found in the tweet.</p>
+</section>
+<section id="remove-special-characters">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_special_characters</span></code><a class="headerlink" href="#remove-special-characters" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_special_characters</span></code> function is designed to remove all
+characters from a string except for lowercase letters and spaces. It’s a
+useful tool for cleaning text data when you want to focus on the textual
+content while excluding punctuation marks, exclamation marks, special
+characters, numbers, and uppercase letters. This function scans the
+input string and removes any character that does not match the criteria.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>You may encounter situations where you want to preprocess text data and
+eliminate special characters and non-lowercase characters to make it
+more suitable for natural language processing tasks. Cleaning text in
+this way can help improve text analysis, topic modeling, or sentiment
+analysis. Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;This is an example text! It contains special characters. 123&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_special_characters function to clean the text</span>
+<span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_special_characters</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: This is an example text! It contains special characters. 123
+After: his is an example text t contains special characters
+</pre></div>
+</div>
+<p>In this case, the input text contains special characters, punctuation
+marks, numbers, and uppercase letters. To focus on the textual content
+with lowercase letters and spaces only, you can use the
+<code class="docutils literal notranslate"><span class="pre">remove_special_characters</span></code> function, which removes the undesired
+characters and results in a cleaner text. Beware to lowercase your text
+before applying this method over your corpus, as you can see on the past
+example, it can remove useful strings.</p>
+</section>
+<section id="remove-extra-spaces">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_extra_spaces</span></code><a class="headerlink" href="#remove-extra-spaces" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_extra_spaces</span></code> function is designed to remove extra spaces
+within and surrounding a given string. It’s a valuable tool for cleaning
+text data when you want to standardize spaces, trim leading and trailing
+spaces, and replace consecutive spaces between words with a single
+space. This function helps improve the consistency and readability of
+text.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>You may encounter situations where you want to preprocess text data and
+ensure consistent spacing for better readability and analysis. Extra
+spaces can be common in unstructured text, and cleaning them can enhance
+text analysis, especially when dealing with natural language processing
+tasks. Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original text with extra spaces</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;This is    an   example  text with extra   spaces.     &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_extra_spaces function to clean the text</span>
+<span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Before</span><span class="p">:</span> <span class="n">This</span> <span class="ow">is</span>    <span class="n">an</span>   <span class="n">example</span>  <span class="n">text</span> <span class="k">with</span> <span class="n">extra</span>   <span class="n">spaces</span><span class="o">.</span>
+<span class="n">After</span><span class="p">:</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">example</span> <span class="n">text</span> <span class="k">with</span> <span class="n">extra</span> <span class="n">spaces</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>In this case, the input text contains extra spaces between words and
+leading/trailing spaces. To standardize the spacing and remove the extra
+spaces, you can use the <code class="docutils literal notranslate"><span class="pre">remove_extra_spaces</span></code> function, which trims
+leading/trailing spaces and replaces consecutive spaces with a single
+space.</p>
+</section>
+<section id="space-between-emojis">
+<h1><code class="docutils literal notranslate"><span class="pre">space_between_emojis</span></code><a class="headerlink" href="#space-between-emojis" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">space_between_emojis</span></code> function is designed to insert spaces
+around emojis within a given string. It ensures that emojis are
+separated from other text or emojis in the string. This function is
+helpful for improving the readability of text containing emojis and
+ensuring proper spacing. It also removes any extra spaces resulting from
+the insertion of spaces around emojis.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>This function is particularly useful when you’re working with text data
+that includes emojis and you want to enhance the visual presentation of
+the text. Emojis are often used for expressing emotions or conveying
+messages, and proper spacing ensures that emojis are distinct and do not
+run together. Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original text with emojis</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;I love😍this place🌴It&#39;s amazing!👏&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply space_between_emojis function to add spaces around emojis</span>
+<span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">space_between_emojis</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: I love😍this place🌴It&#39;s amazing!👏
+After: I love 😍 this place 🌴 It&#39;s amazing! 👏
+</pre></div>
+</div>
+<p>In this case, the input text contains emojis such as “😍,” “🌴,” and
+“👏” mixed with regular text. To ensure that emojis are separated from
+other text and from each other, you can use the <code class="docutils literal notranslate"><span class="pre">space_between_emojis</span></code>
+function, which inserts spaces around emojis and removes any extra
+spaces resulting from the insertion.</p>
+</section>
+<section id="preprocess">
+<h1><code class="docutils literal notranslate"><span class="pre">preprocess</span></code><a class="headerlink" href="#preprocess" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">preprocess</span></code> function is a comprehensive text preprocessing tool
+designed to clean and standardize tweet text. It applies a series of
+cleaning functions to perform tasks such as removing retweet prefixes,
+converting text to lowercase, removing accents and emojis, extracting or
+removing mentions, removing URLs, hashtags, special characters, extra
+spaces, and consecutive repeated characters with specified exceptions.
+This function offers extensive text cleaning capabilities and prepares
+tweet text for analysis or visualization.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">preprocess</span></code> function is particularly useful when you’re working
+with tweet data and need to clean and standardize the text for various
+text analysis tasks. Tweet text can be messy and contain various
+elements such as mentions, URLs, emojis, and special characters that may
+need to be processed and standardized. Let’s explore a practical use
+case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original tweet with various elements</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;RT @user1: I love this place! 😍 Check out the link: https://example.com #travel #vacation!!!&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># Apply preprocess function to clean and preprocess the tweet</span>
+<span class="n">cleaned_text</span><span class="p">,</span> <span class="n">extracted_mentions</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracted Mentions:&quot;</span><span class="p">,</span> <span class="n">extracted_mentions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: RT @user1: I love this place! 😍 Check out the link: https://example.com #travel #vacation!!!
+After: i love this place check out the link
+Extracted Mentions: [&#39;@user1&#39;]
+</pre></div>
+</div>
+<p>In this case, the input tweet text contains retweet prefixes, mentions,
+emojis, URLs, hashtags, and special characters. To standardize the tweet
+text for analysis, you can use the <code class="docutils literal notranslate"><span class="pre">preprocess</span></code> function, which
+performs a series of cleaning operations to remove or extract various
+elements and return cleaned text and mentions.</p>
+</section>
+<section id="remove-words">
+<h1><code class="docutils literal notranslate"><span class="pre">remove_words</span></code><a class="headerlink" href="#remove-words" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove_words</span></code> function is designed to remove all occurrences of
+specific words listed in the <code class="docutils literal notranslate"><span class="pre">bag_of_words</span></code> parameter from a given
+string. This function is particularly useful for removing stopwords or
+any other set of unwanted words from text data. It performs an exact
+match, meaning it will remove only the exact words listed in the
+<code class="docutils literal notranslate"><span class="pre">bag_of_words</span></code> and won’t remove variations of those words that are not
+in the list.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>This function is valuable when you want to clean text data by removing
+specific words that are not relevant to your analysis or that you
+consider stopwords. It’s commonly used in natural language processing
+tasks to improve the quality of text analysis, topic modeling, or
+sentiment analysis. Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original text with stopwords</span>
+<span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;This is an example sentence with some unnecessary words like &#39;the&#39;, &#39;is&#39;, and &#39;with&#39;.&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
+
+<span class="c1"># List of stopwords to remove</span>
+<span class="n">stopwords</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;with&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stopwords to Remove:&quot;</span><span class="p">,</span> <span class="n">stopwords</span><span class="p">)</span>
+
+<span class="c1"># Apply remove_words function to clean the text</span>
+<span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_words</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">,</span> <span class="n">bag_of_words</span> <span class="o">=</span> <span class="n">stopwords</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Before</span><span class="p">:</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">example</span> <span class="n">sentence</span> <span class="k">with</span> <span class="n">some</span> <span class="n">unnecessary</span> <span class="n">words</span> <span class="n">like</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="ow">and</span> <span class="s1">&#39;with&#39;</span><span class="o">.</span>
+<span class="n">Stopwords</span> <span class="n">to</span> <span class="n">Remove</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;with&#39;</span><span class="p">]</span>
+<span class="n">After</span><span class="p">:</span> <span class="n">This</span> <span class="n">an</span> <span class="n">example</span> <span class="n">sentence</span> <span class="n">some</span> <span class="n">unnecessary</span> <span class="n">words</span> <span class="n">like</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>In this case, the input text contains stopwords such as “the,” “is,” and
+“with.” To clean the text by removing these stopwords, you can use the
+<code class="docutils literal notranslate"><span class="pre">remove_words</span></code> function, which removes the specified words from the
+text.</p>
+</section>
+<section id="unnest-tokens">
+<h1><code class="docutils literal notranslate"><span class="pre">unnest_tokens</span></code><a class="headerlink" href="#unnest-tokens" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">unnest_tokens</span></code> function is designed to flatten a pandas DataFrame
+by tokenizing a specified column. It takes a pandas DataFrame, the name
+of the column to tokenize, and an optional flag to create an “id” column
+based on the DataFrame’s index. Each token in the specified column
+becomes a separate row in the resulting DataFrame, effectively
+“exploding” the data into a long format.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>This function is useful when you have text data stored in a DataFrame,
+and you want to transform it into a format that is more suitable for
+certain text analysis or modeling tasks. For instance, when working with
+natural language processing or text mining, you may need to tokenize
+text data and represent it in a format where each token corresponds to a
+separate row. Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1"># Create a sample DataFrame with a text column</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;text_column&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;This is a sample sentence.&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Another sentence with tokens.&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Text analysis is interesting.&quot;</span><span class="p">]}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original DataFrame:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># Apply unnest_tokens function to tokenize the text column</span>
+<span class="n">tokenized_df</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">unnest_tokens</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">input_column</span><span class="o">=</span><span class="s1">&#39;text_column&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tokenized DataFrame:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokenized_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Original</span> <span class="n">DataFrame</span><span class="p">:</span>
+                     <span class="n">text_column</span>
+<span class="mi">0</span>     <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">sample</span> <span class="n">sentence</span><span class="o">.</span>
+<span class="mi">1</span>  <span class="n">Another</span> <span class="n">sentence</span> <span class="k">with</span> <span class="n">tokens</span><span class="o">.</span>
+<span class="mi">2</span>  <span class="n">Text</span> <span class="n">analysis</span> <span class="ow">is</span> <span class="n">interesting</span><span class="o">.</span>
+
+<span class="n">Tokenized</span> <span class="n">DataFrame</span><span class="p">:</span>
+   <span class="nb">id</span>   <span class="n">text_column</span>
+<span class="mi">0</span>   <span class="mi">0</span>          <span class="n">This</span>
+<span class="mi">0</span>   <span class="mi">0</span>            <span class="ow">is</span>
+<span class="mi">0</span>   <span class="mi">0</span>             <span class="n">a</span>
+<span class="mi">0</span>   <span class="mi">0</span>        <span class="n">sample</span>
+<span class="mi">0</span>   <span class="mi">0</span>     <span class="n">sentence</span><span class="o">.</span>
+<span class="mi">1</span>   <span class="mi">1</span>       <span class="n">Another</span>
+<span class="mi">1</span>   <span class="mi">1</span>      <span class="n">sentence</span>
+<span class="mi">1</span>   <span class="mi">1</span>          <span class="k">with</span>
+<span class="mi">1</span>   <span class="mi">1</span>       <span class="n">tokens</span><span class="o">.</span>
+<span class="mi">2</span>   <span class="mi">2</span>          <span class="n">Text</span>
+<span class="mi">2</span>   <span class="mi">2</span>      <span class="n">analysis</span>
+<span class="mi">2</span>   <span class="mi">2</span>            <span class="ow">is</span>
+<span class="mi">2</span>   <span class="mi">2</span>  <span class="n">interesting</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>In this case, the input DataFrame contains a column named ‘text_column’
+with sentences. To tokenize the text and transform it into a long format
+where each token is a separate row, you can use the <code class="docutils literal notranslate"><span class="pre">unnest_tokens</span></code>
+function.</p>
+</section>
+<section id="spanish-lemmatizer">
+<h1><code class="docutils literal notranslate"><span class="pre">spanish_lemmatizer</span></code><a class="headerlink" href="#spanish-lemmatizer" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">spanish_lemmatizer</span></code> function is designed to lemmatize a given
+Spanish language token using Spacy’s Spanish language model. It takes a
+token (word) and a Spacy language model object as input and returns the
+lemmatized version of the token with accents removed. This function is
+valuable for text analysis tasks where you need to reduce words to their
+base or dictionary form.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>This function is useful when you’re working with text data in Spanish
+and want to perform text analysis tasks such as sentiment analysis,
+topic modeling, or text classification. Lemmatization helps standardize
+words to their base form, reducing the complexity of text data. Let’s
+explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>-m<span class="w"> </span>spacy<span class="w"> </span>download<span class="w"> </span>es_core_news_sm
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load Spacy&#39;s Spanish language model (you should have this model downloaded)</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;es_core_news_sm&quot;</span><span class="p">)</span>
+
+<span class="c1"># Input token to lemmatize</span>
+<span class="n">token</span> <span class="o">=</span> <span class="s2">&quot;corriendo&quot;</span>  <span class="c1"># Example token in Spanish</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original Token:&quot;</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+
+<span class="c1"># Apply spanish_lemmatizer function to lemmatize the token</span>
+<span class="n">lemmatized_token</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">spanish_lemmatizer</span><span class="p">(</span><span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lemmatized Token:&quot;</span><span class="p">,</span> <span class="n">lemmatized_token</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Original</span> <span class="n">Token</span><span class="p">:</span> <span class="n">corriendo</span>
+<span class="n">Lemmatized</span> <span class="n">Token</span><span class="p">:</span> <span class="n">correr</span>
+</pre></div>
+</div>
+<p>In this case, we have an input token, “corriendo,” in Spanish that we
+want to lemmatize to its base form. We use the <code class="docutils literal notranslate"><span class="pre">spanish_lemmatizer</span></code>
+function to perform the lemmatization.</p>
+</section>
+<section id="create-bol">
+<h1><code class="docutils literal notranslate"><span class="pre">create_bol</span></code><a class="headerlink" href="#create-bol" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">create_bol</span></code> function is designed to group lemmas based on
+Levenshtein distance to handle misspelled words in social media data. It
+takes a numpy array containing lemmas and an optional verbose flag for
+progress reporting. The function groups similar lemmas into bags of
+lemmas based on their Levenshtein distance. The result is a pandas
+DataFrame that contains information about the bags of lemmas, including
+their IDs, names, associated lemmas, and the similarity threshold used
+for grouping.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>This function is useful when you’re dealing with text data, especially
+social media data, where misspelled or variations of words are common.
+Grouping similar lemmas together can help clean and organize text data
+for analysis, improving the accuracy of text-based tasks like sentiment
+analysis or topic modeling. Let’s explore a practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Create a numpy array of lemmas</span>
+<span class="n">lemmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;aple&#39;</span><span class="p">,</span> <span class="s1">&#39;apples&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;banan&#39;</span><span class="p">,</span> <span class="s1">&#39;bananas&#39;</span><span class="p">,</span> <span class="s1">&#39;cherry&#39;</span><span class="p">,</span> <span class="s1">&#39;cheri&#39;</span><span class="p">,</span> <span class="s1">&#39;cherries&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original Lemmas:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lemmas</span><span class="p">)</span>
+
+<span class="c1"># Apply create_bol function to group similar lemmas</span>
+<span class="n">bol_df</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">create_bol</span><span class="p">(</span><span class="n">lemmas</span><span class="o">=</span><span class="n">lemmas</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Bags of Lemmas DataFrame:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bol_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Original</span> <span class="n">Lemmas</span><span class="p">:</span>
+<span class="p">[</span><span class="s1">&#39;apple&#39;</span> <span class="s1">&#39;aple&#39;</span> <span class="s1">&#39;apples&#39;</span> <span class="s1">&#39;banana&#39;</span> <span class="s1">&#39;banan&#39;</span> <span class="s1">&#39;bananas&#39;</span> <span class="s1">&#39;cherry&#39;</span> <span class="s1">&#39;cheri&#39;</span>
+ <span class="s1">&#39;cherries&#39;</span><span class="p">]</span>
+<span class="n">An</span> <span class="n">error</span> <span class="n">occurred</span><span class="p">:</span> <span class="n">integer</span> <span class="n">division</span> <span class="ow">or</span> <span class="n">modulo</span> <span class="n">by</span> <span class="n">zero</span>
+
+<span class="n">Bags</span> <span class="n">of</span> <span class="n">Lemmas</span> <span class="n">DataFrame</span><span class="p">:</span>
+   <span class="n">bow_id</span> <span class="n">bow_name</span>   <span class="n">lemma</span>  <span class="n">similarity</span>  <span class="n">threshold</span>
+<span class="mi">0</span>       <span class="mi">1</span>    <span class="n">apple</span>   <span class="n">apple</span>         <span class="mi">100</span>         <span class="mi">86</span>
+<span class="mi">1</span>       <span class="mi">1</span>    <span class="n">apple</span>    <span class="n">aple</span>          <span class="mi">89</span>         <span class="mi">86</span>
+<span class="mi">2</span>       <span class="mi">1</span>    <span class="n">apple</span>  <span class="n">apples</span>          <span class="mi">91</span>         <span class="mi">86</span>
+</pre></div>
+</div>
+<p>In this case, we have an array of lemmas representing fruits, but some
+of the lemmas are misspelled or have variations. We want to group
+similar lemmas together into bags of lemmas using the <code class="docutils literal notranslate"><span class="pre">create_bol</span></code>
+function.</p>
+</section>
+<section id="get-most-common-strings">
+<h1><code class="docutils literal notranslate"><span class="pre">get_most_common_strings</span></code><a class="headerlink" href="#get-most-common-strings" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_most_common_strings</span></code> function is designed to identify and
+retrieve the most common strings in a list of texts. It takes two
+arguments: a list of texts and an integer specifying the number of most
+common words to return. The function calculates word frequencies across
+the texts and returns a list of the most frequently occurring words
+along with their respective counts.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>This function is particularly useful when you want to gain insights into
+the content of a collection of texts. It helps you identify which words
+or strings are the most prevalent within the text data. You can use this
+information for various purposes, including data validation, descriptive
+analysis, or identifying significant terms in text data. Let’s explore a
+practical use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of example texts</span>
+<span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;The quick brown fox jumps over the lazy dog.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A quick brown dog jumps over a lazy fox.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The quick brown dog jumps over the quick lazy fox.&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># Number of most common strings to retrieve</span>
+<span class="n">num_strings</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Apply get_most_common_strings function to find the most common words</span>
+<span class="n">most_common_words</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">get_most_common_strings</span><span class="p">(</span><span class="n">texts</span> <span class="o">=</span> <span class="n">texts</span><span class="p">,</span> <span class="n">num_strings</span> <span class="o">=</span> <span class="n">num_strings</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Most Common Strings:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">most_common_words</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Most</span> <span class="n">Common</span> <span class="n">Strings</span><span class="p">:</span>
+<span class="p">[(</span><span class="s1">&#39;quick&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;jumps&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;over&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;lazy&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>In this case, we have a list of example texts, and we want to find the
+most common words within these texts using the
+<code class="docutils literal notranslate"><span class="pre">get_most_common_strings</span></code> function.</p>
+</section>
+<section id="spacy-pipeline">
+<h1><code class="docutils literal notranslate"><span class="pre">spacy_pipeline</span></code><a class="headerlink" href="#spacy-pipeline" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">spacy_pipeline</span></code> function is a comprehensive text preprocessing
+tool that leverages spaCy’s capabilities to process a list of documents.
+It allows you to customize the spaCy pipeline, including options such as
+using a custom lemmatizer for Spanish, specifying stopwords language,
+choosing a spaCy model, and retrieving the most common words after
+preprocessing.</p>
+<p>The function takes several arguments, including a list of documents, a
+custom lemmatizer flag, pipeline components, stopwords language, spaCy
+model, and the number of most common words to return. It processes the
+documents by tokenizing, lemmatizing, and removing stopwords, providing
+you with well-preprocessed documents and a list of the most common words
+within them.</p>
+<p><strong>When is it useful to use it?</strong></p>
+<p>This function is highly useful when you need to preprocess a collection
+of text documents for natural language processing tasks. It offers
+flexibility by allowing you to configure the spaCy pipeline according to
+your specific requirements. Additionally, it provides insights into the
+most common words in the preprocessed documents, which can be valuable
+for data validation or descriptive analysis. Let’s explore a practical
+use case:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of example documents</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;El rápido zorro marrón salta sobre el perro perezoso.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Un veloz perro marrón salta sobre un zorro perezoso.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;El rápido perro marrón salta sobre el veloz zorro perezoso.&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># Specify preprocessing options</span>
+<span class="n">custom_lemmatizer</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tokenize&#39;</span><span class="p">,</span> <span class="s1">&#39;lemmatizer&#39;</span><span class="p">]</span>
+<span class="n">stopwords_language</span> <span class="o">=</span> <span class="s1">&#39;spanish&#39;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;es_core_news_sm&#39;</span>
+<span class="n">num_strings</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Apply spacy_pipeline function to preprocess documents</span>
+<span class="n">processed_documents</span><span class="p">,</span> <span class="n">most_common_words</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">spacy_pipeline</span><span class="p">(</span>
+    <span class="n">documents</span><span class="o">=</span><span class="n">documents</span><span class="p">,</span>
+    <span class="n">custom_lemmatizer</span><span class="o">=</span><span class="n">custom_lemmatizer</span><span class="p">,</span>
+    <span class="n">pipeline</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
+    <span class="n">stopwords_language</span><span class="o">=</span><span class="n">stopwords_language</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">num_strings</span><span class="o">=</span><span class="n">num_strings</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Processed Documents:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">processed_documents</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Document </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Most Common Words:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">most_common_words</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dependency-parse-visualizer-text">
+<h1><code class="docutils literal notranslate"><span class="pre">dependency_parse_visualizer_text</span></code><a class="headerlink" href="#dependency-parse-visualizer-text" title="Permalink to this heading"></a></h1>
+<p><strong>Description of the function</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dependency_parse_visualizer_text</span></code> function is designed to
+visualize the dependency parsing or named entity recognition (NER) of a
+single text document. It leverages spaCy’s visualization tool, DisplaCy,
+to render a graphical representation of linguistic features. The
+function is configurable, allowing you to specify the visualization
+style, whether you’re working within a Jupyter notebook environment, and
+which spaCy model to use for parsing.</p>
+<p><strong>When is it Useful to Use this Function?</strong></p>
+<p>This function is beneficial in multiple scenarios:</p>
+<ol class="arabic simple">
+<li><p><strong>Exploratory Data Analysis (EDA):</strong> During the initial stages of
+text analysis, understanding the syntactic structure of your
+documents can be crucial. The visualization helps you to quickly
+grasp the relationships between words in a sentence or identify named
+entities.</p></li>
+<li><p><strong>Debugging NLP Pipelines:</strong> If you’re building an NLP pipeline that
+includes dependency parsing or named entity recognition, this
+function serves as a helpful debugging tool. You can visually confirm
+whether the spaCy model is interpreting the text as expected.</p></li>
+<li><p><strong>Educational Purposes:</strong> If you’re learning about dependency parsing
+or named entity recognition, visual representations can significantly
+aid your understanding of these complex linguistic features.</p></li>
+<li><p><strong>Reporting and Presentation:</strong> You can use this function to generate
+visualizations for reports or presentations, making your findings
+more accessible to those without a technical background in
+linguistics or NLP.</p></li>
+</ol>
+<p>Here a practical dependency example:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example document in Spanish</span>
+<span class="n">document</span> <span class="o">=</span> <span class="s2">&quot;El perro saltó sobre el gato.&quot;</span>
+
+<span class="c1"># Visualizing the dependency parse</span>
+<span class="n">tp</span><span class="o">.</span><span class="n">dependency_parse_visualizer_text</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;dep&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;es_core_news_sm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now let’s visualize the named entities instead</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example document in Spanish</span>
+<span class="n">document</span> <span class="o">=</span> <span class="s2">&quot;El Banco Mundial decidió contactar al gobierno de Argentina para ofrecerle ayuda. Varios países como Estados Unidos, China y Rusia también ofrecieron su ayuda.&quot;</span>
+
+<span class="c1"># Visualizing the named entities</span>
+<span class="n">tp</span><span class="o">.</span><span class="n">dependency_parse_visualizer_text</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;ent&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;es_core_news_sm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, we have a list of Spanish documents, and we want to
+preprocess them using the <code class="docutils literal notranslate"><span class="pre">spacy_pipeline</span></code> function with specific
+configuration options.</p>
+</section>
+<section id="tutorial-topic-modelling">
+<h1>Tutorial: Topic Modelling<a class="headerlink" href="#tutorial-topic-modelling" title="Permalink to this heading"></a></h1>
+<p><strong>Introduction</strong></p>
+<p>In the age of social media, Twitter has become a fertile ground for data
+mining, sentiment analysis, and various other natural language
+processing (NLP) tasks. However, dealing with Spanish tweets adds
+another layer of complexity due to language-specific nuances, slang,
+abbreviations, and other colloquial expressions. ‘tidyX’ aims to
+streamline the preprocessing pipeline for Spanish tweets, making them
+ready for various NLP tasks such as text classification, topic modeling,
+sentiment analysis, and more. In this tutorial, we will focus on a
+classification task based on Topic Modelling, showing preprocessing,
+modeling and results with real data snippets.</p>
+<p><strong>Context</strong></p>
+<p>Using data provided by <cite>Barómetro de
+Xenofobia &lt;https://barometrodexenofobia.org/&gt;</cite>, a non-profit organization that
+quantifies the amount of hate speech against migrants on social media, we aim to
+classify the overall conversation related to migrants. This is a <strong>common NLP task</strong> that
+involves preprocessing poorly-written social media posts. Subsequently,
+these processed posts are fed into an unsupervised Topic Classification
+Model (LDA) to identify an optimal number of cluster topics. This helps
+reveal the main discussion points concerning Venezuelan migrants in
+Colombia.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># PREPARATIONS</span>
+<span class="c1"># Environment set-up</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\JOSE\Desktop\Trabajo\Paper_no_supervisado\Tidytweets&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">tidyX</span> <span class="kn">import</span> <span class="n">TextPreprocessor</span> <span class="k">as</span> <span class="n">tt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="c1"># Getting the data:</span>
+<span class="c1"># In this tutorial, we use a sample dataset of 799053 tweets related to Venezuelan migrants in Colombia.</span>
+<span class="c1"># The dataset is available in the data folder of the repository.</span>
+<span class="c1"># For efficiency we will only use a random sample of 1000 tweets</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">799053</span> <span class="c1">#number of records in file</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1">#desired sample size</span>
+<span class="n">skip</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="n">n</span><span class="o">-</span><span class="n">s</span><span class="p">))</span>
+<span class="n">tweets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\JOSE\Desktop\Trabajo\Paper_no_supervisado\Tidytweets\data\Base_Para_Labels.xlsx&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">skip</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Snippet&#39;</span><span class="p">])</span>
+<span class="n">tweets</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Preprocessing Tweets</strong></p>
+<p>We will then use <code class="docutils literal notranslate"><span class="pre">preprocess</span></code> function to clean the sample and prepare
+it for modelling</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cleaning_process</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">delete_emojis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">extract</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;Clean_tweets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;Snippet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">cleaning_process</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here is a random sample of the before and after with specific Tweets</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_tweets</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># You can change the random_state for different samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before and After Text Cleaning:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sample_tweets</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Snippet&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cleaned: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Clean_tweets&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Tokenize the dataset</strong></p>
+<p>This representation of the dataset will return a list of tokens per
+document. <code class="docutils literal notranslate"><span class="pre">spacy_pipeline</span></code> function returns a list of lists of
+processed lemmatized and stopword absent tweets.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tokenized_cleaned_tweets</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">spacy_pipeline</span><span class="p">(</span><span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;Clean_tweets&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span> <span class="n">custom_lemmatizer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pipeline</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tokenize&#39;</span><span class="p">,</span> <span class="s1">&#39;lemmatizer&#39;</span><span class="p">],</span> <span class="n">stopwords_language</span><span class="o">=</span><span class="s1">&#39;spanish&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;es_core_news_sm&#39;</span><span class="p">,</span> <span class="n">num_strings</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here is a random sample of the before and after with specific Tweets</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;lemmatized_tweets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tokenized_cleaned_tweets</span>
+<span class="n">sample_tweets</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># You can change the random_state for different samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before and After Text Cleaning:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sample_tweets</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Snippet&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cleaned: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;lemmatized_tweets&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Seemingly used words and social media bad writting addressing</strong></p>
+<p>May you saw in the previous proccesed tweets that there are seemingly
+used or Out-of-Vocabulary (OOV) words that became evident after
+processing and cleaning the tweets showed. This words can be a result of
+bad spelling, common in social media, abbreviations, or other language
+rules.</p>
+<p>Here we propose a method to handle this limitations, some research
+related to this topic establishes local solutions to this condition, we
+invite the user to try this approach and also find some other resources
+to proccess the resulted lemmas. Some additional research to handle OOV
+words can be found in:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://github.com/facebookresearch/fastText">FastText</a></p></li>
+<li><p><a class="reference external" href="https://www.kaggle.com/code/jatinmittal0001/ner-bi-lstm-dealing-with-oov-words">Kaggle NER
+Bi-LSTM</a></p></li>
+<li><p><a class="reference external" href="https://github.com/R1j1t/contextualSpellCheck">Contextual Spell
+Check</a></p></li>
+</ol>
+<p>We use our <code class="docutils literal notranslate"><span class="pre">create_bol</span></code> function to find distances between lemmas, we
+are based on the premise that seemingly used lemmas ar far away from the
+original corpus and don’t have a big apperance on it. Warning: Expect
+long kernel runs, this method evaluates each distance from a lemma N-1
+times.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="c1"># We take our list of lists and convert it to a list of strings</span>
+<span class="n">flattened_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">tokenized_cleaned_tweets</span><span class="p">))</span>
+<span class="c1"># Now we count the number of times each lemma appears in the list and sort the list in descending order</span>
+<span class="n">word_count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">flattened_list</span><span class="p">)</span>
+<span class="n">sorted_words</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">word_count</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sorted_words_only</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">sorted_words</span><span class="p">]</span>
+<span class="n">numpy_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sorted_words_only</span><span class="p">)</span>
+<span class="c1"># Now we create our bag of lemmas</span>
+<span class="n">bol_df</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">create_bol</span><span class="p">(</span><span class="n">numpy_array</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">bol_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we want to select a specific subset of words that does not include
+our probable OOV or NEW words in the text processing. We will replace
+words using 85% confidence treshold soo we can infer what was intended
+to be written.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace each lemma in the original list of lists with its bow_name</span>
+<span class="n">lemma_to_bow</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">bol_df</span><span class="p">[</span><span class="s1">&#39;lemma&#39;</span><span class="p">],</span> <span class="n">bol_df</span><span class="p">[</span><span class="s1">&#39;bow_name&#39;</span><span class="p">]))</span>
+<span class="n">replaced_lemmas</span> <span class="o">=</span> <span class="p">[[</span><span class="n">lemma_to_bow</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lemma</span><span class="p">,</span> <span class="n">lemma</span><span class="p">)</span> <span class="k">for</span> <span class="n">lemma</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">tokenized_cleaned_tweets</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here some random examples with the new mapping, you can inspect the
+differences in lemmas:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;new_clean_lemmas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">replaced_lemmas</span>
+<span class="n">sample_tweets</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># You can change the random_state for different samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before and After Text Cleaning:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sample_tweets</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Snippet&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cleaned: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;new_clean_lemmas&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From here, you can use this processed tweets to train different models
+and make your own empirical applications of NLP using social media data.
+However, we will show you a simple application of Topic Modelling using
+the data we processed. For more information about this methodology, we
+deliver some links to help understanding this type of unsupervised
+classification.</p>
+<p>Now we can plug this processed documents in a toy model to see some
+topics about Venezuelan migrants in Colombia:</p>
+<p>This model resolves in some steps: 1. We iterate over the best
+combination of hyperparameters alpha, beta, and number of topics. 2. We
+filter the results and pick the model with best coherence. We calculate
+Coherence Score and Perplexity of each LDA Topic Modeling
+implementation. 3. We display a visualization of the topics found in the
+toy model.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we create our initial variables for Topic Modeling</span>
+<span class="kn">import</span> <span class="nn">gensim</span>
+<span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span>
+<span class="kn">import</span> <span class="nn">tqdm</span>
+<span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">CoherenceModel</span>
+<span class="c1"># Create Dictionary</span>
+<span class="n">dictionary</span> <span class="o">=</span> <span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span><span class="n">replaced_lemmas</span><span class="p">)</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">replaced_lemmas</span><span class="p">]</span>
+<span class="c1"># A function that resolves our hyperparameters using a corpus and a dictionary</span>
+<span class="k">def</span> <span class="nf">compute_coherence_perplexity_values</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+
+    <span class="n">lda_model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">LdaMulticore</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">corpus</span><span class="p">,</span>
+                                           <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">,</span>
+                                           <span class="n">num_topics</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+                                           <span class="n">random_state</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                           <span class="n">chunksize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                           <span class="n">passes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                                           <span class="n">alpha</span><span class="o">=</span><span class="n">a</span><span class="p">,</span>
+                                           <span class="n">eta</span><span class="o">=</span><span class="n">b</span><span class="p">,</span>
+                                           <span class="n">workers</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+    <span class="n">coherence_model_lda</span> <span class="o">=</span> <span class="n">CoherenceModel</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">lda_model</span><span class="p">,</span> <span class="n">texts</span><span class="o">=</span><span class="n">replaced_lemmas</span><span class="p">,</span> <span class="n">dictionary</span><span class="o">=</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">coherence</span><span class="o">=</span><span class="s1">&#39;c_v&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">coherence_model_lda</span><span class="o">.</span><span class="n">get_coherence</span><span class="p">(),</span><span class="n">lda_model</span><span class="o">.</span><span class="n">log_perplexity</span><span class="p">(</span><span class="n">corpus</span><span class="p">))</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">grid</span><span class="p">[</span><span class="s1">&#39;Validation_Set&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># Topics range</span>
+<span class="n">min_topics</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">max_topics</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">step_size</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">topics_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_topics</span><span class="p">,</span> <span class="n">max_topics</span><span class="p">,</span> <span class="n">step_size</span><span class="p">)</span>
+<span class="c1"># Alpha parameter</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">))</span>
+<span class="n">alpha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;symmetric&#39;</span><span class="p">)</span>
+<span class="n">alpha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;asymmetric&#39;</span><span class="p">)</span>
+<span class="c1"># Beta parameter</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">))</span>
+<span class="n">beta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;symmetric&#39;</span><span class="p">)</span>
+<span class="c1"># Validation sets</span>
+<span class="n">num_of_docs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="n">corpus_sets</span> <span class="o">=</span> <span class="p">[</span><span class="c1"># gensim.utils.ClippedCorpus(corpus, num_of_docs*0.25),</span>
+               <span class="c1"># gensim.utils.ClippedCorpus(corpus, num_of_docs*0.5),</span>
+               <span class="n">gensim</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">ClippedCorpus</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_of_docs</span><span class="o">*</span><span class="mf">0.75</span><span class="p">)),</span>
+               <span class="n">corpus</span><span class="p">]</span>
+<span class="n">corpus_title</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;75% Corpus&#39;</span><span class="p">,</span> <span class="s1">&#39;100% Corpus&#39;</span><span class="p">]</span>
+<span class="n">model_results</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Validation_Set&#39;</span><span class="p">:</span> <span class="p">[],</span>
+                 <span class="s1">&#39;Topics&#39;</span><span class="p">:</span> <span class="p">[],</span>
+                 <span class="s1">&#39;Alpha&#39;</span><span class="p">:</span> <span class="p">[],</span>
+                 <span class="s1">&#39;Beta&#39;</span><span class="p">:</span> <span class="p">[],</span>
+                 <span class="s1">&#39;Coherence&#39;</span><span class="p">:</span> <span class="p">[],</span>
+                 <span class="s1">&#39;Perplexity&#39;</span><span class="p">:</span> <span class="p">[]</span>
+                <span class="p">}</span>
+<span class="c1"># Can take a long time to run</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="c1"># This is the number of times we want to iterate to find optimal hyperparameters</span>
+    <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+    <span class="c1"># iterate through validation corpuses</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">corpus_sets</span><span class="p">)):</span>
+        <span class="c1"># iterate through number of topics</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">topics_range</span><span class="p">:</span>
+            <span class="c1"># iterate through alpha values</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alpha</span><span class="p">:</span>
+                <span class="c1"># iterare through beta values</span>
+                <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">beta</span><span class="p">:</span>
+                    <span class="c1"># get the coherence score for the given parameters</span>
+                    <span class="p">(</span><span class="n">cv</span><span class="p">,</span> <span class="n">pp</span><span class="p">)</span> <span class="o">=</span> <span class="n">compute_coherence_perplexity_values</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">corpus_sets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dictionary</span><span class="o">=</span><span class="n">dictionary</span><span class="p">,</span>
+                                                  <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+                    <span class="c1"># Save the model results</span>
+                    <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Validation_Set&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corpus_title</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Topics&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                    <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Alpha&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+                    <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Beta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+                    <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Coherence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>
+                    <span class="n">model_results</span><span class="p">[</span><span class="s1">&#39;Perplexity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pp</span><span class="p">)</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\JOSE\Desktop\Trabajo\Paper_no_supervisado\Tidytweets\data\lda_tuning_results.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">pbar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now we want to find the optimal model to train, let’s see the results of
+our trainning pocess:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tabla_tunning</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\JOSE\Desktop\Trabajo\Paper_no_supervisado\Tidytweets\data\lda_tuning_results.csv&quot;</span><span class="p">)</span>
+<span class="n">tabla_tunning</span> <span class="o">=</span> <span class="n">tabla_tunning</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Coherence&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">tabla_tunning</span>
+</pre></div>
+</div>
+<p>Let’s train the model! We now pick the best result from the validation
+table created on the last step</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">pyLDAvis</span>
+<span class="n">pyLDAvis</span><span class="o">.</span><span class="n">enable_notebook</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">pyLDAvis.gensim_models</span>
+<span class="n">lda_final_model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">LdaMulticore</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">corpus</span><span class="p">,</span>
+                                             <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">,</span>
+                                             <span class="n">num_topics</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+                                             <span class="n">random_state</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                             <span class="n">chunksize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                             <span class="n">passes</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                                             <span class="n">alpha</span><span class="o">=</span><span class="s1">&#39;asymmetric&#39;</span><span class="p">,</span>
+                                             <span class="n">eta</span><span class="o">=</span><span class="mf">0.61</span><span class="p">,</span>
+                                             <span class="n">workers</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now that we have trained an optimized version of our toy model, we want
+to visually inspect the derived topics and see if we find some
+interesting patterns giving information related to the way people speaks
+about Venezuelan migrants in Colombia.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[[(</span><span class="n">dictionary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span> <span class="n">freq</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">cp</span><span class="p">]</span> <span class="k">for</span> <span class="n">cp</span> <span class="ow">in</span> <span class="n">corpus</span><span class="p">[:</span><span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">lda_final_model</span><span class="o">.</span><span class="n">print_topics</span><span class="p">())</span>
+<span class="n">doc_lda</span> <span class="o">=</span> <span class="n">lda_final_model</span><span class="p">[</span><span class="n">corpus</span><span class="p">]</span>
+
+<span class="n">visxx</span> <span class="o">=</span> <span class="n">pyLDAvis</span><span class="o">.</span><span class="n">gensim_models</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">topic_model</span><span class="o">=</span><span class="n">lda_final_model</span><span class="p">,</span> <span class="n">corpus</span><span class="o">=</span><span class="n">corpus</span><span class="p">,</span> <span class="n">dictionary</span><span class="o">=</span><span class="n">dictionary</span><span class="p">)</span>
+<span class="n">pyLDAvis</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">visxx</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to tidyX’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/TextPreprocessor.html" class="btn btn-neutral float-right" title="TextPreprocessor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lucas Gómez Tobón, Jose Fernando Barrera.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

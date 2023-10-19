@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tidyX.text_preprocessor &mdash; tidyX  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            tidyX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">How to use this package?:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html"><code class="docutils literal notranslate"><span class="pre">remove_repetitions</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-last-repetition"><code class="docutils literal notranslate"><span class="pre">remove_last_repetition</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-urls"><code class="docutils literal notranslate"><span class="pre">remove_urls</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-rt"><code class="docutils literal notranslate"><span class="pre">remove_RT</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-accents"><code class="docutils literal notranslate"><span class="pre">remove_accents</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-hashtags"><code class="docutils literal notranslate"><span class="pre">remove_hashtags</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-mentions"><code class="docutils literal notranslate"><span class="pre">remove_mentions</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-special-characters"><code class="docutils literal notranslate"><span class="pre">remove_special_characters</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-extra-spaces"><code class="docutils literal notranslate"><span class="pre">remove_extra_spaces</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#space-between-emojis"><code class="docutils literal notranslate"><span class="pre">space_between_emojis</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#preprocess"><code class="docutils literal notranslate"><span class="pre">preprocess</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#remove-words"><code class="docutils literal notranslate"><span class="pre">remove_words</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#unnest-tokens"><code class="docutils literal notranslate"><span class="pre">unnest_tokens</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#spanish-lemmatizer"><code class="docutils literal notranslate"><span class="pre">spanish_lemmatizer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#create-bol"><code class="docutils literal notranslate"><span class="pre">create_bol</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#get-most-common-strings"><code class="docutils literal notranslate"><span class="pre">get_most_common_strings</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#spacy-pipeline"><code class="docutils literal notranslate"><span class="pre">spacy_pipeline</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#dependency-parse-visualizer-text"><code class="docutils literal notranslate"><span class="pre">dependency_parse_visualizer_text</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/tutorial.html#tutorial-topic-modelling">Tutorial: Topic Modelling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/TextPreprocessor.html">TextPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/SpacyPreprocessor.html">SpacyPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/TextVisualizer.html">TextVisualizer</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tidyX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tidyX.text_preprocessor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tidyX.text_preprocessor</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">regex</span>
+<span class="kn">import</span> <span class="nn">emoji</span>
+<span class="kn">from</span> <span class="nn">unidecode</span> <span class="kn">import</span> <span class="n">unidecode</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">thefuzz</span> <span class="kn">import</span> <span class="n">fuzz</span>
+<span class="kn">import</span> <span class="nn">tqdm</span>
+<span class="kn">import</span> <span class="nn">emoji</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">Counter</span>
+
+<div class="viewcode-block" id="TextPreprocessor"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">TextPreprocessor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_repetitions"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_repetitions">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_repetitions</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes consecutive repeated characters in a given string, with some optional exceptions.</span>
+
+<span class="sd">        For example, the string &#39;coooroosooo&#39; would be transformed to &#39;coroso&#39;.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The text to be processed.</span>
+<span class="sd">            exceptions (list, optional): </span>
+<span class="sd">                A list of characters that can be repeated once consecutively without being removed. Defaults to [&#39;r&#39;, &#39;l&#39;, &#39;n&#39;, &#39;c&#39;, &#39;a&#39;, &#39;e&#39;, &#39;o&#39;].</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed text with consecutive repetitions removed, except for characters in the exceptions list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exceptions</span><span class="p">:</span> <span class="c1"># (exceptions == None):</span>
+            <span class="c1"># Remove all consecutive repetitions</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(.)\1+&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Allow one repetition for characters in exceptions list</span>
+            <span class="n">exceptions_pattern</span> <span class="o">=</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">exceptions</span><span class="p">)</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(</span><span class="si">{}</span><span class="s1">)\1+&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exceptions_pattern</span><span class="p">),</span> <span class="sa">r</span><span class="s1">&#39;\1\1&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+            
+            <span class="c1"># Remove all other consecutive repetitions</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;([^</span><span class="si">{}</span><span class="s1">])\1+&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">exceptions_pattern</span><span class="p">)),</span> <span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">string</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_last_repetition"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_last_repetition">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_last_repetition</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes the repetition of the last character in each word of a given string.</span>
+<span class="sd">        </span>
+<span class="sd">        In Spanish, no word ends with a repeated character. However, in social media,</span>
+<span class="sd">        it is common to emphasize words by repeating the last character. This function</span>
+<span class="sd">        cleans the text to remove such repetitions. </span>
+<span class="sd">        </span>
+<span class="sd">        For example, the input &quot;Holaaaa amigooo&quot; would be transformed to &quot;Hola amigo&quot;.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The text to be processed.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed text with the last character of each word de-duplicated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w)\1+\b&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> </div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_urls"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_urls">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_urls</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes all URLs that start with &quot;http&quot; from a given string.</span>
+<span class="sd">        </span>
+<span class="sd">        This function scans the entire string and removes any sequence of characters that</span>
+<span class="sd">        starts with &quot;http&quot; and continues until a space or end of line is encountered.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The text to be processed.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed text with URLs removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;http\S+&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="c1"># re.sub(r&quot;http[^ ]+&quot;, &#39;&#39;, string)</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_RT"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_RT">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_RT</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes the &quot;RT&quot; prefix from tweets.</span>
+<span class="sd">        </span>
+<span class="sd">        This function removes the &quot;RT&quot; prefix that usually appears at the beginning of retweets.</span>
+<span class="sd">        It accounts for the possibility of varying white-space after &quot;RT&quot;.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The tweet text to be processed.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed tweet text with the &quot;RT&quot; prefix removed if it appears at the beginning.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^RT\s+&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="c1"># re.sub(&quot;^RT &quot;, &#39;&#39;, string)</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_accents"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_accents">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_accents</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes accents and optionally emojis from a string.</span>
+
+<span class="sd">        This function removes accent marks from characters in a given string. If specified, it can also remove emojis.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The input string potentially containing accented characters and/or emojis.</span>
+<span class="sd">            delete_emojis (bool, optional): </span>
+<span class="sd">                If True, removes emojis from the string. Default is True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The string with accented characters and optionally emojis removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">delete_emojis</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">unidecode</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;[àáâãäå]&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;[èéêë]&quot;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;[ìíîï]&quot;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;[òóôõö]&quot;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;[ùúûü]&quot;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+            <span class="c1"># Uncomment the next line if you also want to replace &quot;ñ&quot; with &quot;n&quot;</span>
+            <span class="c1"># string = re.sub(u&quot;[ñ]&quot;, &#39;n&#39;, string)</span>
+            
+        <span class="k">return</span> <span class="n">string</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_hashtags"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_hashtags">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_hashtags</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes hashtags from a given string.</span>
+<span class="sd">        </span>
+<span class="sd">        This function scans the string and removes any text that starts with a &#39;#&#39; </span>
+<span class="sd">        and is followed by alphanumeric characters.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The text that may contain hashtags.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed text with hashtags removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;#\w+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_mentions"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_mentions">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_mentions</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extract</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes mentions (e.g., @username) from a given tweet string.</span>
+
+<span class="sd">        This function scans the string and removes any text that starts with &#39;@&#39; </span>
+<span class="sd">        followed by the username. Optionally, it can also return a list of unique mentions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The tweet text that may contain mentions.</span>
+<span class="sd">            extract (bool, optional): </span>
+<span class="sd">                If True, returns a list of unique mentions. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed tweet text with mentions removed.</span>
+<span class="sd">            list: </span>
+<span class="sd">                If `extract` is True, returns a list of unique mentioned accounts in the tweet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">mentions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Extract mentions if needed</span>
+        <span class="k">if</span> <span class="n">extract</span><span class="p">:</span>
+            <span class="n">mentions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;@\w+&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">)))</span> <span class="c1"># np.unique(re.findall(pattern = &quot;@[^ ]+&quot;, string = string))</span>
+        
+        <span class="c1"># Remove mentions</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;@\w+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="c1"># re.sub(&quot;@[^ ]+&quot;, &quot;&quot;, string)</span>
+        
+        <span class="k">return</span> <span class="n">string</span><span class="p">,</span> <span class="n">mentions</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_extra_spaces"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_extra_spaces">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes extra spaces within and surrounding a given string.</span>
+<span class="sd">        </span>
+<span class="sd">        This function trims leading and trailing spaces and replaces any occurrence of consecutive spaces between words with a single space.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The text that may contain extra spaces.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed text with extra spaces removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot; +&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_special_characters"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_special_characters">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_special_characters</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">allow_numbers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes all characters from a string except for lowercase letters and spaces.</span>
+<span class="sd">        </span>
+<span class="sd">        This function scans the string and removes any character that is not a lowercase letter or a space.</span>
+<span class="sd">        Optionally, numbers can be retained.</span>
+<span class="sd">        As a result, punctuation marks, exclamation marks, special characters, and uppercase letters are eliminated.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The text that may contain special characters.</span>
+<span class="sd">            allow_numbers (bool): </span>
+<span class="sd">                Whether to allow numbers in the string. Default is False.</span>
+<span class="sd">                </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed text with special characters removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[^a-z\p</span><span class="si">{So}</span><span class="s1"> ]+&#39;</span>
+        
+        <span class="k">if</span> <span class="n">allow_numbers</span><span class="p">:</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[^a-z0-9\p</span><span class="si">{So}</span><span class="s1"> ]+&#39;</span>
+
+        <span class="n">string</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">string</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.space_between_emojis"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.space_between_emojis">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">space_between_emojis</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts spaces around emojis within a string.</span>
+<span class="sd">        </span>
+<span class="sd">        This function adds a space before and after each emoji character in the given string to ensure that emojis are separated from other text or emojis. Extra spaces are then removed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The text that may contain emojis.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The processed text with spaces inserted around each emoji.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emoji</span><span class="o">.</span><span class="n">EMOJI_DATA</span> <span class="k">else</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">string</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.preprocess"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.preprocess">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">extract</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> 
+                <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">],</span> <span class="n">allow_numbers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Preprocesses tweets by applying a series of cleaning functions. The function performs the following steps:</span>
+
+<span class="sd">        1. Removes the &#39;RT&#39; prefix from retweeted tweets. (remove_RT)</span>
+<span class="sd">        2. Converts the entire string to lowercase. (.lower)</span>
+<span class="sd">        3. Removes all accents and optionally emojis. (remove_accents)</span>
+<span class="sd">        4. Extracts and/or removes all mentions (e.g., @elonmusk). (remove_mentions)</span>
+<span class="sd">        5. Removes URLs. (remove_urls)</span>
+<span class="sd">        6. Removes hashtags. (remove_hashtags)</span>
+<span class="sd">        7. Removes special characters such as !, ?, -, ;, etc. (remove_special_characters)</span>
+<span class="sd">        8. Removes extra spaces between words. (remove_extra_spaces)</span>
+<span class="sd">        9. Removes consecutive repeated characters, with exceptions defined in the `exceptions` parameter. (remove_repetitions and remove_last_repetition)</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The raw tweet text.</span>
+<span class="sd">            delete_emojis (bool): </span>
+<span class="sd">                Whether to remove emojis from the string. Default is True.</span>
+<span class="sd">            extract (bool): </span>
+<span class="sd">                If True, returns a list of all accounts mentioned in the tweet. Default is True.</span>
+<span class="sd">            exceptions (list): </span>
+<span class="sd">                List of characters allowed to be repeated. Default is [&#39;r&#39;, &#39;l&#39;, &#39;n&#39;, &#39;c&#39;, &#39;a&#39;, &#39;e&#39;, &#39;o&#39;].</span>
+<span class="sd">            allow_numbers (bool): </span>
+<span class="sd">                Whether to allow numbers in the string. Default is False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The cleaned tweet text.</span>
+<span class="sd">            mentions (list): </span>
+<span class="sd">                If `extract` is True, a list of mentioned accounts is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Remove RT at the beginning of the tweets</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_RT</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="c1"># Lowercase all characters</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="c1"># Remove accents:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_accents</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="n">delete_emojis</span><span class="p">)</span>
+        <span class="c1"># Extract and remove all mentions</span>
+        <span class="n">string</span><span class="p">,</span> <span class="n">mentions</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_mentions</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">extract</span> <span class="o">=</span> <span class="n">extract</span><span class="p">)</span>
+        <span class="c1"># Remove links</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_urls</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="c1"># Remove hashtags</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_hashtags</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="c1"># Remove special characters:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_special_characters</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">allow_numbers</span> <span class="o">=</span> <span class="n">allow_numbers</span><span class="p">)</span>
+        <span class="c1"># Allow only one space between words</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="c1"># Remove repetited characters</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_repetitions</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">exceptions</span> <span class="o">=</span> <span class="n">exceptions</span><span class="p">)</span>
+        <span class="c1"># Remove repetitions in the last charcater</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_last_repetition</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">extract</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">string</span><span class="p">,</span> <span class="n">mentions</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">string</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.remove_words"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_words">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_words</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bag_of_words</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes all occurrences of words listed in bag_of_words from the string.</span>
+<span class="sd">        </span>
+<span class="sd">        This function is particularly useful for removing stopwords. Exercise caution </span>
+<span class="sd">        with the words listed in bag_of_words: this function performs an exact match, </span>
+<span class="sd">        meaning it won&#39;t remove variations of the words not appearing in the bag_of_words.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): </span>
+<span class="sd">                The input string containing unwanted words.</span>
+<span class="sd">            bag_of_words (list): </span>
+<span class="sd">                List of words to be removed from the string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: </span>
+<span class="sd">                The string with unwanted words removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Create a regex pattern to match any word from bag_of_words surrounded by word boundaries</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\b(?:</span><span class="si">{}</span><span class="s1">)\b&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">bag_of_words</span><span class="p">))</span> <span class="c1"># r&#39;\b(?:{})\b&#39;.format(&#39;|&#39;.join(bag_of_words))</span>
+        
+        <span class="c1"># Note that I&#39;ve used re.escape to ensure that any special characters in your bag of words are treated as </span>
+        <span class="c1"># literals. This is useful in cases where the bag of words contains characters that could be misinterpreted </span>
+        <span class="c1"># as regular expression metacharacters (like ., ?, *, etc.).</span>
+
+        <span class="c1"># Remove words from the string that match the pattern</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        
+        <span class="c1"># Remove extra spaces</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">string</span></div>
+
+<div class="viewcode-block" id="TextPreprocessor.unnest_tokens"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.unnest_tokens">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">unnest_tokens</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">input_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">create_id</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flattens a DataFrame by tokenizing a specified column.</span>
+
+<span class="sd">        This function takes a pandas DataFrame and a column name to tokenize. </span>
+<span class="sd">        Each token becomes a row in the resulting DataFrame. Tokens are separated by spaces.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            df (DataFrame): </span>
+<span class="sd">                The input DataFrame to be flattened.</span>
+<span class="sd">            input_column (str): </span>
+<span class="sd">                The name of the column to tokenize.</span>
+<span class="sd">            create_id (bool, optional): </span>
+<span class="sd">                If True, adds an &quot;id&quot; column based on the DataFrame&#39;s index. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrame: </span>
+<span class="sd">                A DataFrame where each row corresponds to a token.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Reset the index and create an &quot;id&quot; column if create_id is True</span>
+        <span class="k">if</span> <span class="n">create_id</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;id&quot;</span><span class="p">})</span>
+        
+        <span class="c1"># Tokenize the specified column</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">input_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">input_column</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Explode the DataFrame to create one row per token</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="n">input_column</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">df</span></div>
+    
+<div class="viewcode-block" id="TextPreprocessor.create_bol"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.create_bol">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">create_bol</span><span class="p">(</span><span class="n">lemmas</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Groups lemmas based on Levenshtein distance to handle misspelled words in social media data.</span>
+<span class="sd">        </span>
+<span class="sd">        This method clusters lemmas that are similar to each other based on their </span>
+<span class="sd">        Levenshtein distance. The aim is to group together possibly misspelled </span>
+<span class="sd">        versions of the same lemma.</span>
+<span class="sd">        </span>
+<span class="sd">        Args: </span>
+<span class="sd">            lemmas (np.ndarray): </span>
+<span class="sd">                An array containing lemmas to be grouped.</span>
+<span class="sd">            verbose (bool, optional): </span>
+<span class="sd">                If set to True, progress will be printed at every 5% increment. Defaults to True.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns: </span>
+<span class="sd">            pd.DataFrame: A DataFrame with columns: </span>
+<span class="sd">                - &quot;bow_id&quot;: An ID for the bag of lemmas (int).</span>
+<span class="sd">                - &quot;bow_name&quot;: The representative name for the bag of lemmas (str).</span>
+<span class="sd">                - &quot;lemma&quot;: The original lemma (str).</span>
+<span class="sd">                - &quot;similarity&quot;: The similarity score based on fuzz.ratio (int).</span>
+<span class="sd">                - &quot;threshold&quot;: The similarity threshold used (int).</span>
+<span class="sd">                </span>
+<span class="sd">        Notes:</span>
+<span class="sd">            The method utilizes the `fuzz.ratio` function to determine similarity </span>
+<span class="sd">            between lemmas. The threshold for similarity depends on the length of </span>
+<span class="sd">            the lemma being compared, to accommodate the sensitivity of `fuzz.ratio` </span>
+<span class="sd">            towards shorter words.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Create an empty dataframe to store the bags of words (lemmas)</span>
+        <span class="n">bow_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="c1"># How many lemmas do we have?</span>
+        <span class="n">num_lemmas</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lemmas</span><span class="p">)</span>
+        <span class="c1"># Iterator</span>
+        <span class="n">iterator</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Step to show the progress every 5%</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_lemmas</span> <span class="o">*</span> <span class="mf">0.05</span><span class="p">)</span>
+
+        <span class="c1"># lemmas is an array that will reduce its size because when an element of lemmas is assigned to a bag of</span>
+        <span class="c1"># words, it will be dropped from the array. When all the lemmas have been assigned to a bag of words,</span>
+        <span class="c1"># lemmas array will be empty.</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">lemmas</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Pick a lemma: lemma i</span>
+                <span class="n">current_lemma</span> <span class="o">=</span> <span class="n">lemmas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1"># Let calculate the distance between the lemma i and the other lemmas</span>
+                <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fuzz</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">current_lemma</span><span class="p">,</span> <span class="n">lemma</span><span class="p">)</span> <span class="k">for</span> <span class="n">lemma</span> <span class="ow">in</span> <span class="n">lemmas</span><span class="p">])</span>
+                <span class="c1"># fuzz.ratio is very sensible to small words so is important to control for this</span>
+                <span class="n">threshold</span> <span class="o">=</span> <span class="mi">88</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_lemma</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="mi">87</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_lemma</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">4</span> <span class="k">else</span> <span class="mi">86</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_lemma</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="k">else</span> <span class="mi">85</span>
+                
+                <span class="c1"># Find the position inside the array of the lemmas that have threshold% coincidence with lemma i</span>
+                <span class="n">similar_lemmas_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">distances</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1"># Create bag_i</span>
+                <span class="n">similar_lemmas</span> <span class="o">=</span> <span class="n">lemmas</span><span class="p">[</span><span class="n">similar_lemmas_idx</span><span class="p">]</span>
+
+                <span class="c1"># Compile the information in a dataframe</span>
+                <span class="n">bag_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+                    <span class="s2">&quot;bow_id&quot;</span><span class="p">:</span> <span class="n">iterator</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;bow_name&quot;</span><span class="p">:</span> <span class="n">similar_lemmas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">&quot;lemma&quot;</span><span class="p">:</span> <span class="n">similar_lemmas</span><span class="p">,</span>
+                    <span class="s2">&quot;similarity&quot;</span><span class="p">:</span> <span class="n">distances</span><span class="p">[</span><span class="n">similar_lemmas_idx</span><span class="p">],</span>
+                    <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="n">threshold</span>
+                <span class="p">})</span>
+
+                <span class="c1"># Delete the words that were already assigned to a bag of words.</span>
+                <span class="c1"># The reason is because the lemma i is near to the lemma j, the opposite is also true.</span>
+                <span class="c1"># And if exists another word k that is near to j, we also expect that the word k also be near to the word i</span>
+                <span class="n">lemmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">lemmas</span><span class="p">,</span> <span class="n">similar_lemmas_idx</span><span class="p">)</span>
+                <span class="c1"># Put the results in the important DataFrame</span>
+                <span class="n">bow_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">bow_df</span><span class="p">,</span> <span class="n">bag_data</span><span class="p">])</span>
+            
+                <span class="c1"># Progress indicator</span>
+                <span class="k">if</span> <span class="n">verbose</span> <span class="ow">and</span> <span class="n">iterator</span> <span class="o">%</span> <span class="n">step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">progress</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lemmas</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_lemmas</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">progress</span><span class="si">}</span><span class="s2">% completed.&quot;</span><span class="p">)</span>
+                        
+                <span class="n">iterator</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+        
+        <span class="k">return</span> <span class="n">bow_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="TextPreprocessor.get_most_common_strings"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.get_most_common_strings">[docs]</a>    <span class="nd">@staticmethod</span>   
+    <span class="k">def</span> <span class="nf">get_most_common_strings</span><span class="p">(</span><span class="n">texts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]],</span> <span class="n">num_strings</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the most common strings in a list of texts. </span>
+<span class="sd">        </span>
+<span class="sd">        This method serves primarily to validate preprocessing steps or to</span>
+<span class="sd">        provide descriptive information about a collection of texts. It can handle</span>
+<span class="sd">        both flat lists of strings and lists of lists of strings.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            texts (List[Union[str, List[str]]]): </span>
+<span class="sd">                A list of texts, each text can be a string or a list of strings.</span>
+<span class="sd">            num_strings (int): </span>
+<span class="sd">                The number of most common strings to be returned.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Tuple[str, int]]: </span>
+<span class="sd">                A list of tuples where each tuple contains a string and its </span>
+<span class="sd">                occurrence count, representing the most common strings in the given texts.</span>
+<span class="sd">        </span>
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; TextPreprocessor.get_most_common_strings([&quot;apple orange&quot;, &quot;apple banana&quot;], 1)</span>
+<span class="sd">            [(&#39;apple&#39;, 2)]</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; TextPreprocessor.get_most_common_strings([[&quot;apple&quot;, &quot;orange&quot;], [&quot;apple&quot;, &quot;banana&quot;]], 1)</span>
+<span class="sd">            [(&#39;apple&#39;, 2)]</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the provided `num_strings` is non-positive or if `texts` is an empty list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">texts</span> <span class="ow">or</span> <span class="n">num_strings</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;texts must be a non-empty list and num_strings must be a positive integer.&quot;</span><span class="p">)</span>
+        
+        <span class="n">word_counts</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># If texts contain sublists, flatten them.</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">):</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">texts</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+        
+        <span class="c1"># Update word counts after splitting each text into words.</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+                <span class="n">word_counts</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="k">return</span> <span class="n">Counter</span><span class="p">(</span><span class="n">word_counts</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">num_strings</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lucas Gómez Tobón, Jose Fernando Barrera.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
