@@ -11,11 +11,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -67,6 +67,7 @@
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/TextPreprocessor.html">TextPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/TextNormalization.html">TextNormalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 
@@ -95,9 +96,9 @@
            <div itemprop="articleBody">
              
   <p>First, you need to import the modules from the package:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tidyX.TextPreprocessor</span> <span class="k">as</span> <span class="nn">tp</span>
-<span class="kn">import</span> <span class="nn">tidyX.WordNormalization</span> <span class="k">as</span> <span class="nn">wn</span>
-<span class="kn">import</span> <span class="nn">tidyX.SpacyVisualizer</span> <span class="k">as</span> <span class="nn">tv</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tidyX</span> <span class="kn">import</span> <span class="n">TextPreprocessor</span> <span class="k">as</span> <span class="n">tp</span>
+<span class="kn">from</span> <span class="nn">tidyX</span> <span class="kn">import</span> <span class="n">TextNormalization</span> <span class="k">as</span> <span class="n">tn</span>
+<span class="kn">from</span> <span class="nn">tidyX</span> <span class="kn">import</span> <span class="n">TextVisualizer</span> <span class="k">as</span> <span class="n">tv</span>
 </pre></div>
 </div>
 <section id="remove-repetitions">
@@ -152,8 +153,7 @@ transformed into ‘happy’. The default value for this parameter is
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before: HAPPPYYYYY GRADUATION TO US!! THANKYOUUUU LORD!!! 🫶🤍
 </pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string_without_repetitions</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_repetitions</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">,</span>
-    <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;P&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string_without_repetitions</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">remove_repetitions</span><span class="p">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">string_example</span><span class="p">,</span><span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;P&quot;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After:&quot;</span><span class="p">,</span> <span class="n">string_without_repetitions</span><span class="p">)</span>
 </pre></div>
 </div>

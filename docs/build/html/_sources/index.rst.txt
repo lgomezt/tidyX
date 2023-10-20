@@ -14,19 +14,23 @@ Language Processing (NLP) tasks like sentiment analysis, topic modeling, and tex
 Features
 ========
 
-- **Remove unwanted characters**: This feature strips tweets of unnecessary clutter such as special characters (`remove_special_characters() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-special-characters>`_), 
+- **Remove unwanted characters**: 
+   This feature strips tweets of unnecessary clutter such as special characters (`remove_special_characters() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-special-characters>`_), 
    emojis and/or accents (`remove_accents(string, delete_emojis = True) <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-accents>`_), 
    URLs (`remove_urls() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-urls>`_, 
    making the text more suitable for ML models. Under the hood, these functions 
    utilize regex patterns to address the issue. This is particularly helpful for beginners working 
    with regex patterns, as well as for experienced users looking for a ready-made pipeline (`preprocess() <https://tidyx.readthedocs.io/en/latest/api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.preprocess>`_) to save time.
-- **Stemming and Lemmatizing**: One of the most crucial steps in preparing text for NLP applications is 
+- **Stemming and Lemmatizing**: 
+   One of the most crucial steps in preparing text for NLP applications is 
    homogenizing words to a common root. This process can be particularly time-consuming for the Spanish language due to the lack of 
    dedicated Python libraries. In this documentation, we've compiled the best models for lemmatization (`spanish_lemmatizer() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#spanish-lemmatizer>`_) 
    and stemming (`spanish_stemmer() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#spanish-stemmer>`_).
-- **Dependency Parsing Visualization**: Incorporates visualization tools that enable the display of 
+- **Dependency Parsing Visualization**: 
+   Incorporates visualization tools that enable the display of 
    dependency parses, facilitating linguistic analysis and feature engineering (`dependency_parse_visualizer_text() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#dependency-parse-visualizer-text>`_)
-- **Other utilities**: As an example, we developed a function to group similar words, addressing the common issue of 
+- **Other utilities**: 
+   As an example, we developed a function to group similar words, addressing the common issue of 
    misspelled words in social media texts. Our aim is to create specific bags of terms to cluster 
    related terms. This is achievable using the `create_bol() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#create-bol>`_ function. Furthermore, to avoid redundant 
    text preprocessing operations like stemming and lemmatizing on identical words across different texts, 
@@ -69,7 +73,7 @@ Here’s how to use the ``preprocess`` method:
 
 .. code-block:: python
 
-   import tidyX.TextPreprocessor as tp
+   from tidyX import TextPreprocessor as tp
 
    # Raw tweet example
    raw_tweet = "RT @user: Check out this link: https://example.com 🌍 #example 😃"
@@ -105,7 +109,7 @@ found in social media data.
 
    import numpy as np
    import pandas as pd
-   import tidyX.TextPreprocessor as tp
+   from tidyX import TextPreprocessor as tp
 
    # Example lemmas
    lemmas = np.array(["running", "runing", "jogging", "joging"])
@@ -122,18 +126,17 @@ The `spanish_lemmatizer() <https://tidyx.readthedocs.io/en/latest/examples/tutor
 model, returning a cleaned and lemmatized version of the input token.
 
 .. code-block:: python
-   import tidyX.WordNormalization as wn
+   from tidyX import TextNormalization as tn
 
-   # Example token
-   token = "están"
+   # Input token to lemmatize
+   token = "corriendo"  # Example token in Spanish
+   print("Original Token:", token)
 
-   # Load Spacy's Spanish language model (you should have this model downloaded)
-   model = spacy.load("es_core_news_sm")
+   # Load spacy's model
+   model = spacy.load('es_core_news_sm')
 
-   # Applying the Spanish Lemmatizer
-   lemmatized_token = wn.spanish_lemmatizer(token, model = model)
-
-   # Printing the lemmatized token
+   # Apply spanish_lemmatizer function to lemmatize the token
+   lemmatized_token = tn.spanish_lemmatizer(token = token, model = model)
    print("Lemmatized Token:", lemmatized_token)
 
 Text Visualization
@@ -145,19 +148,22 @@ The `TextVisualizer` class is integrated within the `tidyX` package, offering vi
 The `dependency_parse_visualizer_text` method visualizes the syntactic dependency parse or named entities within a given document, facilitating a graphical representation that aids in understanding the linguistic annotations and structure of the text.
 
 .. code-block:: python
-   import tidyX.SpacyVisualizer as tv
+   import tidyX.TextVisualizer as tv
 
-   # Example document
-   document = "El gato está en la casa."
+   # Example document in Spanish
+   document = "El perro saltó sobre el gato."
 
-   # Visualizing the dependency parse in a Jupyter environment
-   tv.dependency_parse_visualizer_text(document)
+   # Load spacy's model
+   model = spacy.load('es_core_news_sm')
 
-   # For entity visualization, set style = 'ent'
-   # tv.dependency_parse_visualizer_text(document, style='ent')
+   # Visualizing the dependency parse
+   tv.dependency_parse_visualizer_text(document, model = model, style = 'dep', jupyter = True)
 
-   # For usage outside of Jupyter notebooks, set jupyter = False, and it will return an HTML string.
-   # html = tv.dependency_parse_visualizer_text(document, jupyter = False)
+   # Example document in Spanish
+   document = "El Banco Mundial decidió contactar al gobierno de Argentina para ofrecerle ayuda. Varios países como Estados Unidos, China y Rusia también ofrecieron su ayuda."
+
+   # Visualizing the named entities
+   tv.dependency_parse_visualizer_text(document, model = model, style = 'ent', jupyter = True)
 
 Tutorial
 =========
@@ -174,5 +180,5 @@ In the tutorial below, you will find examples for using each function within our
    :caption: User Documentation:
 
    api/TextPreprocessor
-   api/WordNormalization
+   api/TextNormalization
    api/TextVisualizer

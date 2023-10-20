@@ -64,6 +64,7 @@
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/TextPreprocessor.html">TextPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/TextNormalization.html">TextNormalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api/TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 
@@ -95,6 +96,7 @@
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">import</span> <span class="nn">spacy</span>
 <span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
+<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
 
 <div class="viewcode-block" id="TextVisualizer"><a class="viewcode-back" href="../../api/TextVisualizer.html#tidyX.text_visualizer.TextVisualizer">[docs]</a><span class="k">class</span> <span class="nc">TextVisualizer</span><span class="p">:</span>
 
@@ -102,7 +104,7 @@
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="TextVisualizer.dependency_parse_visualizer_text"><a class="viewcode-back" href="../../api/TextVisualizer.html#tidyX.text_visualizer.TextVisualizer.dependency_parse_visualizer_text">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">dependency_parse_visualizer_text</span><span class="p">(</span><span class="n">document</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;dep&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;es_core_news_sm&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">dependency_parse_visualizer_text</span><span class="p">(</span><span class="n">document</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;dep&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Visualizes the dependency parse or entities of a given document using spaCy&#39;s displacy visualizer.</span>
 <span class="sd">        </span>
@@ -113,19 +115,17 @@
 <span class="sd">        - Ensure the relevant spaCy model is downloaded, using:</span>
 <span class="sd">        </span>
 <span class="sd">        ```sh</span>
-<span class="sd">        python -m spacy download &lt;model_name&gt;</span>
+<span class="sd">        python -m spacy download &quot;es_core_news_sm&quot;</span>
 <span class="sd">        ```</span>
-<span class="sd">        </span>
-<span class="sd">        where &lt;model_name&gt; can be &quot;es_core_news_sm&quot;, &quot;es_core_news_md&quot;, &quot;es_core_news_lg&quot;, or &quot;es_dep_news_trf&quot;.</span>
-<span class="sd">        </span>
+<span class="sd">                </span>
 <span class="sd">        - To visualize entities, use style=&#39;ent&#39;</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            document (str): The text document to be visualized.</span>
+<span class="sd">            model (spacy.language.Language): A Spacy language model object.</span>
 <span class="sd">            style (str, optional): The visualization style (&#39;dep&#39; for dependencies, &#39;ent&#39; for entities). Defaults to &#39;dep&#39;.</span>
 <span class="sd">            jupyter (bool, optional): Whether the visualization is intended for a Jupyter notebook. Defaults to True.</span>
-<span class="sd">            model (str, optional): The spaCy language model to use. Defaults to &#39;es_core_news_sm&#39;.</span>
-<span class="sd">        </span>
+<span class="sd">            </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            Optional[str]: A rendered HTML string representation of the visualization if not in a Jupyter environment; otherwise, None, as the visualization is directly displayed.</span>
 <span class="sd">        </span>
@@ -141,8 +141,7 @@
         <span class="k">if</span> <span class="n">style</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_styles</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid style provided. Available styles are </span><span class="si">{</span><span class="n">valid_styles</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
         
-        <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-        <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">jupyter</span><span class="p">:</span>
             <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

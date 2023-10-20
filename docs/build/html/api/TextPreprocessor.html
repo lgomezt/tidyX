@@ -11,15 +11,15 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="TextVisualizer" href="TextVisualizer.html" />
+    <link rel="next" title="TextNormalization" href="TextNormalization.html" />
     <link rel="prev" title="remove_repetitions" href="../examples/tutorial.html" /> 
 </head>
 
@@ -66,7 +66,29 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">TextPreprocessor</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TextPreprocessor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.create_bol"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.create_bol()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.get_most_common_strings"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.get_most_common_strings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.load_stopwords"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.load_stopwords()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.preprocess"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.preprocess()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_RT"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_RT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_accents"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_accents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_extra_spaces"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_extra_spaces()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_hashtags"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_hashtags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_last_repetition"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_last_repetition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_mentions"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_mentions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_repetitions"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_repetitions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_special_characters"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_special_characters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_urls"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_urls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.remove_words"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.remove_words()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.space_between_emojis"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.space_between_emojis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tidyX.text_preprocessor.TextPreprocessor.unnest_tokens"><code class="docutils literal notranslate"><span class="pre">TextPreprocessor.unnest_tokens()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TextNormalization.html">TextNormalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 
@@ -135,7 +157,7 @@ towards shorter words.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tidyX.text_preprocessor.TextPreprocessor.get_most_common_strings">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_most_common_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_strings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.get_most_common_strings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.get_most_common_strings" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_most_common_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_strings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.get_most_common_strings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.get_most_common_strings" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves the most common strings in a list of texts.</p>
 <p>This method serves primarily to validate preprocessing steps or to
 provide descriptive information about a collection of texts. It can handle
@@ -169,38 +191,70 @@ occurrence count, representing the most common strings in the given texts.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="tidyX.text_preprocessor.TextPreprocessor.load_stopwords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_stopwords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spanish'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.load_stopwords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.load_stopwords" title="Permalink to this definition"></a></dt>
+<dd><p>Load and cache stopwords for a given language.</p>
+<dl>
+<dt>Notes:</dt><dd><p>To utilize this function, the nltk library must be installed and the stopwords dataset downloaded:
+- To install nltk:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nltk</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>To download the stopwords dataset:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">import</span> <span class="pre">nltk</span>
+<span class="pre">nltk.download('stopwords')</span>
+<span class="pre">`</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="tidyX.text_preprocessor.TextPreprocessor.preprocess">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_emojis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['r',</span> <span class="pre">'l',</span> <span class="pre">'n',</span> <span class="pre">'c',</span> <span class="pre">'a',</span> <span class="pre">'e',</span> <span class="pre">'o']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_numbers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.preprocess"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.preprocess" title="Permalink to this definition"></a></dt>
-<dd><p>Preprocesses tweets by applying a series of cleaning functions. The function performs the following steps:</p>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_emojis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['r',</span> <span class="pre">'l',</span> <span class="pre">'n',</span> <span class="pre">'c',</span> <span class="pre">'a',</span> <span class="pre">'e',</span> <span class="pre">'o']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_numbers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_stopwords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_stopwords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'spanish'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.preprocess"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.preprocess" title="Permalink to this definition"></a></dt>
+<dd><p>Preprocesses a string, typically a tweet, by applying a series of cleaning functions. The function performs the following steps:</p>
 <ol class="arabic simple">
-<li><p>Removes the ‘RT’ prefix from retweeted tweets. (remove_RT)</p></li>
-<li><p>Converts the entire string to lowercase. (.lower)</p></li>
-<li><p>Removes all accents and optionally emojis. (remove_accents)</p></li>
-<li><p>Extracts and/or removes all mentions (e.g., &#64;elonmusk). (remove_mentions)</p></li>
-<li><p>Removes URLs. (remove_urls)</p></li>
-<li><p>Removes hashtags. (remove_hashtags)</p></li>
-<li><p>Removes special characters such as !, ?, -, ;, etc. (remove_special_characters)</p></li>
-<li><p>Removes extra spaces between words. (remove_extra_spaces)</p></li>
-<li><p>Removes consecutive repeated characters, with exceptions defined in the <cite>exceptions</cite> parameter. (remove_repetitions and remove_last_repetition)</p></li>
+<li><p>Removes the ‘RT’ prefix from retweeted tweets.</p></li>
+<li><p>Converts the entire string to lowercase.</p></li>
+<li><p>Removes all accents and, if specified, emojis.</p></li>
+<li><p>Optionally extracts and/or removes all mentions (e.g., &#64;elonmusk).</p></li>
+<li><p>Removes URLs.</p></li>
+<li><p>Removes hashtags.</p></li>
+<li><p>Removes special characters such as !, ?, -, ;, etc. while optionally preserving numbers.</p></li>
+<li><p>Removes stopwords if indicated.</p></li>
+<li><p>Removes extra spaces between words.</p></li>
+<li><p>Reduces consecutive repeated characters, with exceptions defined in the <cite>exceptions</cite> parameter.</p></li>
+<li><p>Separate consecutive emojis.</p></li>
 </ol>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="simple">
-<dt>string (str): </dt><dd><p>The raw tweet text.</p>
+<dt>string (str): </dt><dd><p>The raw text.</p>
 </dd>
-<dt>delete_emojis (bool): </dt><dd><p>Whether to remove emojis from the string. Default is True.</p>
+<dt>delete_emojis (bool): </dt><dd><p>If True, removes emojis from the string. Default is True.</p>
 </dd>
-<dt>extract (bool): </dt><dd><p>If True, returns a list of all accounts mentioned in the tweet. Default is True.</p>
+<dt>extract (bool): </dt><dd><p>If True, extracts and returns a list of all mentioned accounts in the text. Default is False.</p>
 </dd>
-<dt>exceptions (list): </dt><dd><p>List of characters allowed to be repeated. Default is [‘r’, ‘l’, ‘n’, ‘c’, ‘a’, ‘e’, ‘o’].</p>
+<dt>exceptions (list): </dt><dd><p>Characters that are allowed to be repeated consecutively. Defaults to [‘r’, ‘l’, ‘n’, ‘c’, ‘a’, ‘e’, ‘o’].</p>
 </dd>
-<dt>allow_numbers (bool): </dt><dd><p>Whether to allow numbers in the string. Default is False.</p>
+<dt>allow_numbers (bool): </dt><dd><p>If True, numbers are preserved in the string. Default is False.</p>
+</dd>
+<dt>remove_stopwords (bool): </dt><dd><p>If True, stopwords are removed based on the specified language. Default is False.</p>
+</dd>
+<dt>language_stopwords (str): </dt><dd><p>The language for which stopwords should be removed. Defaults to “spanish”.</p>
 </dd>
 </dl>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt>str: </dt><dd><p>The cleaned tweet text.</p>
+<dt>str: </dt><dd><p>The cleaned text.</p>
 </dd>
-<dt>mentions (list): </dt><dd><p>If <cite>extract</cite> is True, a list of mentioned accounts is returned.</p>
+<dt>mentions (list): </dt><dd><p>If <cite>extract</cite> is True, this list contains all mentioned accounts in the original text.</p>
 </dd>
 </dl>
 </dd>
@@ -399,23 +453,42 @@ starts with “http” and continues until a space or end of line is encountered
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tidyX.text_preprocessor.TextPreprocessor.remove_words">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bag_of_words</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.remove_words"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.remove_words" title="Permalink to this definition"></a></dt>
-<dd><p>Removes all occurrences of words listed in bag_of_words from the string.</p>
-<p>This function is particularly useful for removing stopwords. Exercise caution 
-with the words listed in bag_of_words: this function performs an exact match, 
-meaning it won’t remove variations of the words not appearing in the bag_of_words.</p>
-<dl class="simple">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bag_of_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_stopwords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'spanish'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.remove_words"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.remove_words" title="Permalink to this definition"></a></dt>
+<dd><p>Removes specified words and optionally stopwords from a string.</p>
+<dl>
 <dt>Args:</dt><dd><dl class="simple">
-<dt>string (str): </dt><dd><p>The input string containing unwanted words.</p>
+<dt>string (str): </dt><dd><p>The input string from which words are to be removed.</p>
 </dd>
-<dt>bag_of_words (list): </dt><dd><p>List of words to be removed from the string.</p>
+<dt>bag_of_words (list, optional): </dt><dd><p>A list of words that should be removed from the string. Defaults to None.</p>
+</dd>
+<dt>remove_stopwords (bool, optional): </dt><dd><p>If True, removes predefined stopwords from the string based on the specified language. Defaults to False.</p>
+</dd>
+<dt>language (str, optional): </dt><dd><p>Language of the stopwords that will be removed if <cite>remove_stopwords</cite> is set to True. Defaults to ‘spanish’.</p>
 </dd>
 </dl>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt>str: </dt><dd><p>The string with unwanted words removed.</p>
+<dt>str: </dt><dd><p>A string with the specified words removed.</p>
 </dd>
 </dl>
+</dd>
+<dt>Notes:</dt><dd><p>To utilize this function, the nltk library must be installed and the stopwords dataset downloaded:
+- To install nltk:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nltk</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>To download the stopwords dataset:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">import</span> <span class="pre">nltk</span>
+<span class="pre">nltk.download('stopwords')</span>
+<span class="pre">`</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -441,22 +514,26 @@ meaning it won’t remove variations of the words not appearing in the bag_of_wo
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tidyX.text_preprocessor.TextPreprocessor.unnest_tokens">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unnest_tokens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.unnest_tokens"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.unnest_tokens" title="Permalink to this definition"></a></dt>
-<dd><p>Flattens a DataFrame by tokenizing a specified column.</p>
-<p>This function takes a pandas DataFrame and a column name to tokenize. 
-Each token becomes a row in the resulting DataFrame. Tokens are separated by spaces.</p>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unnest_tokens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/tidyX/text_preprocessor.html#TextPreprocessor.unnest_tokens"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tidyX.text_preprocessor.TextPreprocessor.unnest_tokens" title="Permalink to this definition"></a></dt>
+<dd><p>Unnests or flattens a DataFrame by tokenizing a specified column.</p>
+<p>Given a pandas DataFrame and a column name, this function splits the specified column on spaces,
+turning each token into a separate row in the resulting DataFrame.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="simple">
-<dt>df (DataFrame): </dt><dd><p>The input DataFrame to be flattened.</p>
+<dt>df (pd.DataFrame): </dt><dd><p>The input DataFrame. Each row is expected to represent a document.</p>
 </dd>
 <dt>input_column (str): </dt><dd><p>The name of the column to tokenize.</p>
 </dd>
-<dt>create_id (bool, optional): </dt><dd><p>If True, adds an “id” column based on the DataFrame’s index. Defaults to True.</p>
+<dt>id_col (str, optional): </dt><dd><p>The name of the column that uniquely identifies each document. If None, 
+an “id” column is added based on the DataFrame’s index. Defaults to None.</p>
+</dd>
+<dt>unique (bool, optional):</dt><dd><p>If True, it will deduplicate tokens and concatenate the IDs where they appear. 
+If False, every token will have a corresponding row. Defaults to False.</p>
 </dd>
 </dl>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt>DataFrame: </dt><dd><p>A DataFrame where each row corresponds to a token.</p>
+<dt>pd.DataFrame: </dt><dd><p>A DataFrame where each row corresponds to a token from the input column.</p>
 </dd>
 </dl>
 </dd>
@@ -472,7 +549,7 @@ Each token becomes a row in the resulting DataFrame. Tokens are separated by spa
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../examples/tutorial.html" class="btn btn-neutral float-left" title="remove_repetitions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="TextVisualizer.html" class="btn btn-neutral float-right" title="TextVisualizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="TextNormalization.html" class="btn btn-neutral float-right" title="TextNormalization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

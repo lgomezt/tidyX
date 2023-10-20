@@ -2,9 +2,9 @@ First, you need to import the modules from the package:
 
 .. code:: ipython3
 
-    import tidyX.TextPreprocessor as tp
-    import tidyX.WordNormalization as wn
-    import tidyX.SpacyVisualizer as tv
+    from tidyX import TextPreprocessor as tp
+    from tidyX import TextNormalization as tn
+    from tidyX import TextVisualizer as tv
 
 ``remove_repetitions``
 -------------------------
@@ -86,8 +86,7 @@ transformed into ‘happy’. The default value for this parameter is
 
 .. code:: ipython3
 
-    string_without_repetitions = tp.remove_repetitions(string = string_example, 
-        exceptions = ["P"])
+    string_without_repetitions = tp.remove_repetitions(string = string_example,exceptions = ["P"])
     print("After:", string_without_repetitions)
 
 

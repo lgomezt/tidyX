@@ -64,6 +64,7 @@
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/TextPreprocessor.html">TextPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/TextNormalization.html">TextNormalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api/TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 
@@ -104,6 +105,7 @@
 <span class="kn">import</span> <span class="nn">tqdm</span>
 <span class="kn">import</span> <span class="nn">emoji</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
 
 <div class="viewcode-block" id="TextPreprocessor"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">TextPreprocessor</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -179,7 +181,10 @@
 <span class="sd">                The processed text with URLs removed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
-        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;http\S+&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="c1"># re.sub(r&quot;http[^ ]+&quot;, &#39;&#39;, string)</span></div>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;http\S+&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="c1"># re.sub(r&quot;http[^ ]+&quot;, &#39;&#39;, string)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">string</span> </div>
 
 <div class="viewcode-block" id="TextPreprocessor.remove_RT"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_RT">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">remove_RT</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -198,7 +203,10 @@
 <span class="sd">                The processed tweet text with the &quot;RT&quot; prefix removed if it appears at the beginning.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
-        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^RT\s+&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="c1"># re.sub(&quot;^RT &quot;, &#39;&#39;, string)</span></div>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^RT\s+&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="c1"># re.sub(&quot;^RT &quot;, &#39;&#39;, string)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">string</span></div>
 
 <div class="viewcode-block" id="TextPreprocessor.remove_accents"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_accents">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">remove_accents</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -219,7 +227,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="k">if</span> <span class="n">delete_emojis</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">unidecode</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">unidecode</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;[àáâãäå]&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
             <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;[èéêë]&quot;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
@@ -229,6 +237,8 @@
             <span class="c1"># Uncomment the next line if you also want to replace &quot;ñ&quot; with &quot;n&quot;</span>
             <span class="c1"># string = re.sub(u&quot;[ñ]&quot;, &#39;n&#39;, string)</span>
             
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">string</span></div>
 
 <div class="viewcode-block" id="TextPreprocessor.remove_hashtags"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_hashtags">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -248,7 +258,10 @@
 <span class="sd">                The processed text with hashtags removed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
-        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;#\w+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span></div>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;#\w+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">string</span></div>
 
 <div class="viewcode-block" id="TextPreprocessor.remove_mentions"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_mentions">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">remove_mentions</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extract</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
@@ -278,6 +291,7 @@
         
         <span class="c1"># Remove mentions</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;@\w+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="c1"># re.sub(&quot;@[^ ]+&quot;, &quot;&quot;, string)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
         
         <span class="k">return</span> <span class="n">string</span><span class="p">,</span> <span class="n">mentions</span></div>
 
@@ -350,92 +364,136 @@
         <span class="k">return</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emoji</span><span class="o">.</span><span class="n">EMOJI_DATA</span> <span class="k">else</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">string</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="TextPreprocessor.preprocess"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.preprocess">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">extract</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> 
-                <span class="n">exceptions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">],</span> <span class="n">allow_numbers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delete_emojis</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">extract</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
+                <span class="n">exceptions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">],</span> <span class="n">allow_numbers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="n">remove_stopwords</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">language_stopwords</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;spanish&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Preprocesses tweets by applying a series of cleaning functions. The function performs the following steps:</span>
+<span class="sd">        Preprocesses a string, typically a tweet, by applying a series of cleaning functions. The function performs the following steps:</span>
 
-<span class="sd">        1. Removes the &#39;RT&#39; prefix from retweeted tweets. (remove_RT)</span>
-<span class="sd">        2. Converts the entire string to lowercase. (.lower)</span>
-<span class="sd">        3. Removes all accents and optionally emojis. (remove_accents)</span>
-<span class="sd">        4. Extracts and/or removes all mentions (e.g., @elonmusk). (remove_mentions)</span>
-<span class="sd">        5. Removes URLs. (remove_urls)</span>
-<span class="sd">        6. Removes hashtags. (remove_hashtags)</span>
-<span class="sd">        7. Removes special characters such as !, ?, -, ;, etc. (remove_special_characters)</span>
-<span class="sd">        8. Removes extra spaces between words. (remove_extra_spaces)</span>
-<span class="sd">        9. Removes consecutive repeated characters, with exceptions defined in the `exceptions` parameter. (remove_repetitions and remove_last_repetition)</span>
-<span class="sd">        </span>
+<span class="sd">        1. Removes the &#39;RT&#39; prefix from retweeted tweets. </span>
+<span class="sd">        2. Converts the entire string to lowercase.</span>
+<span class="sd">        3. Removes all accents and, if specified, emojis.</span>
+<span class="sd">        4. Optionally extracts and/or removes all mentions (e.g., @elonmusk).</span>
+<span class="sd">        5. Removes URLs.</span>
+<span class="sd">        6. Removes hashtags.</span>
+<span class="sd">        7. Removes special characters such as !, ?, -, ;, etc. while optionally preserving numbers.</span>
+<span class="sd">        8. Removes stopwords if indicated.</span>
+<span class="sd">        9. Removes extra spaces between words.</span>
+<span class="sd">        10. Reduces consecutive repeated characters, with exceptions defined in the `exceptions` parameter.</span>
+<span class="sd">        11. Separate consecutive emojis.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            string (str): </span>
-<span class="sd">                The raw tweet text.</span>
+<span class="sd">                The raw text.</span>
 <span class="sd">            delete_emojis (bool): </span>
-<span class="sd">                Whether to remove emojis from the string. Default is True.</span>
+<span class="sd">                If True, removes emojis from the string. Default is True.</span>
 <span class="sd">            extract (bool): </span>
-<span class="sd">                If True, returns a list of all accounts mentioned in the tweet. Default is True.</span>
+<span class="sd">                If True, extracts and returns a list of all mentioned accounts in the text. Default is False.</span>
 <span class="sd">            exceptions (list): </span>
-<span class="sd">                List of characters allowed to be repeated. Default is [&#39;r&#39;, &#39;l&#39;, &#39;n&#39;, &#39;c&#39;, &#39;a&#39;, &#39;e&#39;, &#39;o&#39;].</span>
+<span class="sd">                Characters that are allowed to be repeated consecutively. Defaults to [&#39;r&#39;, &#39;l&#39;, &#39;n&#39;, &#39;c&#39;, &#39;a&#39;, &#39;e&#39;, &#39;o&#39;].</span>
 <span class="sd">            allow_numbers (bool): </span>
-<span class="sd">                Whether to allow numbers in the string. Default is False.</span>
+<span class="sd">                If True, numbers are preserved in the string. Default is False.</span>
+<span class="sd">            remove_stopwords (bool): </span>
+<span class="sd">                If True, stopwords are removed based on the specified language. Default is False.</span>
+<span class="sd">            language_stopwords (str): </span>
+<span class="sd">                The language for which stopwords should be removed. Defaults to &quot;spanish&quot;.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: </span>
-<span class="sd">                The cleaned tweet text.</span>
+<span class="sd">                The cleaned text.</span>
 <span class="sd">            mentions (list): </span>
-<span class="sd">                If `extract` is True, a list of mentioned accounts is returned.</span>
+<span class="sd">                If `extract` is True, this list contains all mentioned accounts in the original text.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># Remove RT at the beginning of the tweets</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_RT</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-        <span class="c1"># Lowercase all characters</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-        <span class="c1"># Remove accents:</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_accents</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">delete_emojis</span> <span class="o">=</span> <span class="n">delete_emojis</span><span class="p">)</span>
-        <span class="c1"># Extract and remove all mentions</span>
-        <span class="n">string</span><span class="p">,</span> <span class="n">mentions</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_mentions</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">extract</span> <span class="o">=</span> <span class="n">extract</span><span class="p">)</span>
-        <span class="c1"># Remove links</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_accents</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">delete_emojis</span><span class="o">=</span><span class="n">delete_emojis</span><span class="p">)</span>
+        <span class="n">string</span><span class="p">,</span> <span class="n">mentions</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_mentions</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">extract</span><span class="o">=</span><span class="n">extract</span><span class="p">)</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_urls</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-        <span class="c1"># Remove hashtags</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_hashtags</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-        <span class="c1"># Remove special characters:</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_special_characters</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">allow_numbers</span> <span class="o">=</span> <span class="n">allow_numbers</span><span class="p">)</span>
-        <span class="c1"># Allow only one space between words</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_special_characters</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">allow_numbers</span><span class="o">=</span><span class="n">allow_numbers</span><span class="p">)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_words</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">bag_of_words</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remove_stopwords</span><span class="o">=</span><span class="n">remove_stopwords</span><span class="p">,</span> 
+                                            <span class="n">language</span><span class="o">=</span><span class="n">language_stopwords</span><span class="p">)</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_extra_spaces</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-        <span class="c1"># Remove repetited characters</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_repetitions</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">exceptions</span> <span class="o">=</span> <span class="n">exceptions</span><span class="p">)</span>
-        <span class="c1"># Remove repetitions in the last charcater</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_repetitions</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">exceptions</span><span class="o">=</span><span class="n">exceptions</span><span class="p">)</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">remove_last_repetition</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">space_between_emojis</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">extract</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">string</span><span class="p">,</span> <span class="n">mentions</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">string</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">mentions</span><span class="p">)</span> <span class="k">if</span> <span class="n">extract</span> <span class="k">else</span> <span class="n">string</span></div>
+        
+    <span class="c1"># Class-level dictionary to cache stopwords for each language</span>
+    <span class="n">STOPWORDS_CACHE</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="TextPreprocessor.load_stopwords"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.load_stopwords">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">load_stopwords</span><span class="p">(</span><span class="n">language</span> <span class="o">=</span> <span class="s1">&#39;spanish&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load and cache stopwords for a given language.</span>
+<span class="sd">        </span>
+<span class="sd">        Notes:</span>
+<span class="sd">            To utilize this function, the nltk library must be installed and the stopwords dataset downloaded:</span>
+<span class="sd">            - To install nltk:</span>
+<span class="sd">                ```</span>
+<span class="sd">                pip install nltk</span>
+<span class="sd">                ```</span>
+<span class="sd">            - To download the stopwords dataset:</span>
+<span class="sd">                ```python</span>
+<span class="sd">                import nltk</span>
+<span class="sd">                nltk.download(&#39;stopwords&#39;)</span>
+<span class="sd">                ```</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">STOPWORDS_CACHE</span><span class="p">:</span>
+            <span class="c1"># Import stopwords</span>
+            <span class="n">stopwords_temp</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+            <span class="c1"># Remove accents</span>
+            <span class="n">stopwords_temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">unidecode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">stopwords_temp</span><span class="p">]</span>
+            <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">STOPWORDS_CACHE</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="n">stopwords_temp</span></div>
+
 
 <div class="viewcode-block" id="TextPreprocessor.remove_words"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_words">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">remove_words</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bag_of_words</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes all occurrences of words listed in bag_of_words from the string.</span>
+    <span class="k">def</span> <span class="nf">remove_words</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bag_of_words</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">remove_stopwords</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;spanish&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes specified words and optionally stopwords from a string.</span>
 <span class="sd">        </span>
-<span class="sd">        This function is particularly useful for removing stopwords. Exercise caution </span>
-<span class="sd">        with the words listed in bag_of_words: this function performs an exact match, </span>
-<span class="sd">        meaning it won&#39;t remove variations of the words not appearing in the bag_of_words.</span>
-
 <span class="sd">        Args:</span>
 <span class="sd">            string (str): </span>
-<span class="sd">                The input string containing unwanted words.</span>
-<span class="sd">            bag_of_words (list): </span>
-<span class="sd">                List of words to be removed from the string.</span>
+<span class="sd">                The input string from which words are to be removed.</span>
+<span class="sd">            bag_of_words (list, optional): </span>
+<span class="sd">                A list of words that should be removed from the string. Defaults to None.</span>
+<span class="sd">            remove_stopwords (bool, optional): </span>
+<span class="sd">                If True, removes predefined stopwords from the string based on the specified language. Defaults to False.</span>
+<span class="sd">            language (str, optional): </span>
+<span class="sd">                Language of the stopwords that will be removed if `remove_stopwords` is set to True. Defaults to &#39;spanish&#39;.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: </span>
-<span class="sd">                The string with unwanted words removed.</span>
+<span class="sd">                A string with the specified words removed.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            To utilize this function, the nltk library must be installed and the stopwords dataset downloaded:</span>
+<span class="sd">            - To install nltk:</span>
+<span class="sd">                ```</span>
+<span class="sd">                pip install nltk</span>
+<span class="sd">                ```</span>
+<span class="sd">            - To download the stopwords dataset:</span>
+<span class="sd">                ```python</span>
+<span class="sd">                import nltk</span>
+<span class="sd">                nltk.download(&#39;stopwords&#39;)</span>
+<span class="sd">                ```</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
-        <span class="c1"># Create a regex pattern to match any word from bag_of_words surrounded by word boundaries</span>
-        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\b(?:</span><span class="si">{}</span><span class="s1">)\b&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">bag_of_words</span><span class="p">))</span> <span class="c1"># r&#39;\b(?:{})\b&#39;.format(&#39;|&#39;.join(bag_of_words))</span>
+        <span class="c1"># If remove_stopwords is True, get the cached stopwords for the specified language</span>
+        <span class="k">if</span> <span class="n">remove_stopwords</span><span class="p">:</span>
+            <span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">load_stopwords</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">bag_of_words</span><span class="p">:</span>
+                <span class="n">bag_of_words</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">bag_of_words</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">TextPreprocessor</span><span class="o">.</span><span class="n">STOPWORDS_CACHE</span><span class="p">[</span><span class="n">language</span><span class="p">])</span>
         
-        <span class="c1"># Note that I&#39;ve used re.escape to ensure that any special characters in your bag of words are treated as </span>
-        <span class="c1"># literals. This is useful in cases where the bag of words contains characters that could be misinterpreted </span>
-        <span class="c1"># as regular expression metacharacters (like ., ?, *, etc.).</span>
-
+        <span class="c1"># Return original string if no bag_of_words is provided</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bag_of_words</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">string</span>
+        
+        <span class="c1"># Create a regex pattern to match any word from bag_of_words surrounded by word boundaries</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\b(?:</span><span class="si">{}</span><span class="s1">)\b&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">bag_of_words</span><span class="p">))</span>
+        
         <span class="c1"># Remove words from the string that match the pattern</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
         
@@ -445,37 +503,51 @@
         <span class="k">return</span> <span class="n">string</span></div>
 
 <div class="viewcode-block" id="TextPreprocessor.unnest_tokens"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.unnest_tokens">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">unnest_tokens</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">input_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">create_id</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flattens a DataFrame by tokenizing a specified column.</span>
+    <span class="k">def</span> <span class="nf">unnest_tokens</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">input_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">id_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">unique</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unnests or flattens a DataFrame by tokenizing a specified column.</span>
 
-<span class="sd">        This function takes a pandas DataFrame and a column name to tokenize. </span>
-<span class="sd">        Each token becomes a row in the resulting DataFrame. Tokens are separated by spaces.</span>
+<span class="sd">        Given a pandas DataFrame and a column name, this function splits the specified column on spaces,</span>
+<span class="sd">        turning each token into a separate row in the resulting DataFrame.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            df (DataFrame): </span>
-<span class="sd">                The input DataFrame to be flattened.</span>
+<span class="sd">            df (pd.DataFrame): </span>
+<span class="sd">                The input DataFrame. Each row is expected to represent a document.</span>
 <span class="sd">            input_column (str): </span>
 <span class="sd">                The name of the column to tokenize.</span>
-<span class="sd">            create_id (bool, optional): </span>
-<span class="sd">                If True, adds an &quot;id&quot; column based on the DataFrame&#39;s index. Defaults to True.</span>
+<span class="sd">            id_col (str, optional): </span>
+<span class="sd">                The name of the column that uniquely identifies each document. If None, </span>
+<span class="sd">                an &quot;id&quot; column is added based on the DataFrame&#39;s index. Defaults to None.</span>
+<span class="sd">            unique (bool, optional):</span>
+<span class="sd">                If True, it will deduplicate tokens and concatenate the IDs where they appear. </span>
+<span class="sd">                If False, every token will have a corresponding row. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            DataFrame: </span>
-<span class="sd">                A DataFrame where each row corresponds to a token.</span>
+<span class="sd">            pd.DataFrame: </span>
+<span class="sd">                A DataFrame where each row corresponds to a token from the input column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
-        <span class="c1"># Reset the index and create an &quot;id&quot; column if create_id is True</span>
-        <span class="k">if</span> <span class="n">create_id</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;id&quot;</span><span class="p">})</span>
+        <span class="c1"># Check if input_column exists in the dataframe</span>
+        <span class="k">if</span> <span class="n">input_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">input_column</span><span class="si">}</span><span class="s2">&#39; is not a column in the provided DataFrame.&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># If id_col is None, create an &quot;id&quot; column based on the DataFrame&#39;s index</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">id_col</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+            <span class="n">id_col</span> <span class="o">=</span> <span class="s2">&quot;id&quot;</span>
         
         <span class="c1"># Tokenize the specified column</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">input_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">input_column</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-        
+        <span class="n">df</span><span class="p">[</span><span class="n">input_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">input_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+
         <span class="c1"># Explode the DataFrame to create one row per token</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="n">input_column</span><span class="p">)</span>
-        
+
+        <span class="c1"># If unique is True, deduplicate tokens and concatenate the IDs where they appear</span>
+        <span class="k">if</span> <span class="n">unique</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">input_column</span><span class="p">)[</span><span class="n">id_col</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
         <span class="k">return</span> <span class="n">df</span></div>
-    
+        
 <div class="viewcode-block" id="TextPreprocessor.create_bol"><a class="viewcode-back" href="../../api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.create_bol">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">create_bol</span><span class="p">(</span><span class="n">lemmas</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -512,7 +584,7 @@
         <span class="c1"># Iterator</span>
         <span class="n">iterator</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1"># Step to show the progress every 5%</span>
-        <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_lemmas</span> <span class="o">*</span> <span class="mf">0.05</span><span class="p">)</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_lemmas</span> <span class="o">*</span> <span class="mf">0.05</span><span class="p">))</span> 
 
         <span class="c1"># lemmas is an array that will reduce its size because when an element of lemmas is assigned to a bag of</span>
         <span class="c1"># words, it will be dropped from the array. When all the lemmas have been assigned to a bag of words,</span>

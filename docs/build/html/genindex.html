@@ -10,11 +10,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -64,7 +64,7 @@
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/TextPreprocessor.html">TextPreprocessor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/WordNormalization.html">WordNormalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/TextNormalization.html">TextNormalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 
@@ -98,13 +98,14 @@
  <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
- | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="C">C</h2>
@@ -131,6 +132,22 @@
   </ul></td>
 </tr></table>
 
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/TextNormalization.html#tidyX.text_normalization.TextNormalization.is_emoji">is_emoji() (tidyX.text_normalization.TextNormalization static method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.load_stopwords">load_stopwords() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -138,11 +155,11 @@
     module
 
       <ul>
+        <li><a href="api/TextNormalization.html#module-tidyX.text_normalization">tidyX.text_normalization</a>
+</li>
         <li><a href="api/TextPreprocessor.html#module-tidyX.text_preprocessor">tidyX.text_preprocessor</a>
 </li>
         <li><a href="api/TextVisualizer.html#module-tidyX.text_visualizer">tidyX.text_visualizer</a>
-</li>
-        <li><a href="api/WordNormalization.html#module-tidyX.word_normalization">tidyX.word_normalization</a>
 </li>
       </ul></li>
   </ul></td>
@@ -191,9 +208,9 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/WordNormalization.html#tidyX.word_normalization.WordNormalization.spanish_lemmatizer">spanish_lemmatizer() (tidyX.word_normalization.WordNormalization static method)</a>
+      <li><a href="api/TextNormalization.html#tidyX.text_normalization.TextNormalization.spanish_lemmatizer">spanish_lemmatizer() (tidyX.text_normalization.TextNormalization static method)</a>
 </li>
-      <li><a href="api/WordNormalization.html#tidyX.word_normalization.WordNormalization.spanish_stemmer">spanish_stemmer() (tidyX.word_normalization.WordNormalization method)</a>
+      <li><a href="api/TextNormalization.html#tidyX.text_normalization.TextNormalization.spanish_stemmer">spanish_stemmer() (tidyX.text_normalization.TextNormalization method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -201,10 +218,21 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/TextNormalization.html#tidyX.text_normalization.TextNormalization">TextNormalization (class in tidyX.text_normalization)</a>
+</li>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor">TextPreprocessor (class in tidyX.text_preprocessor)</a>
 </li>
       <li><a href="api/TextVisualizer.html#tidyX.text_visualizer.TextVisualizer">TextVisualizer (class in tidyX.text_visualizer)</a>
 </li>
+      <li>
+    tidyX.text_normalization
+
+      <ul>
+        <li><a href="api/TextNormalization.html#module-tidyX.text_normalization">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     tidyX.text_preprocessor
 
@@ -212,20 +240,11 @@
         <li><a href="api/TextPreprocessor.html#module-tidyX.text_preprocessor">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     tidyX.text_visualizer
 
       <ul>
         <li><a href="api/TextVisualizer.html#module-tidyX.text_visualizer">module</a>
-</li>
-      </ul></li>
-      <li>
-    tidyX.word_normalization
-
-      <ul>
-        <li><a href="api/WordNormalization.html#module-tidyX.word_normalization">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -235,14 +254,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.unnest_tokens">unnest_tokens() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="W">W</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/WordNormalization.html#tidyX.word_normalization.WordNormalization">WordNormalization (class in tidyX.word_normalization)</a>
 </li>
   </ul></td>
 </tr></table>
