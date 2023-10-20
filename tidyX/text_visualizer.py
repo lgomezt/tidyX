@@ -9,7 +9,7 @@ class TextVisualizer:
         pass
 
     @staticmethod
-    def dependency_parse_visualizer_text(document: str, style: str = 'dep', jupyter: bool = True, model: Language) -> Optional[str]:
+    def dependency_parse_visualizer_text(document: str, model: Language, style: str = 'dep', jupyter: bool = True) -> Optional[str]:
         """
         Visualizes the dependency parse or entities of a given document using spaCy's displacy visualizer.
         
@@ -27,10 +27,10 @@ class TextVisualizer:
         
         Args:
             document (str): The text document to be visualized.
+            model (spacy.language.Language): A Spacy language model object.
             style (str, optional): The visualization style ('dep' for dependencies, 'ent' for entities). Defaults to 'dep'.
             jupyter (bool, optional): Whether the visualization is intended for a Jupyter notebook. Defaults to True.
-            model (spacy.language.Language): A Spacy language model object.
-        
+            
         Returns:
             Optional[str]: A rendered HTML string representation of the visualization if not in a Jupyter environment; otherwise, None, as the visualization is directly displayed.
         
