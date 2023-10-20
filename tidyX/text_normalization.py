@@ -1,6 +1,5 @@
 import spacy
 from typing import List, Union, Tuple
-from spacy.language import Language
 from .text_preprocessor import TextPreprocessor
 from nltk.stem.snowball import SnowballStemmer
 
@@ -10,7 +9,7 @@ class TextNormalization:
         pass
 
     @staticmethod
-    def spanish_lemmatizer(token: str, model: Language) -> str:
+    def spanish_lemmatizer(token: str, model: str = 'es_core_news_sm') -> str:
         """Lemmatizes a given token using Spacy's Spanish language model.
 
         Lemmatization is the process of reducing a word to its base or dictionary form. 
@@ -25,7 +24,7 @@ class TextNormalization:
 
         Args:
             token (str): The token to be lemmatized.
-            model (spacy.language.Language): A Spacy language model object.
+            model (str, optional): The spaCy language model to use. Defaults to 'es_core_news_sm'.
 
         Returns:
             str: The lemmatized version of the token, with accents removed.
@@ -34,14 +33,15 @@ class TextNormalization:
             return token
         
         try:
-            lemma = model(token)[0].lemma_
+            nlp = spacy.load(model)
+            lemma = nlp(token)[0].lemma_
             lemma = TextPreprocessor.remove_accents(lemma)
             return lemma
         except Exception as e:
             print(f"An error occurred: {e}")
             return token
         
-    def spanish_stemmer(self, token: str) -> str:
+    def spanish_stemmer(token: str) -> str:
         """Stems a given token using Snowball stemmer for Spanish.
 
         Stemming is the process of reducing a word to its word stem, often by stripping 
