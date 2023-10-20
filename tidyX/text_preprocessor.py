@@ -363,37 +363,51 @@ class TextPreprocessor:
         return string
 
     @staticmethod
-    def unnest_tokens(df: DataFrame, input_column: str, create_id: bool = True) -> DataFrame:
-        """Flattens a DataFrame by tokenizing a specified column.
+    def unnest_tokens(df: pd.DataFrame, input_column: str, id_col: str = None, unique: bool = False) -> pd.DataFrame:
+        """
+        Unnests or flattens a DataFrame by tokenizing a specified column.
 
-        This function takes a pandas DataFrame and a column name to tokenize. 
-        Each token becomes a row in the resulting DataFrame. Tokens are separated by spaces.
+        Given a pandas DataFrame and a column name, this function splits the specified column on spaces,
+        turning each token into a separate row in the resulting DataFrame.
 
         Args:
-            df (DataFrame): 
-                The input DataFrame to be flattened.
+            df (pd.DataFrame): 
+                The input DataFrame. Each row is expected to represent a document.
             input_column (str): 
                 The name of the column to tokenize.
-            create_id (bool, optional): 
-                If True, adds an "id" column based on the DataFrame's index. Defaults to True.
+            id_col (str, optional): 
+                The name of the column that uniquely identifies each document. If None, 
+                an "id" column is added based on the DataFrame's index. Defaults to None.
+            unique (bool, optional):
+                If True, it will deduplicate tokens and concatenate the IDs where they appear. 
+                If False, every token will have a corresponding row. Defaults to False.
 
         Returns:
-            DataFrame: 
-                A DataFrame where each row corresponds to a token.
+            pd.DataFrame: 
+                A DataFrame where each row corresponds to a token from the input column.
         """
         
-        # Reset the index and create an "id" column if create_id is True
-        if create_id:
-            df = df.reset_index().rename(columns={"index": "id"})
+        # Check if input_column exists in the dataframe
+        if input_column not in df.columns:
+            raise ValueError(f"'{input_column}' is not a column in the provided DataFrame.")
+        
+        # If id_col is None, create an "id" column based on the DataFrame's index
+        if not id_col:
+            df["id"] = df.index
+            id_col = "id"
         
         # Tokenize the specified column
-        df[input_column] = df[input_column].str.split(" ")
-        
+        df[input_column] = df[input_column].astype(str).str.split(" ")
+
         # Explode the DataFrame to create one row per token
         df = df.explode(input_column)
-        
+
+        # If unique is True, deduplicate tokens and concatenate the IDs where they appear
+        if unique:
+            df = df.groupby(input_column)[id_col].agg(lambda x: ", ".join(map(str, x))).reset_index()
+
         return df
-    
+        
     @staticmethod
     def create_bol(lemmas: np.ndarray, verbose: bool = True) -> pd.DataFrame:
         """

@@ -174,5 +174,5 @@ In the tutorial below, you will find examples for using each function within our
    :caption: User Documentation:
 
    api/TextPreprocessor
-   api/WordNormalization
+   api/TextNormalization
    api/TextVisualizer
