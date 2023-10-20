@@ -269,65 +269,62 @@ class TextPreprocessor:
         return TextPreprocessor.remove_extra_spaces(''.join((' ' + c + ' ') if c in emoji.EMOJI_DATA else c for c in string))
 
     @staticmethod
-    def preprocess(string: str, delete_emojis = True, extract = False, 
-                exceptions = ["r", "l", "n", "c", "a", "e", "o"], allow_numbers: bool = False):
+    def preprocess(string: str, delete_emojis: bool = True, extract: bool = False, 
+                exceptions: List[str] = ["r", "l", "n", "c", "a", "e", "o"], allow_numbers: bool = False,
+                remove_stopwords: bool = False, language_stopwords: str = "spanish") -> Union[str, Tuple[str, List[str]]]:
         """
-        Preprocesses tweets by applying a series of cleaning functions. The function performs the following steps:
+        Preprocesses a string, typically a tweet, by applying a series of cleaning functions. The function performs the following steps:
 
-        1. Removes the 'RT' prefix from retweeted tweets. (remove_RT)
-        2. Converts the entire string to lowercase. (.lower)
-        3. Removes all accents and optionally emojis. (remove_accents)
-        4. Extracts and/or removes all mentions (e.g., @elonmusk). (remove_mentions)
-        5. Removes URLs. (remove_urls)
-        6. Removes hashtags. (remove_hashtags)
-        7. Removes special characters such as !, ?, -, ;, etc. (remove_special_characters)
-        8. Removes extra spaces between words. (remove_extra_spaces)
-        9. Removes consecutive repeated characters, with exceptions defined in the `exceptions` parameter. (remove_repetitions and remove_last_repetition)
-        
+        1. Removes the 'RT' prefix from retweeted tweets. 
+        2. Converts the entire string to lowercase.
+        3. Removes all accents and, if specified, emojis.
+        4. Optionally extracts and/or removes all mentions (e.g., @elonmusk).
+        5. Removes URLs.
+        6. Removes hashtags.
+        7. Removes special characters such as !, ?, -, ;, etc. while optionally preserving numbers.
+        8. Removes stopwords if indicated.
+        9. Removes extra spaces between words.
+        10. Reduces consecutive repeated characters, with exceptions defined in the `exceptions` parameter.
+        11. Separate consecutive emojis.
+
         Args:
             string (str): 
-                The raw tweet text.
+                The raw text.
             delete_emojis (bool): 
-                Whether to remove emojis from the string. Default is True.
+                If True, removes emojis from the string. Default is True.
             extract (bool): 
-                If True, returns a list of all accounts mentioned in the tweet. Default is False.
+                If True, extracts and returns a list of all mentioned accounts in the text. Default is False.
             exceptions (list): 
-                List of characters allowed to be repeated. Default is ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
+                Characters that are allowed to be repeated consecutively. Defaults to ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
             allow_numbers (bool): 
-                Whether to allow numbers in the string. Default is False.
+                If True, numbers are preserved in the string. Default is False.
+            remove_stopwords (bool): 
+                If True, stopwords are removed based on the specified language. Default is False.
+            language_stopwords (str): 
+                The language for which stopwords should be removed. Defaults to "spanish".
 
         Returns:
             str: 
-                The cleaned tweet text.
+                The cleaned text.
             mentions (list): 
-                If `extract` is True, a list of mentioned accounts is returned.
+                If `extract` is True, this list contains all mentioned accounts in the original text.
         """
 
-        # Remove RT at the beginning of the tweets
         string = TextPreprocessor.remove_RT(string)
-        # Lowercase all characters
         string = string.lower()
-        # Remove accents:
-        string = TextPreprocessor.remove_accents(string, delete_emojis = delete_emojis)
-        # Extract and remove all mentions
-        string, mentions = TextPreprocessor.remove_mentions(string, extract = extract)
-        # Remove links
+        string = TextPreprocessor.remove_accents(string, delete_emojis=delete_emojis)
+        string, mentions = TextPreprocessor.remove_mentions(string, extract=extract)
         string = TextPreprocessor.remove_urls(string)
-        # Remove hashtags
         string = TextPreprocessor.remove_hashtags(string)
-        # Remove special characters:
-        string = TextPreprocessor.remove_special_characters(string, allow_numbers = allow_numbers)
-        # Allow only one space between words
+        string = TextPreprocessor.remove_special_characters(string, allow_numbers=allow_numbers)
+        string = TextPreprocessor.remove_words(string, bag_of_words=None, remove_stopwords=remove_stopwords, 
+                                            language=language_stopwords)
         string = TextPreprocessor.remove_extra_spaces(string)
-        # Remove repetited characters
-        string = TextPreprocessor.remove_repetitions(string, exceptions = exceptions)
-        # Remove repetitions in the last charcater
+        string = TextPreprocessor.remove_repetitions(string, exceptions=exceptions)
         string = TextPreprocessor.remove_last_repetition(string)
+        string = TextPreprocessor.space_between_emojis(string)
 
-        if extract:
-            return string, mentions
-        else:
-            return string
+        return (string, mentions) if extract else string
         
     # Class-level dictionary to cache stopwords for each language
     STOPWORDS_CACHE = {}
@@ -350,7 +347,11 @@ class TextPreprocessor:
                 ```
         """
         if language not in TextPreprocessor.STOPWORDS_CACHE:
-            TextPreprocessor.STOPWORDS_CACHE[language] = stopwords.words(language)
+            # Import stopwords
+            stopwords_temp = stopwords.words(language)
+            # Remove accents
+            stopwords_temp = [unidecode(i) for i in stopwords_temp]
+            TextPreprocessor.STOPWORDS_CACHE[language] = stopwords_temp
 
 
     @staticmethod
@@ -383,7 +384,6 @@ class TextPreprocessor:
                 nltk.download('stopwords')
                 ```
         """
-
         
         # If remove_stopwords is True, get the cached stopwords for the specified language
         if remove_stopwords:
