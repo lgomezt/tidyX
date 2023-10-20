@@ -3,11 +3,17 @@ from typing import List, Union, Tuple
 from spacy.language import Language
 from .text_preprocessor import TextPreprocessor
 from nltk.stem.snowball import SnowballStemmer
+import emoji
 
 class TextNormalization:
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def is_emoji(s: str) -> bool:
+        """Check if a given string is an emoji."""
+        return s in emoji.EMOJI_DATA
 
     @staticmethod
     def spanish_lemmatizer(token: str, model: Language) -> str:
@@ -30,7 +36,8 @@ class TextNormalization:
         Returns:
             str: The lemmatized version of the token, with accents removed.
         """
-        if not token:
+        
+        if not token or TextNormalization.is_emoji(token):
             return token
         
         try:
@@ -58,7 +65,8 @@ class TextNormalization:
         Returns:
             str: The stemmed version of the token.
         """
-        if not token:
+        
+        if not token or TextNormalization.is_emoji(token):
             return token
 
         stemmer = SnowballStemmer("spanish")

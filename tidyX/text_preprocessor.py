@@ -10,6 +10,7 @@ from thefuzz import fuzz
 import tqdm
 import emoji
 from collections import defaultdict, Counter
+from nltk.corpus import stopwords
 
 class TextPreprocessor:
     def __init__(self):
@@ -268,7 +269,7 @@ class TextPreprocessor:
         return TextPreprocessor.remove_extra_spaces(''.join((' ' + c + ' ') if c in emoji.EMOJI_DATA else c for c in string))
 
     @staticmethod
-    def preprocess(string: str, delete_emojis = True, extract = True, 
+    def preprocess(string: str, delete_emojis = True, extract = False, 
                 exceptions = ["r", "l", "n", "c", "a", "e", "o"], allow_numbers: bool = False):
         """
         Preprocesses tweets by applying a series of cleaning functions. The function performs the following steps:
@@ -289,7 +290,7 @@ class TextPreprocessor:
             delete_emojis (bool): 
                 Whether to remove emojis from the string. Default is True.
             extract (bool): 
-                If True, returns a list of all accounts mentioned in the tweet. Default is True.
+                If True, returns a list of all accounts mentioned in the tweet. Default is False.
             exceptions (list): 
                 List of characters allowed to be repeated. Default is ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
             allow_numbers (bool): 
@@ -327,33 +328,77 @@ class TextPreprocessor:
             return string, mentions
         else:
             return string
+        
+    # Class-level dictionary to cache stopwords for each language
+    STOPWORDS_CACHE = {}
 
     @staticmethod
-    def remove_words(string: str, bag_of_words) -> str:
-        """Removes all occurrences of words listed in bag_of_words from the string.
+    def load_stopwords(language = 'spanish'):
+        """
+        Load and cache stopwords for a given language.
         
-        This function is particularly useful for removing stopwords. Exercise caution 
-        with the words listed in bag_of_words: this function performs an exact match, 
-        meaning it won't remove variations of the words not appearing in the bag_of_words.
+        Notes:
+            To utilize this function, the nltk library must be installed and the stopwords dataset downloaded:
+            - To install nltk:
+                ```
+                pip install nltk
+                ```
+            - To download the stopwords dataset:
+                ```python
+                import nltk
+                nltk.download('stopwords')
+                ```
+        """
+        if language not in TextPreprocessor.STOPWORDS_CACHE:
+            TextPreprocessor.STOPWORDS_CACHE[language] = stopwords.words(language)
 
+
+    @staticmethod
+    def remove_words(string: str, bag_of_words: list = None, remove_stopwords: bool = False, language: str = 'spanish') -> str:
+        """Removes specified words and optionally stopwords from a string.
+        
         Args:
             string (str): 
-                The input string containing unwanted words.
-            bag_of_words (list): 
-                List of words to be removed from the string.
+                The input string from which words are to be removed.
+            bag_of_words (list, optional): 
+                A list of words that should be removed from the string. Defaults to None.
+            remove_stopwords (bool, optional): 
+                If True, removes predefined stopwords from the string based on the specified language. Defaults to False.
+            language (str, optional): 
+                Language of the stopwords that will be removed if `remove_stopwords` is set to True. Defaults to 'spanish'.
 
         Returns:
             str: 
-                The string with unwanted words removed.
+                A string with the specified words removed.
+
+        Notes:
+            To utilize this function, the nltk library must be installed and the stopwords dataset downloaded:
+            - To install nltk:
+                ```
+                pip install nltk
+                ```
+            - To download the stopwords dataset:
+                ```python
+                import nltk
+                nltk.download('stopwords')
+                ```
         """
+
+        
+        # If remove_stopwords is True, get the cached stopwords for the specified language
+        if remove_stopwords:
+            TextPreprocessor.load_stopwords(language)
+            if not bag_of_words:
+                bag_of_words = []
+            bag_of_words.extend(TextPreprocessor.STOPWORDS_CACHE[language])
+        
+        # Return original string if no bag_of_words is provided
+        if not bag_of_words:
+            return string
         
         # Create a regex pattern to match any word from bag_of_words surrounded by word boundaries
-        pattern = r'\b(?:{})\b'.format('|'.join(re.escape(word) for word in bag_of_words)) # r'\b(?:{})\b'.format('|'.join(bag_of_words))
+        pattern = r'\b(?:{})\b'.format('|'.join(re.escape(word) for word in bag_of_words))
         
-        # Note that I've used re.escape to ensure that any special characters in your bag of words are treated as 
-        # literals. This is useful in cases where the bag of words contains characters that could be misinterpreted 
-        # as regular expression metacharacters (like ., ?, *, etc.).
-
         # Remove words from the string that match the pattern
         string = re.sub(pattern, '', string)
         
