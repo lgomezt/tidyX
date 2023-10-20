@@ -1,5 +1,5 @@
 import unittest
-from tidyX import TextVisualizer
+from tidyX.text_visualizer import TextVisualizer
 
 class TestTextVisualizer(unittest.TestCase):
 

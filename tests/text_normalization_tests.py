@@ -1,5 +1,5 @@
 import unittest
-from tidyX import TextNormalization
+from tidyX.text_normalization import TextNormalization
 import spacy
 
 class TestTextNormalization(unittest.TestCase):
