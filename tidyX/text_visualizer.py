@@ -1,6 +1,7 @@
 from typing import Optional
 import spacy
 from spacy import displacy
+from spacy.language import Language
 
 class TextVisualizer:
 
@@ -8,7 +9,7 @@ class TextVisualizer:
         pass
 
     @staticmethod
-    def dependency_parse_visualizer_text(document: str, style: str = 'dep', jupyter: bool = True, model: str = 'es_core_news_sm') -> Optional[str]:
+    def dependency_parse_visualizer_text(document: str, style: str = 'dep', jupyter: bool = True, model: Language) -> Optional[str]:
         """
         Visualizes the dependency parse or entities of a given document using spaCy's displacy visualizer.
         
@@ -28,7 +29,7 @@ class TextVisualizer:
             document (str): The text document to be visualized.
             style (str, optional): The visualization style ('dep' for dependencies, 'ent' for entities). Defaults to 'dep'.
             jupyter (bool, optional): Whether the visualization is intended for a Jupyter notebook. Defaults to True.
-            model (str, optional): The spaCy language model to use. Defaults to 'es_core_news_sm'.
+            model (spacy.language.Language): A Spacy language model object.
         
         Returns:
             Optional[str]: A rendered HTML string representation of the visualization if not in a Jupyter environment; otherwise, None, as the visualization is directly displayed.
@@ -45,8 +46,7 @@ class TextVisualizer:
         if style not in valid_styles:
             raise ValueError(f"Invalid style provided. Available styles are {valid_styles}.")
         
-        nlp = spacy.load(model)
-        doc = nlp(document)
+        doc = model(document)
         
         if jupyter:
             displacy.render(doc, style=style, jupyter=True)

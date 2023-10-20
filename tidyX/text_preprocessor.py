@@ -85,7 +85,10 @@ class TextPreprocessor:
                 The processed text with URLs removed.
         """
         
-        return re.sub(r"http\S+", '', string) # re.sub(r"http[^ ]+", '', string)
+        string = re.sub(r"http\S+", '', string) # re.sub(r"http[^ ]+", '', string)
+        string = TextPreprocessor.remove_extra_spaces(string)
+
+        return string 
 
     @staticmethod
     def remove_RT(string: str) -> str:
@@ -104,7 +107,10 @@ class TextPreprocessor:
                 The processed tweet text with the "RT" prefix removed if it appears at the beginning.
         """
         
-        return re.sub(r"^RT\s+", '', string) # re.sub("^RT ", '', string)
+        string = re.sub(r"^RT\s+", '', string) # re.sub("^RT ", '', string)
+        string = TextPreprocessor.remove_extra_spaces(string)
+
+        return string
 
     @staticmethod
     def remove_accents(string: str, delete_emojis = True) -> str:
@@ -134,7 +140,8 @@ class TextPreprocessor:
             string = re.sub(u"[ùúûü]", 'u', string)
             # Uncomment the next line if you also want to replace "ñ" with "n"
             # string = re.sub(u"[ñ]", 'n', string)
-            
+            string = TextPreprocessor.remove_extra_spaces(string)
+
         return string
 
     @staticmethod
@@ -154,7 +161,10 @@ class TextPreprocessor:
                 The processed text with hashtags removed.
         """
         
-        return re.sub(r'#\w+', '', string)
+        string = re.sub(r'#\w+', '', string)
+        string = TextPreprocessor.remove_extra_spaces(string)
+
+        return string
 
     @staticmethod
     def remove_mentions(string: str, extract = True):
@@ -184,6 +194,7 @@ class TextPreprocessor:
         
         # Remove mentions
         string = re.sub(r"@\w+", "", string) # re.sub("@[^ ]+", "", string)
+        string = TextPreprocessor.remove_extra_spaces(string)
         
         return string, mentions
 
