@@ -131,7 +131,7 @@ class TextPreprocessor:
         """
         
         if delete_emojis:
-            return unidecode(string)
+            string = unidecode(string)
         else:
             string = re.sub(u"[àáâãäå]", 'a', string)
             string = re.sub(u"[èéêë]", 'e', string)
@@ -140,7 +140,8 @@ class TextPreprocessor:
             string = re.sub(u"[ùúûü]", 'u', string)
             # Uncomment the next line if you also want to replace "ñ" with "n"
             # string = re.sub(u"[ñ]", 'n', string)
-            string = TextPreprocessor.remove_extra_spaces(string)
+            
+        string = TextPreprocessor.remove_extra_spaces(string)
 
         return string
 
@@ -429,7 +430,7 @@ class TextPreprocessor:
         # Iterator
         iterator = 0
         # Step to show the progress every 5%
-        step = int(num_lemmas * 0.05)
+        step = max(1, int(num_lemmas * 0.05)) 
 
         # lemmas is an array that will reduce its size because when an element of lemmas is assigned to a bag of
         # words, it will be dropped from the array. When all the lemmas have been assigned to a bag of words,
