@@ -3,7 +3,7 @@ First, you need to import the modules from the package:
 .. code:: ipython3
 
     import tidyX.TextPreprocessor as tp
-    import tidyX.SpacyPreprocessor as sp
+    import tidyX.WordNormalization as wn
     import tidyX.SpacyVisualizer as tv
 
 ``remove_repetitions``
@@ -70,7 +70,7 @@ transformed into ‘happy’. The default value for this parameter is
 .. raw:: html
 
     <center>
-    <img src="remove_repetitions2.png" alt="remove_repetitions2" height=300px />
+    <img src="https://raw.githubusercontent.com/lgomezt/tidyX/main/docs/source/examples/remove_repetitions2.png" alt="remove_repetitions2" height=300px />
     </center>
 
 
@@ -274,7 +274,7 @@ text, let’s process a Spanish common example:
 .. raw:: html
 
     <center>
-    <img src="remove_accents.png" alt="remove_accents" height=300px />
+    <img src="https://raw.githubusercontent.com/lgomezt/tidyX/main/docs/source/examples/remove_accents.png" alt="remove_accents" height=300px />
     </center>
 
 

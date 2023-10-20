@@ -64,7 +64,7 @@
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/TextPreprocessor.html">TextPreprocessor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/SpacyPreprocessor.html">SpacyPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/WordNormalization.html">WordNormalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 
@@ -98,13 +98,13 @@
  <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#G"><strong>G</strong></a>
- | <a href="#I"><strong>I</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="C">C</h2>
@@ -131,14 +131,6 @@
   </ul></td>
 </tr></table>
 
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/SpacyPreprocessor.html#tidyX.spacy_preprocessor.SpacyPreprocessor.is_component_registered">is_component_registered() (tidyX.spacy_preprocessor.SpacyPreprocessor method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -146,11 +138,11 @@
     module
 
       <ul>
-        <li><a href="api/SpacyPreprocessor.html#module-tidyX.spacy_preprocessor">tidyX.spacy_preprocessor</a>
-</li>
         <li><a href="api/TextPreprocessor.html#module-tidyX.text_preprocessor">tidyX.text_preprocessor</a>
 </li>
         <li><a href="api/TextVisualizer.html#module-tidyX.text_visualizer">tidyX.text_visualizer</a>
+</li>
+        <li><a href="api/WordNormalization.html#module-tidyX.word_normalization">tidyX.word_normalization</a>
 </li>
       </ul></li>
   </ul></td>
@@ -167,8 +159,6 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/SpacyPreprocessor.html#tidyX.spacy_preprocessor.SpacyPreprocessor.register_component">register_component() (tidyX.spacy_preprocessor.SpacyPreprocessor method)</a>
-</li>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_accents">remove_accents() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
 </li>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_extra_spaces">remove_extra_spaces() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
@@ -177,10 +167,10 @@
 </li>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_last_repetition">remove_last_repetition() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_mentions">remove_mentions() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_repetitions">remove_repetitions() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
 </li>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_RT">remove_RT() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
@@ -199,13 +189,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.space_between_emojis">space_between_emojis() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
 </li>
-      <li><a href="api/SpacyPreprocessor.html#tidyX.spacy_preprocessor.SpacyPreprocessor.spacy_pipeline">spacy_pipeline() (tidyX.spacy_preprocessor.SpacyPreprocessor static method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/SpacyPreprocessor.html#tidyX.spacy_preprocessor.SpacyPreprocessor">SpacyPreprocessor (class in tidyX.spacy_preprocessor)</a>
+      <li><a href="api/WordNormalization.html#tidyX.word_normalization.WordNormalization.spanish_lemmatizer">spanish_lemmatizer() (tidyX.word_normalization.WordNormalization static method)</a>
 </li>
-      <li><a href="api/SpacyPreprocessor.html#tidyX.spacy_preprocessor.SpacyPreprocessor.spanish_lemmatizer">spanish_lemmatizer() (tidyX.spacy_preprocessor.SpacyPreprocessor static method)</a>
+      <li><a href="api/WordNormalization.html#tidyX.word_normalization.WordNormalization.spanish_stemmer">spanish_stemmer() (tidyX.word_normalization.WordNormalization method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -218,26 +206,26 @@
       <li><a href="api/TextVisualizer.html#tidyX.text_visualizer.TextVisualizer">TextVisualizer (class in tidyX.text_visualizer)</a>
 </li>
       <li>
-    tidyX.spacy_preprocessor
-
-      <ul>
-        <li><a href="api/SpacyPreprocessor.html#module-tidyX.spacy_preprocessor">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
     tidyX.text_preprocessor
 
       <ul>
         <li><a href="api/TextPreprocessor.html#module-tidyX.text_preprocessor">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     tidyX.text_visualizer
 
       <ul>
         <li><a href="api/TextVisualizer.html#module-tidyX.text_visualizer">module</a>
+</li>
+      </ul></li>
+      <li>
+    tidyX.word_normalization
+
+      <ul>
+        <li><a href="api/WordNormalization.html#module-tidyX.word_normalization">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -247,6 +235,14 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.unnest_tokens">unnest_tokens() (tidyX.text_preprocessor.TextPreprocessor static method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/WordNormalization.html#tidyX.word_normalization.WordNormalization">WordNormalization (class in tidyX.word_normalization)</a>
 </li>
   </ul></td>
 </tr></table>

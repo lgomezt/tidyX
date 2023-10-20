@@ -67,7 +67,6 @@
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/TextPreprocessor.html">TextPreprocessor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/SpacyPreprocessor.html">SpacyPreprocessor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 
@@ -97,7 +96,7 @@
              
   <p>First, you need to import the modules from the package:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tidyX.TextPreprocessor</span> <span class="k">as</span> <span class="nn">tp</span>
-<span class="kn">import</span> <span class="nn">tidyX.SpacyPreprocessor</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">tidyX.WordNormalization</span> <span class="k">as</span> <span class="nn">wn</span>
 <span class="kn">import</span> <span class="nn">tidyX.SpacyVisualizer</span> <span class="k">as</span> <span class="nn">tv</span>
 </pre></div>
 </div>
@@ -145,7 +144,7 @@ permitted to appear twice. For instance, if we set
 transformed into ‘happy’. The default value for this parameter is
 <code class="docutils literal notranslate"><span class="pre">['r',</span> <span class="pre">'l',</span> <span class="pre">'n',</span> <span class="pre">'c',</span> <span class="pre">'a',</span> <span class="pre">'e',</span> <span class="pre">'o']</span></code>. Let’s see another example:</p>
 <center>
-<img src="remove_repetitions2.png" alt="remove_repetitions2" height=300px />
+<img src="https://raw.githubusercontent.com/lgomezt/tidyX/main/docs/source/examples/remove_repetitions2.png" alt="remove_repetitions2" height=300px />
 </center><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;HAPPPYYYYY GRADUATION TO US!! THANKYOUUUU LORD!!! 🫶🤍&quot;</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>
 </pre></div>
@@ -300,7 +299,7 @@ accents or emojis.</p>
 <p>This method is flexible over the total number of followed emojis on a
 text, let’s process a Spanish common example:</p>
 <center>
-<img src="remove_accents.png" alt="remove_accents" height=300px />
+<img src="https://raw.githubusercontent.com/lgomezt/tidyX/main/docs/source/examples/remove_accents.png" alt="remove_accents" height=300px />
 </center><div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original text with accents and emojis</span>
 <span class="n">string_example</span> <span class="o">=</span> <span class="s2">&quot;‼️ La función de traductor no funciona así que este tweet es solo para nuestros seguidores hispanohablantes, siempre van a ser nuestros favoritos y ahora vamos a poner emojis tristes para que los que no hablan español se preocupen 😭  y también esta foto fuera de contexto 😔💔&quot;</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before:&quot;</span><span class="p">,</span> <span class="n">string_example</span><span class="p">)</span>

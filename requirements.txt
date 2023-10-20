@@ -8,13 +8,4 @@ spacy_spanish_lemmatizer==0.7
 thefuzz==0.20.0
 tqdm==4.64.1  
 Unidecode==1.3.6
-spacy_spanish_lemmatizer==0.7
-# fastapi>=0.69.0,<0.89.0  # added to resolve lightning dependency
-# starlette  # added to resolve lightning dependency
-# uvicorn<2.0  # added to resolve lightning dependency
-# Cython>=0.29.21  # added to resolve tables dependency, incompatible versions excluded
-# blosc2~=2.0.0  # added to resolve tables dependency
-# bokeh==3.*  # upgraded due to jupyter-bokeh
-# scikit-learn<1.2,>=0.24  # downgraded due to pytorch-forecasting
-# torch==1.13.0  # downgraded due to torchvision
-# matplotlib<3.7,>=3.2  # downgraded due to ydata-profiling
+nltk

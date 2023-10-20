@@ -66,7 +66,7 @@
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/TextPreprocessor.html">TextPreprocessor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/SpacyPreprocessor.html">SpacyPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/WordNormalization.html">WordNormalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 
@@ -96,16 +96,124 @@
              
   <section id="welcome-to-tidyx-s-documentation">
 <h1>Welcome to tidyX’s documentation!<a class="headerlink" href="#welcome-to-tidyx-s-documentation" title="Permalink to this heading"></a></h1>
-<p>tidyX is a Python package developed to provide various utilities for text preprocessing and visualization. It leverages spaCy for several natural language processing tasks and provides a seamless interface for users to interact with and visualize text data.</p>
+<p><cite>tidyX</cite> is a dedicated Python package designed for cleaning and preprocessing raw tweets and
+other text. It prepares them for Machine Learning (ML) applications, especially in Natural
+Language Processing (NLP) tasks like sentiment analysis, topic modeling, and text classification.</p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Remove unwanted characters</strong>: This feature strips tweets of unnecessary clutter such as special characters (<a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-special-characters">remove_special_characters()</a>),</dt><dd><p>emojis and/or accents (<a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-accents">remove_accents(string, delete_emojis = True)</a>),
+URLs (<a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-urls">remove_urls()</a>,
+making the text more suitable for ML models. Under the hood, these functions
+utilize regex patterns to address the issue. This is particularly helpful for beginners working
+with regex patterns, as well as for experienced users looking for a ready-made pipeline (<a class="reference external" href="https://tidyx.readthedocs.io/en/latest/api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.preprocess">preprocess()</a>) to save time.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Stemming and Lemmatizing</strong>: One of the most crucial steps in preparing text for NLP applications is</dt><dd><p>homogenizing words to a common root. This process can be particularly time-consuming for the Spanish language due to the lack of
+dedicated Python libraries. In this documentation, we’ve compiled the best models for lemmatization (<a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#spanish-lemmatizer">spanish_lemmatizer()</a>)
+and stemming (<a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#spanish-stemmer">spanish_stemmer()</a>).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Dependency Parsing Visualization</strong>: Incorporates visualization tools that enable the display of</dt><dd><p>dependency parses, facilitating linguistic analysis and feature engineering (<a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#dependency-parse-visualizer-text">dependency_parse_visualizer_text()</a>)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Other utilities</strong>: As an example, we developed a function to group similar words, addressing the common issue of</dt><dd><p>misspelled words in social media texts. Our aim is to create specific bags of terms to cluster
+related terms. This is achievable using the <a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#create-bol">create_bol()</a> function. Furthermore, to avoid redundant
+text preprocessing operations like stemming and lemmatizing on identical words across different texts,
+we introduced <a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#unnest-tokens">unnest_tokens()</a>. This function generates a dataframe mapping unique terms
+to an ID for each text. Our tutorial provides guidance on leveraging this function efficiently.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>For a more comprehensive explanation of all functions and a list of examples, visit the
+<a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html">“HOW TO USE THE PACKAGE”</a> section on our website.</p>
+</section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
-<p>To install tidyX, you can use pip. Run the following command in your terminal or command prompt:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>tidyX
+<p>Install the package using pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>tidyX
+</pre></div>
+</div>
+<p>Ensure that you have the necessary dependencies, such as <cite>spaCy</cite> and the corresponding language models:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>spacy<span class="w"> </span>download<span class="w"> </span>en_core_web_sm<span class="w">  </span><span class="c1"># or another language model</span>
 </pre></div>
 </div>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>Here are some basic examples demonstrating how to use <code class="docutils literal notranslate"><span class="pre">tidyX</span></code>:</p>
+<section id="text-preprocessing">
+<h3>Text Preprocessing<a class="headerlink" href="#text-preprocessing" title="Permalink to this heading"></a></h3>
+<p>The <a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#preprocess">preprocess()</a> function
+is a powerful tool that performs a comprehensive cleaning and preprocessing of tweet texts to prepare
+them for further analysis or machine learning tasks. It is designed to be highly configurable,
+allowing you to choose which preprocessing steps to apply.</p>
+<p>Here’s how to use the <code class="docutils literal notranslate"><span class="pre">preprocess</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tidyX.TextPreprocessor</span> <span class="k">as</span> <span class="nn">tp</span>
+
+<span class="c1"># Raw tweet example</span>
+<span class="n">raw_tweet</span> <span class="o">=</span> <span class="s2">&quot;RT @user: Check out this link: https://example.com 🌍 #example 😃&quot;</span>
+
+<span class="c1"># Applying the preprocess method</span>
+<span class="n">cleaned_text</span><span class="p">,</span> <span class="n">mentions</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">raw_tweet</span><span class="p">)</span>
+
+<span class="c1"># Printing the cleaned text and extracted mentions</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cleaned Text:&quot;</span><span class="p">,</span> <span class="n">cleaned_text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mentions:&quot;</span><span class="p">,</span> <span class="n">mentions</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, the <code class="docutils literal notranslate"><span class="pre">preprocess</span></code> method is applied to a raw tweet. The method:
+- Removes the ‘RT’ prefix from retweeted tweets
+- Converts the text to lowercase
+- Removes accents and emojis (configurable)
+- Extracts and removes mentions, returning them as a list if required
+- Removes URLs, hashtags, and special characters
+- Eliminates extra spaces and consecutive repeated characters (with configurable exceptions)</p>
+<p>This versatile method allows for a tailored preprocessing approach, adapting to the specific needs
+of your text analysis or NLP tasks.</p>
+</section>
+<section id="bag-of-lemmas-bol-creation">
+<h3>Bag of Lemmas (BoL) Creation<a class="headerlink" href="#bag-of-lemmas-bol-creation" title="Permalink to this heading"></a></h3>
+<p>The <a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#create-bol">create_bol()</a> function creates “bags” that group similar lemmas together by calculating the
+Levenshtein distance between words. This allows for the grouping of words that are likely variations
+or misspellings of one another. This is especially useful for managing the misspelled words often
+found in social media data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">tidyX.TextPreprocessor</span> <span class="k">as</span> <span class="nn">tp</span>
+
+<span class="c1"># Example lemmas</span>
+<span class="n">lemmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;running&quot;</span><span class="p">,</span> <span class="s2">&quot;runing&quot;</span><span class="p">,</span> <span class="s2">&quot;jogging&quot;</span><span class="p">,</span> <span class="s2">&quot;joging&quot;</span><span class="p">])</span>
+
+<span class="c1"># Creating bags of lemmas</span>
+<span class="n">bol_df</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">create_bol</span><span class="p">(</span><span class="n">lemmas</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">bol_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Spanish Lemmatizer<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<p>The <a class="reference external" href="https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#spanish-lemmatizer">spanish_lemmatizer()</a> static method is used for lemmatizing Spanish tokens using a SpaCy language
+model, returning a cleaned and lemmatized version of the input token.</p>
+</section>
+<section id="text-visualization">
+<h3>Text Visualization<a class="headerlink" href="#text-visualization" title="Permalink to this heading"></a></h3>
+<p>The <cite>TextVisualizer</cite> class is integrated within the <cite>tidyX</cite> package, offering visualization capabilities for dependency parsing and named entities in textual data, leveraging the spaCy library’s <cite>displacy</cite> visualizer.</p>
+<p>#### <strong>Dependency Parse Visualizer</strong></p>
+<p>The <cite>dependency_parse_visualizer_text</cite> method visualizes the syntactic dependency parse or named entities within a given document, facilitating a graphical representation that aids in understanding the linguistic annotations and structure of the text.</p>
+</section>
+</section>
+<section id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading"></a></h2>
 <p>In the tutorial below, you will find examples for using each function within our package. Additionally, there’s a tutorial on Topic Modelling utilizing this package.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">How to use this package?:</span></p>
@@ -135,7 +243,7 @@
 <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/TextPreprocessor.html">TextPreprocessor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/SpacyPreprocessor.html">SpacyPreprocessor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/WordNormalization.html">WordNormalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/TextVisualizer.html">TextVisualizer</a></li>
 </ul>
 </div>

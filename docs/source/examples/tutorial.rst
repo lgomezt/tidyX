@@ -3,7 +3,7 @@ First, you need to import the modules from the package:
 .. code:: ipython3
 
     import tidyX.TextPreprocessor as tp
-    import tidyX.SpacyPreprocessor as sp
+    import tidyX.WordNormalization as wn
     import tidyX.SpacyVisualizer as tv
 
 ``remove_repetitions``
