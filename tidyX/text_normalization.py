@@ -4,10 +4,10 @@ from spacy.language import Language
 from .text_preprocessor import TextPreprocessor
 from nltk.stem.snowball import SnowballStemmer
 
-class WordNormalization:
+class TextNormalization:
 
     def __init__(self):
-        self.stemmer = SnowballStemmer("spanish")
+        pass
 
     @staticmethod
     def spanish_lemmatizer(token: str, model: Language) -> str:
@@ -61,8 +61,10 @@ class WordNormalization:
         if not token:
             return token
 
+        stemmer = SnowballStemmer("spanish")
+        
         try:
-            stemmed = self.stemmer.stem(token)
+            stemmed = stemmer.stem(token)
             return stemmed
         except Exception as e:
             print(f"An error occurred: {e}")

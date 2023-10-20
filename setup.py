@@ -12,7 +12,7 @@ with open(path.join(HERE, 'README.md'), encoding = 'utf-8') as f:
 # This call to setup() does all the work
 setup(
     name = "tidyX",
-    version = "1.4.1",
+    version = "1.4.2",
     description = "Python package to clean raw tweets for ML applications",
     long_description = long_description,
     long_description_content_type = "text/markdown",
