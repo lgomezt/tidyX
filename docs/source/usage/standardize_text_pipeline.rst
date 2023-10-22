@@ -1,7 +1,7 @@
 Standardize Text Pipeline
 -------------------------
   
-The `preprocess()` method from tidyX provides an all-encompassing solution for quickly and effectively standardizing input strings, with a particular focus on tweets. It transforms the input to lowercase, strips accents (and emojis, if specified), and removes URLs, hashtags, and certain special characters. Additionally, it offers the option to delete stopwords in a specified language, trims extra spaces, extracts mentions, and removes 'RT' prefixes from retweets.
+The `preprocess() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.preprocess>`_ method from tidyX provides an all-encompassing solution for quickly and effectively standardizing input strings, with a particular focus on tweets. It transforms the input to lowercase, strips accents (and emojis, if specified), and removes URLs, hashtags, and certain special characters. Additionally, it offers the option to delete stopwords in a specified language, trims extra spaces, extracts mentions, and removes 'RT' prefixes from retweets.
 
 .. code-block:: python
 

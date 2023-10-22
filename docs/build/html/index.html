@@ -7,7 +7,6 @@
   <title>Welcome to tidyX’s documentation! &mdash; tidyX  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -89,7 +88,8 @@
              
   <section id="welcome-to-tidyx-s-documentation">
 <h1>Welcome to tidyX’s documentation!<a class="headerlink" href="#welcome-to-tidyx-s-documentation" title="Permalink to this heading"></a></h1>
-<a class="reference internal image-reference" href="_images/before_after_tidyX.png"><img alt="dependency_parsing_visualization1" src="_images/before_after_tidyX.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="_images/wordcloud_before_tidyX.png"><img alt="before_tidyX" src="_images/wordcloud_before_tidyX.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="_images/wordcloud_after_tidyX.png"><img alt="before_tidyX" src="_images/wordcloud_after_tidyX.png" style="width: 800px;" /></a>
 <p>tidyX is a Python package designed for cleaning and preprocessing text for machine learning applications, <strong>especially for text written in Spanish and originating from social networks.</strong> This library provides a complete pipeline to remove unwanted characters, normalize text, group similar terms, etc. to facilitate NLP applications.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
@@ -98,7 +98,7 @@
 </pre></div>
 </div>
 <p>Make sure you have the necessary dependencies installed. If you plan on lemmatizing, you’ll need <cite>spaCy</cite> along with the appropriate language models. For Spanish lemmatization, we recommend downloading the <cite>es_core_web_sm</cite> model:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>spacy<span class="w"> </span>download<span class="w"> </span>es_core_web_sm
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>spacy<span class="w"> </span>download<span class="w"> </span>es_core_news_sm
 </pre></div>
 </div>
 <p>For English lemmatization, we suggest the <cite>en_core_web_sm</cite> model:</p>
@@ -117,7 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="usage/remove_unwanted_elements.html#emojis-and-or-accents">Emojis and/or accents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/remove_unwanted_elements.html#urls">URLs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/remove_unwanted_elements.html#extra-spaces">Extra spaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/remove_unwanted_elements.html#hashtags">Hashtags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/remove_unwanted_elements.html#mentions-rt-prefix-or-hashtags">Mentions, RT prefix or hashtags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/remove_unwanted_elements.html#stopwords-or-any-other-concrete-word">Stopwords or any other concrete word</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/remove_unwanted_elements.html#repetition-of-characters">Repetition of characters</a></li>
 </ul>

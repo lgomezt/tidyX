@@ -1,7 +1,7 @@
 Group similar terms
 --------------------
 
-When working with a corpus sourced from social networks, it's common to encounter texts with grammatical errors or words that aren't formally included in dictionaries. These irregularities can pose challenges when creating Term Frequency matrices for NLP algorithms. To address this, we developed the `create_bol() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#create-bol>`_ function, which allows you to create specific bags of terms to cluster related terms.
+When working with a corpus sourced from social networks, it's common to encounter texts with grammatical errors or words that aren't formally included in dictionaries. These irregularities can pose challenges when creating Term Frequency matrices for NLP algorithms. To address this, we developed the `create_bol() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.create_bol>`_ function, which allows you to create specific bags of terms to cluster related terms.
 
 .. code-block:: python
 

@@ -12,7 +12,7 @@ with open(path.join(HERE, 'README.md'), encoding = 'utf-8') as f:
 # This call to setup() does all the work
 setup(
     name = "tidyX",
-    version = "1.6.3",
+    version = "1.6.7",
     description = "Python package to clean raw tweets for ML applications",
     long_description = long_description,
     long_description_content_type = "text/markdown",
@@ -33,6 +33,10 @@ setup(
     ],
     packages = ["tidyX"],
     include_package_data = True,
+    package_data={
+        # Include any .xlsx files within the 'data' directory
+        'tidyX': ['data/*.xlsx'],
+    },
     install_requires = [
         "numpy",
         "emoji",
@@ -41,6 +45,6 @@ setup(
         "spacy",
         "thefuzz",
         "Unidecode",
-        "nltk"
+        "nltk",
         ]
 )

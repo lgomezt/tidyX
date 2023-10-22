@@ -11,6 +11,7 @@ import tqdm
 import emoji
 from collections import defaultdict, Counter
 from nltk.corpus import stopwords
+import os
 
 class TextPreprocessor:
     def __init__(self):
@@ -600,3 +601,48 @@ class TextPreprocessor:
         if as_dataframe:
             return pd.DataFrame(results, columns=["String", "Count"])
         return results
+    
+    def load_data(file: str = "spanish") -> pd.DataFrame:
+        """
+        Load a dataset based on the specified language or file name.
+        
+        This function is primarily used to load a dataset that contains tweets. The default dataset,
+        "Tweets sobre migrantes venezolanos.xlsx", consists of 1,000 tweets from Colombia about Venezuelan migrants.
+        
+        Args:
+            file (str, optional): 
+                Specifies the name of the file or the language of the dataset. If "spanish" is provided,
+                the function will default to loading the dataset "Tweets sobre migrantes venezolanos.xlsx".
+                Default is "spanish".
+        
+        Returns:
+            pd.DataFrame: 
+                A pandas DataFrame containing the loaded dataset.
+        
+        Raises:
+            FileNotFoundError: 
+                If the specified file is not found in the 'data' directory.
+        
+        Note:
+            Ensure you have the 'openpyxl' library installed as it is required to read .xlsx files.
+        
+        Example:
+            >>> load_data("spanish")
+            ... # Returns a DataFrame with 1,000 tweets about Venezuelan migrants from Colombia.
+        """
+        
+        if file == "spanish":
+            file = "Tweets sobre migrantes venezolanos.xlsx"
+            
+        # Get the current directory of the module and append the relative path to the xlsx file
+        file_path = os.path.join(os.path.dirname(__file__), 'data', file)
+
+        # Read the xlsx file into a DataFrame
+        df = pd.read_excel(file_path, engine='openpyxl')
+
+        return df
+
+
+
+
+

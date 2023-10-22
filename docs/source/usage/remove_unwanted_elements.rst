@@ -1,12 +1,10 @@
 Remove Unwanted Elements
 -------------------------
 
-
-
 Special characters 
 ^^^^^^^^^^^^^^^^^^
 
-Using `remove_special_characters() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-special-characters>`_ function, the user can eliminate all characters that aren't lowercase letters or spaces. However, if desired, numbers can be preserved.   
+Using `remove_special_characters() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_special_characters>`_ function, the user can eliminate all characters that aren't lowercase letters or spaces. However, if desired, numbers can be preserved.   
    
 .. code-block:: python
       
@@ -35,7 +33,7 @@ Note that the uppercase characters "T" and "I" were removed. To run this functio
 Emojis and/or accents
 ^^^^^^^^^^^^^^^^^^^^^^
 
-With the `remove_accents(string, delete_emojis=True) <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-accents>`_ function, you can eliminate accents from characters. Optionally, you can also remove emojis.
+With the `remove_accents(string, delete_emojis=True) <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_accents>`_ function, you can eliminate accents from characters. Optionally, you can also remove emojis.
 
 .. code-block:: python
 
@@ -62,7 +60,7 @@ With the `remove_accents(string, delete_emojis=True) <https://tidyx.readthedocs.
 URLs
 ^^^^
 
-To remove URLs from a text, you can utilize the `remove_urls() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-urls>`_ function.
+To remove URLs from a text, you can utilize the `remove_urls() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_urls>`_ function.
 
 .. code-block:: python
     
@@ -85,7 +83,7 @@ To remove URLs from a text, you can utilize the `remove_urls() <https://tidyx.re
 Extra spaces
 ^^^^^^^^^^^^
 
-To eliminate extra spaces in a text, you can use the `remove_extra_spaces() <some_link>`_ function.
+To eliminate extra spaces in a text, you can use the `remove_extra_spaces() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_extra_spaces>`_ function.
 
 .. code-block:: python
 
@@ -106,10 +104,10 @@ To eliminate extra spaces in a text, you can use the `remove_extra_spaces() <som
     Refined: This is an example text with extra spaces.
 
 
-Hashtags 
-^^^^^^^^
+Mentions, RT prefix or hashtags
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To remove mentions from tweets, use the `remove_mentions() <some_link>`_ function. To eliminate the "RT" prefix, apply the `remove_RT() <some_link>`_ function.
+To remove mentions from tweets, use the `remove_mentions() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_mentions>`_ function. To eliminate the "RT" prefix, apply the `remove_RT() <some_link>`_ function.
 
 .. code-block:: python
 
@@ -143,7 +141,6 @@ To remove mentions from tweets, use the `remove_mentions() <some_link>`_ functio
     refined_tweet = tp.remove_RT(tweet_sample)
     print("Refined:", refined_tweet)
 
-
 .. parsed-literal::
 
     Original: RT     @username: Check out this amazing article!
@@ -152,7 +149,7 @@ To remove mentions from tweets, use the `remove_mentions() <some_link>`_ functio
 Stopwords or any other concrete word 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-With `remove_words() <some_link>`_, users can effortlessly exclude specific words or even general stopwords from a given text.
+With `remove_words() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_words>`_, users can effortlessly exclude specific words or even general stopwords from a given text.
 
 .. code-block:: python
 
@@ -194,7 +191,7 @@ With `remove_words() <some_link>`_, users can effortlessly exclude specific word
 Repetition of characters 
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The `remove_repetitions() <some_link>`_ function is adept at removing redundant consecutive characters from a string. Consider the example 'coooroosooo', which would be transformed to 'coroso'. However, several languages, including English and Spanish, often feature double letters like 'll'. To accommodate such cases, the function provides an exceptions argument that specifies characters allowed to repeat once.
+The `remove_repetitions() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_repetitions>`_ function is adept at removing redundant consecutive characters from a string. Consider the example 'coooroosooo', which would be transformed to 'coroso'. However, several languages, including English and Spanish, often feature double letters like 'll'. To accommodate such cases, the function provides an exceptions argument that specifies characters allowed to repeat once.
 
 .. code-block:: python
 
@@ -227,7 +224,7 @@ However, it's worth noting that there exist numerous words that feature the repe
     After: HAPPY GRADUATION TO US! THANKYOU LORD! 🫶🤍
     
 
-The `remove_last_repetition() <some_link>_` function focuses on removing repeated characters at the end of words. This is especially handy when working with social media texts where users tend to stress words by repeating their ending characters. The function helps standardize such text, ensuring a cleaner representation.
+The `remove_last_repetition() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.remove_last_repetition>_` function focuses on removing repeated characters at the end of words. This is especially handy when working with social media texts where users tend to stress words by repeating their ending characters. The function helps standardize such text, ensuring a cleaner representation.
 
 .. code-block:: python
 

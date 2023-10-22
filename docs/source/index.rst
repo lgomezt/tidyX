@@ -2,8 +2,12 @@
 Welcome to tidyX's documentation!
 =================================
 
-.. image:: tutorials/before_after_tidyX.png
-   :alt: dependency_parsing_visualization1
+.. image:: tutorials/wordcloud_before_tidyX.png
+   :alt: before_tidyX
+   :width: 800px
+
+.. image:: tutorials/wordcloud_after_tidyX.png
+   :alt: before_tidyX
    :width: 800px
 
 tidyX is a Python package designed for cleaning and preprocessing text for machine learning applications, **especially for text written in Spanish and originating from social networks.** This library provides a complete pipeline to remove unwanted characters, normalize text, group similar terms, etc. to facilitate NLP applications.
@@ -21,7 +25,7 @@ Make sure you have the necessary dependencies installed. If you plan on lemmatiz
 
 .. code-block:: bash
 
-   python -m spacy download es_core_web_sm   
+   python -m spacy download es_core_news_sm  
 
 For English lemmatization, we suggest the `en_core_web_sm` model:
 

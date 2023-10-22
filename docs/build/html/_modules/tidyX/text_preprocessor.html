@@ -98,6 +98,7 @@
 <span class="kn">import</span> <span class="nn">emoji</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 <div class="viewcode-block" id="TextPreprocessor"><a class="viewcode-back" href="../../user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">TextPreprocessor</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -686,7 +687,52 @@
         <span class="c1"># Return results as DataFrame if requested</span>
         <span class="k">if</span> <span class="n">as_dataframe</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;String&quot;</span><span class="p">,</span> <span class="s2">&quot;Count&quot;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">results</span></div></div>
+        <span class="k">return</span> <span class="n">results</span></div>
+    
+<div class="viewcode-block" id="TextPreprocessor.load_data"><a class="viewcode-back" href="../../user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;spanish&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a dataset based on the specified language or file name.</span>
+<span class="sd">        </span>
+<span class="sd">        This function is primarily used to load a dataset that contains tweets. The default dataset,</span>
+<span class="sd">        &quot;Tweets sobre migrantes venezolanos.xlsx&quot;, consists of 1,000 tweets from Colombia about Venezuelan migrants.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            file (str, optional): </span>
+<span class="sd">                Specifies the name of the file or the language of the dataset. If &quot;spanish&quot; is provided,</span>
+<span class="sd">                the function will default to loading the dataset &quot;Tweets sobre migrantes venezolanos.xlsx&quot;.</span>
+<span class="sd">                Default is &quot;spanish&quot;.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: </span>
+<span class="sd">                A pandas DataFrame containing the loaded dataset.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            FileNotFoundError: </span>
+<span class="sd">                If the specified file is not found in the &#39;data&#39; directory.</span>
+<span class="sd">        </span>
+<span class="sd">        Note:</span>
+<span class="sd">            Ensure you have the &#39;openpyxl&#39; library installed as it is required to read .xlsx files.</span>
+<span class="sd">        </span>
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; load_data(&quot;spanish&quot;)</span>
+<span class="sd">            ... # Returns a DataFrame with 1,000 tweets about Venezuelan migrants from Colombia.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;spanish&quot;</span><span class="p">:</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="s2">&quot;Tweets sobre migrantes venezolanos.xlsx&quot;</span>
+            
+        <span class="c1"># Get the current directory of the module and append the relative path to the xlsx file</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+
+        <span class="c1"># Read the xlsx file into a DataFrame</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span></div></div>
+
+
+
+
+
 </pre></div>
 
            </div>

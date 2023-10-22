@@ -1,23 +1,56 @@
-Stemming and Lemmatizing Texts Efficiently
-==========================================
+tidyX examples
+==============
 
-The `stemmer() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextNormalization.html#tidyX.text_normalization.TextNormalization.stemmer>`_ and `lemmatizer() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextNormalization.html#tidyX.text_normalization.TextNormalization.lemmatizer>`_ functions each accept a single token as input. Thus, if we aim to normalize an entire text or a corpus, we would need to iterate over each token in the string using these functions. This approach might be inefficient, especially if the input contains repeated words.
+.. code:: ipython3
 
-This tutorial demonstrates how to utilize the `unnest_tokens()` function to apply normalization functions just once for every unique word.
+    # pip install tidyX==1.6.7
 
-.. code-block:: python
-  
-    # Import tidyX modules
+.. code:: ipython3
+
+    !pip show tidyX
+
+
+.. parsed-literal::
+
+    Name: tidyX
+    Version: 1.6.7
+    Summary: Python package to clean raw tweets for ML applications
+    Home-page: 
+    Author: Lucas Gómez Tobón, Jose Fernando Barrera
+    Author-email: lucasgomeztobon@gmail.com, jf.barrera10@uniandes.edu.co
+    License: MIT
+    Location: c:\users\lucas\anaconda3\envs\bx\lib\site-packages
+    Requires: emoji, nltk, numpy, pandas, regex, spacy, thefuzz, Unidecode
+    Required-by: 
+    
+
+.. code:: ipython3
+
     from tidyX import TextPreprocessor as tp
     from tidyX import TextNormalization as tn
     from tidyX import TextVisualizer as tv
 
-    # Import auxiliary libraries
-    import pandas as pd
+Stemming and Lemmatizing Texts Efficiently
+------------------------------------------
+
+The ``stemmer()`` and ``lemmatizer()`` functions each accept a single
+token as input. Thus, if we aim to normalize an entire text or a corpus,
+we would need to iterate over each token in the string using these
+functions. This approach might be inefficient, especially if the input
+contains repeated words.
+
+This tutorial demonstrates how to utilize the ``unnest_tokens()``
+function to apply normalization functions just once for every unique
+word.
+
+.. code:: ipython3
 
     # First, load a dataframe containing 1000 tweets from Colombia discussing Venezuela.
     tweets = tp.load_data(file = "spanish")
     tweets.head()
+
+
+
 
 .. raw:: html
 
@@ -68,7 +101,8 @@ This tutorial demonstrates how to utilize the `unnest_tokens()` function to appl
     </div>
 
 
-.. code-block:: python
+
+.. code:: ipython3
 
     # Firstly we would clean the text easily using our preprocess function
     tweets['clean'] = tweets['Tweet'].apply(lambda x: tp.preprocess(x, 
@@ -141,7 +175,7 @@ each tweet into multiple rows, assigning one token to each row. This
 structure allows us to aggregate identical terms, thereby creating an
 auxiliary dataframe that acts as a dictionary for lemmas or stems.
 
-.. code-block:: python
+.. code:: ipython3
 
     dictionary_normalization = tp.unnest_tokens(df = tweets.copy(), input_column = "clean", id_col = None, unique = True)
     dictionary_normalization
@@ -238,10 +272,10 @@ auxiliary dataframe that acts as a dictionary for lemmas or stems.
 
 Note that the ``id`` column represents the indices of the tweets that
 contain each token from the ``clean`` column. Now we can proceed using
-the ``stemmer() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextNormalization.html#tidyX.text_normalization.TextNormalization.stemmer>`_` and ``lemmatizer() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextNormalization.html#tidyX.text_normalization.TextNormalization.lemmatizer>`_` functions to create new columns
+the ``stemmer()`` and ``lemmatizer()`` functions to create new columns
 of ``dictionary_normalization``
 
-.. code-block:: python
+.. code:: ipython3
 
     # Apply spanish_lemmatizer function to lemmatize the token
     dictionary_normalization["stemm"] = dictionary_normalization["clean"].apply(lambda x: tn.stemmer(token = x, language = "spanish"))
@@ -263,7 +297,7 @@ For English lemmatization, we suggest the ``en_core_web_sm`` model:
 To see a full list of available models for different languages, visit
 `Spacy’s documentation <https://spacy.io/models/>`__
 
-.. code-block:: python
+.. code:: ipython3
 
     import spacy
     
@@ -277,6 +311,8 @@ To see a full list of available models for different languages, visit
     dictionary_normalization["lemma"] = dictionary_normalization["lemma"].apply(lambda x: tp.remove_words(x, remove_stopwords = True, language = "spanish"))
     
     dictionary_normalization
+
+
 
 
 .. raw:: html
@@ -393,7 +429,7 @@ To see a full list of available models for different languages, visit
 To rebuild our original tweets we will use again ``unnest_tokens``
 function
 
-.. code-block:: python
+.. code:: ipython3
 
     tweets_long = tp.unnest_tokens(df = tweets.copy(), input_column = "clean", id_col = None, unique = False)
     tweets_long
@@ -500,7 +536,7 @@ function
 
 
 
-.. code-block:: python
+.. code:: ipython3
 
     tweets_normalized = tweets_long \
         .merge(dictionary_normalization, how = "left", on = "clean") \
@@ -508,6 +544,8 @@ function
                 .agg(lambda x: " ".join(x)) \
                     .reset_index()
     tweets_normalized.head()
+
+
 
 
 .. raw:: html
@@ -578,7 +616,7 @@ function
 
 
 
-.. code-block:: python
+.. code:: ipython3
 
     for i in range(3):
         print("-"*50)
@@ -606,3 +644,91 @@ function
     Lemmatized tweet: capturado venezolano asesino comerciante mercado publico
     Stemmed tweet: captur venezolan asesin comerci merc public
     
+
+Tutorial: Word Cloud
+--------------------
+
+.. code:: ipython3
+
+    import os
+    import pandas as pd
+    from wordcloud import WordCloud
+    import matplotlib.pyplot as plt
+    import spacy
+     
+    os.getcwd()
+
+.. code:: ipython3
+
+    tweets = pd.read_excel(r"../../../data/Tweets sobre venezuela.xlsx")
+    tweets.head()
+
+.. code:: ipython3
+
+    # Combine all documents into a single string
+    text = " ".join(doc for doc in tweets['Snippet'])
+    
+    # Generate a word cloud image
+    wordcloud = WordCloud(background_color = "white", width = 800, height = 400).generate(text)
+    
+    # Display the generated image
+    plt.figure(figsize=(10, 5))
+    plt.title("WordCloud before tidyX")
+    plt.imshow(wordcloud, interpolation = 'bilinear')
+    plt.axis("off");
+
+.. code:: ipython3
+
+    tweets['clean'] = tweets['Snippet'].apply(lambda x: tp.preprocess(x, delete_emojis = False, extract = False,
+                                                                      remove_stopwords = True))
+    tweets
+
+.. code:: ipython3
+
+    token_df = tp.unnest_tokens(df = tweets.copy(), input_column = "clean", id_col = None, unique = True)
+    token_df
+
+.. code:: ipython3
+
+    # Load spacy's model
+    model = spacy.load('es_core_news_lg')
+
+.. code:: ipython3
+
+    # Apply spanish_lemmatizer function to lemmatize the token
+    token_df["lemma"] = token_df["clean"].apply(lambda x: tn.lemmatizer(token = x, model = model))
+    token_df
+
+.. code:: ipython3
+
+    token_df["lemma"] = token_df["lemma"].apply(lambda x: tp.remove_words(x, remove_stopwords = True))
+    token_df = token_df[["clean", "lemma"]]
+    token_df
+
+.. code:: ipython3
+
+    tweets_long = tp.unnest_tokens(df = tweets.copy(), input_column = "clean", id_col = None, unique = False)
+    tweets_long 
+
+.. code:: ipython3
+
+    tweets_clean2 = tweets_long.merge(token_df, how = "left", on = "clean").groupby(["Snippet", "id"])["lemma"].agg(lambda x: " ".join(x)).reset_index()
+    tweets_clean2
+
+.. code:: ipython3
+
+    tweets_clean2['lemma'] = tweets_clean2['lemma'].apply(lambda x: tp.remove_extra_spaces(x))
+
+.. code:: ipython3
+
+    # Combine all documents into a single string
+    text = " ".join(doc for doc in tweets_clean2['lemma'])
+    
+    # Generate a word cloud image
+    wordcloud = WordCloud(background_color = "white", width = 800, height = 400).generate(text)
+    
+    # Display the generated image
+    plt.figure(figsize=(10, 5))
+    plt.title("WordCloud after tidyX")
+    plt.imshow(wordcloud, interpolation = 'bilinear')
+    plt.axis("off");
