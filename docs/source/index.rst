@@ -1,44 +1,7 @@
-.. tidyX documentation master file, created by
-   sphinx-quickstart on Fri Sep 22 00:46:38 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 =================================
 Welcome to tidyX's documentation!
 =================================
-
-`tidyX` is a dedicated Python package designed for cleaning and preprocessing raw tweets and 
-other text. It prepares them for Machine Learning (ML) applications, especially in Natural 
-Language Processing (NLP) tasks like sentiment analysis, topic modeling, and text classification.
-
-Features
-========
-
-- **Remove unwanted characters**: 
-   This feature strips tweets of unnecessary clutter such as special characters (`remove_special_characters() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-special-characters>`_), 
-   emojis and/or accents (`remove_accents(string, delete_emojis = True) <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-accents>`_), 
-   URLs (`remove_urls() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#remove-urls>`_, 
-   making the text more suitable for ML models. Under the hood, these functions 
-   utilize regex patterns to address the issue. This is particularly helpful for beginners working 
-   with regex patterns, as well as for experienced users looking for a ready-made pipeline (`preprocess() <https://tidyx.readthedocs.io/en/latest/api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.preprocess>`_) to save time.
-- **Stemming and Lemmatizing**: 
-   One of the most crucial steps in preparing text for NLP applications is 
-   homogenizing words to a common root. This process can be particularly time-consuming for the Spanish language due to the lack of 
-   dedicated Python libraries. In this documentation, we've compiled the best models for lemmatization (`spanish_lemmatizer() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#spanish-lemmatizer>`_) 
-   and stemming (`spanish_stemmer() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#spanish-stemmer>`_).
-- **Dependency Parsing Visualization**: 
-   Incorporates visualization tools that enable the display of 
-   dependency parses, facilitating linguistic analysis and feature engineering (`dependency_parse_visualizer_text() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#dependency-parse-visualizer-text>`_)
-- **Other utilities**: 
-   As an example, we developed a function to group similar words, addressing the common issue of 
-   misspelled words in social media texts. Our aim is to create specific bags of terms to cluster 
-   related terms. This is achievable using the `create_bol() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#create-bol>`_ function. Furthermore, to avoid redundant 
-   text preprocessing operations like stemming and lemmatizing on identical words across different texts, 
-   we introduced `unnest_tokens() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#unnest-tokens>`_. This function generates a dataframe mapping unique terms 
-   to an ID for each text. Our tutorial provides guidance on leveraging this function efficiently.
-
-For a more comprehensive explanation of all functions and a list of examples, visit the 
-`"HOW TO USE THE PACKAGE" <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html>`_ section on our website.
+tidyX is a Python package designed for cleaning and preprocessing text for machine learning applications, **especially for text written in Spanish and originating from social networks.** This library provides a complete pipeline to remove unwanted characters, normalize text, group similar terms, etc. to facilitate NLP applications.
 
 Installation
 ============
@@ -49,137 +12,42 @@ Install the package using pip:
 
    pip install tidyX
 
-Ensure that you have the necessary dependencies, such as `spaCy` and the corresponding language models:
+Make sure you have the necessary dependencies installed. If you plan on lemmatizing, you'll need `spaCy` along with the appropriate language models. For Spanish lemmatization, we recommend downloading the `es_core_web_sm` model:
 
 .. code-block:: bash
 
-   python -m spacy download en_core_web_sm  # or another language model
+   python -m spacy download es_core_web_sm   
 
+For English lemmatization, we suggest the `en_core_web_sm` model:
 
-Usage
-=====
+.. code-block:: bash
 
-Here are some basic examples demonstrating how to use ``tidyX``:
+   python -m spacy download en_core_web_sm 
 
-Text Preprocessing
-------------------
-
-The `preprocess() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#preprocess>`_ function 
-is a powerful tool that performs a comprehensive cleaning and preprocessing of tweet texts to prepare 
-them for further analysis or machine learning tasks. It is designed to be highly configurable, 
-allowing you to choose which preprocessing steps to apply.
-
-Here’s how to use the ``preprocess`` method:
-
-.. code-block:: python
-
-   from tidyX import TextPreprocessor as tp
-
-   # Raw tweet example
-   raw_tweet = "RT @user: Check out this link: https://example.com 🌍 #example 😃"
-
-   # Applying the preprocess method
-   cleaned_text, mentions = tp.preprocess(raw_tweet)
-
-   # Printing the cleaned text and extracted mentions
-   print("Cleaned Text:", cleaned_text)
-   print("Mentions:", mentions)
-
-In this example, the ``preprocess`` method is applied to a raw tweet. The method:
-- Removes the 'RT' prefix from retweeted tweets
-- Converts the text to lowercase
-- Removes accents and emojis (configurable)
-- Extracts and removes mentions, returning them as a list if required
-- Removes URLs, hashtags, and special characters
-- Eliminates extra spaces and consecutive repeated characters (with configurable exceptions)
-
-This versatile method allows for a tailored preprocessing approach, adapting to the specific needs 
-of your text analysis or NLP tasks.
-
-
-Bag of Lemmas (BoL) Creation
-----------------------------
-
-The `create_bol() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#create-bol>`_ function creates "bags" that group similar lemmas together by calculating the 
-Levenshtein distance between words. This allows for the grouping of words that are likely variations 
-or misspellings of one another. This is especially useful for managing the misspelled words often 
-found in social media data.
-
-.. code-block:: python
-
-   import numpy as np
-   import pandas as pd
-   from tidyX import TextPreprocessor as tp
-
-   # Example lemmas
-   lemmas = np.array(["running", "runing", "jogging", "joging"])
-
-   # Creating bags of lemmas
-   bol_df = tp.create_bol(lemmas)
-
-   print(bol_df)
-
-Spanish Lemmatizer
-------------------
-
-The `spanish_lemmatizer() <https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#spanish-lemmatizer>`_ static method is used for lemmatizing Spanish tokens using a SpaCy language 
-model, returning a cleaned and lemmatized version of the input token.
-
-.. code-block:: python
-   from tidyX import TextNormalization as tn
-
-   # Input token to lemmatize
-   token = "corriendo"  # Example token in Spanish
-   print("Original Token:", token)
-
-   # Load spacy's model
-   model = spacy.load('es_core_news_sm')
-
-   # Apply spanish_lemmatizer function to lemmatize the token
-   lemmatized_token = tn.spanish_lemmatizer(token = token, model = model)
-   print("Lemmatized Token:", lemmatized_token)
-
-Text Visualization
-------------------
-The `TextVisualizer` class is integrated within the `tidyX` package, offering visualization capabilities for dependency parsing and named entities in textual data, leveraging the spaCy library's `displacy` visualizer.
-
-**Dependency Parse Visualizer**
--------------------------------
-
-The `dependency_parse_visualizer_text` method visualizes the syntactic dependency parse or named entities within a given document, facilitating a graphical representation that aids in understanding the linguistic annotations and structure of the text.
-
-.. code-block:: python
-   import tidyX.TextVisualizer as tv
-
-   # Example document in Spanish
-   document = "El perro saltó sobre el gato."
-
-   # Load spacy's model
-   model = spacy.load('es_core_news_sm')
-
-   # Visualizing the dependency parse
-   tv.dependency_parse_visualizer_text(document, model = model, style = 'dep', jupyter = True)
-
-   # Example document in Spanish
-   document = "El Banco Mundial decidió contactar al gobierno de Argentina para ofrecerle ayuda. Varios países como Estados Unidos, China y Rusia también ofrecieron su ayuda."
-
-   # Visualizing the named entities
-   tv.dependency_parse_visualizer_text(document, model = model, style = 'ent', jupyter = True)
-
-Tutorial
-=========
-In the tutorial below, you will find examples for using each function within our package. Additionally, there's a tutorial on Topic Modelling utilizing this package.
+To see a full list of available models for different languages, visit `Spacy's documentation <https://spacy.io/models/>`_.
 
 .. toctree::
    :maxdepth: 2
-   :caption: How to use this package?:
+   :caption: Usage
 
-   examples/tutorial
-   
+   usage/standardize_text_pipeline
+   usage/stemming_and_lemmatizing
+   usage/group_similar_terms
+   usage/remove_unwanted_elements
+   usage/dependency_parsing_visualization
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Tutorials
+
+   tutorials/stemming_and_lemmatizing_efficiently
+   tutorials/word_cloud
+   tutorials/topic_modelling
+
 .. toctree::
    :maxdepth: 3
-   :caption: User Documentation:
+   :caption: User Documentation
 
-   api/TextPreprocessor
-   api/TextNormalization
-   api/TextVisualizer
+   user_documentation/TextPreprocessor
+   user_documentation/TextNormalization
+   user_documentation/TextVisualizer

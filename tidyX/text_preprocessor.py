@@ -330,22 +330,23 @@ class TextPreprocessor:
     STOPWORDS_CACHE = {}
 
     @staticmethod
-    def load_stopwords(language = 'spanish'):
+    def load_stopwords(language='spanish'):
         """
         Load and cache stopwords for a given language.
-        
+
         Notes:
-            To utilize this function, the nltk library must be installed and the stopwords dataset downloaded:
-            - To install nltk:
-                ```
+            To utilize this function, the nltk library must be installed and the stopwords dataset downloaded.
+            
+            - To install nltk::
+
                 pip install nltk
-                ```
-            - To download the stopwords dataset:
-                ```python
+
+            - To download the stopwords dataset::
+
                 import nltk
                 nltk.download('stopwords')
-                ```
         """
+        
         if language not in TextPreprocessor.STOPWORDS_CACHE:
             # Import stopwords
             stopwords_temp = stopwords.words(language)
@@ -357,7 +358,7 @@ class TextPreprocessor:
     @staticmethod
     def remove_words(string: str, bag_of_words: list = None, remove_stopwords: bool = False, language: str = 'spanish') -> str:
         """Removes specified words and optionally stopwords from a string.
-        
+
         Args:
             string (str): 
                 The input string from which words are to be removed.
@@ -373,16 +374,16 @@ class TextPreprocessor:
                 A string with the specified words removed.
 
         Notes:
-            To utilize this function, the nltk library must be installed and the stopwords dataset downloaded:
-            - To install nltk:
-                ```
+            To utilize this function, the nltk library must be installed and the stopwords dataset downloaded.
+            
+            - To install nltk::
+
                 pip install nltk
-                ```
-            - To download the stopwords dataset:
-                ```python
+
+            - To download the stopwords dataset::
+
                 import nltk
                 nltk.download('stopwords')
-                ```
         """
         
         # If remove_stopwords is True, get the cached stopwords for the specified language
@@ -454,7 +455,7 @@ class TextPreprocessor:
         return df
         
     @staticmethod
-    def create_bol(lemmas: np.ndarray, verbose: bool = True) -> pd.DataFrame:
+    def create_bol(lemmas: np.ndarray, verbose: bool = False) -> pd.DataFrame:
         """
         Groups lemmas based on Levenshtein distance to handle misspelled words in social media data.
         
@@ -466,7 +467,7 @@ class TextPreprocessor:
             lemmas (np.ndarray): 
                 An array containing lemmas to be grouped.
             verbose (bool, optional): 
-                If set to True, progress will be printed at every 5% increment. Defaults to True.
+                If set to True, progress will be printed at every 5% increment. Defaults to False.
         
         Returns: 
             pd.DataFrame: A DataFrame with columns: 

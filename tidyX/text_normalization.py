@@ -16,7 +16,7 @@ class TextNormalization:
         return s in emoji.EMOJI_DATA
 
     @staticmethod
-    def spanish_lemmatizer(token: str, model: Language) -> str:
+    def lemmatizer(token: str, model: Language) -> str:
         """Lemmatizes a given token using Spacy's Spanish language model.
 
         Lemmatization is the process of reducing a word to its base or dictionary form. 
@@ -24,10 +24,10 @@ class TextNormalization:
         into account the meaning of the word in the sentence, leveraging vocabulary and 
         morphological analysis.
 
-        Note: Before using this function, a Spacy model for Spanish should be downloaded.
-        Use `python -m spacy download name_of_model` to download a model. Available models:
+        Note: Before using this function, a Spacy model should be downloaded.
+        Use `python -m spacy download name_of_model` to download a model. Available models for Spanish are:
         "es_core_news_sm", "es_core_news_md", "es_core_news_lg", "es_dep_news_trf".
-        For more information, visit https://spacy.io/models/es
+        For more information, visit https://spacy.io/models/
 
         Args:
             token (str): The token to be lemmatized.
@@ -48,19 +48,22 @@ class TextNormalization:
             print(f"An error occurred: {e}")
             return token
         
-    def spanish_stemmer(token: str) -> str:
-        """Stems a given token using Snowball stemmer for Spanish.
+    def stemmer(token: str, language: str = "spanish") -> str:
+        """Stems a given token using Snowball stemmer.
 
-        Stemming is the process of reducing a word to its word stem, often by stripping 
+        Stemming is the process of reducing a word to its base or root form, often by stripping 
         suffixes. For instance, the word "running" might be stemmed to "run". Unlike 
         lemmatization, stemming doesn't always produce a valid word and doesn't consider 
         the meaning of a word in the context.
+
+        This function uses the Snowball stemmer, which supports multiple languages including Spanish.
 
         Note: Before using this function, you might need to install nltk if not done already.
         Use `pip install nltk`.
 
         Args:
             token (str): The token to be stemmed.
+            language (str, optional): The language of the token. Defaults to "spanish".
 
         Returns:
             str: The stemmed version of the token.
@@ -69,7 +72,7 @@ class TextNormalization:
         if not token or TextNormalization.is_emoji(token):
             return token
 
-        stemmer = SnowballStemmer("spanish")
+        stemmer = SnowballStemmer(language)
         
         try:
             stemmed = stemmer.stem(token)
