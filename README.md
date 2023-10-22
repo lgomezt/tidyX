@@ -1,5 +1,7 @@
 # tidyX
 
+![Before and After tidyX](https://github.com/lgomezt/tidyX/raw/main/docs/source/tutorials/before_after_tidyX.png)
+
 `tidyX` is a Python package designed for cleaning and preprocessing text for machine learning applications, **especially for text written in Spanish and originating from social networks.** This library provides a complete pipeline to remove unwanted characters, normalize text, group similar terms, etc. to facilitate NLP applications.
 
 **To deep dive in the package visit our [website](https://tidyx.readthedocs.io/en/latest/)**
