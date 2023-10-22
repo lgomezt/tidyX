@@ -238,7 +238,7 @@ auxiliary dataframe that acts as a dictionary for lemmas or stems.
 
 Note that the ``id`` column represents the indices of the tweets that
 contain each token from the ``clean`` column. Now we can proceed using
-the ``stemmer() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextNormalization.html#tidyX.text_normalization.TextNormalization.stemmer>`_` and ``lemmatizer() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextNormalization.html#tidyX.text_normalization.TextNormalization.lemmatizer>`_` functions to create new columns
+the `stemmer() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextNormalization.html#tidyX.text_normalization.TextNormalization.stemmer>`_ and `lemmatizer() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextNormalization.html#tidyX.text_normalization.TextNormalization.lemmatizer>`_ functions to create new columns
 of ``dictionary_normalization``
 
 .. code-block:: python
