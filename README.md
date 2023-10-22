@@ -22,7 +22,7 @@ For English lemmatization, we suggest the `en_core_web_sm` model:
 python -m spacy download en_core_web_sm 
 ```
 
-To see a full list of available models for different languages, visit `Spacy's documentation <https://spacy.io/models/>`_.
+To see a full list of available models for different languages, visit [Spacy's documentation](https://spacy.io/models/).
 
 
 ## Features
