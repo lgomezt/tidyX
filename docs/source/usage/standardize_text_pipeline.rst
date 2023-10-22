@@ -39,5 +39,5 @@ To remove English stopwords, simply add the parameters :code:`remove_stopwords=T
 
    Cleaned Text: check link
 
-For a more detailed explanation of the customizable steps of the function, visit the official `preprocess() <https://tidyx.readthedocs.io/en/latest/api/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.preprocess>`_ documentation.
+For a more detailed explanation of the customizable steps of the function, visit the official `preprocess() <https://tidyx.readthedocs.io/en/latest/user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.preprocess>`_ documentation.
 
