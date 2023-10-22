@@ -1,13 +1,6 @@
 # tidyX
 
-`tidyX` is a dedicated Python package crafted meticulously for cleaning and preprocessing raw tweets, making them ready for Machine Learning (ML) applications. By providing robust and efficient tools, `tidyX` streamlines the preparation of tweet data, ensuring that it is in the optimal format for analysis, training, and inference in various ML models, particularly in Natural Language Processing (NLP) tasks such as sentiment analysis, topic modeling, and text classification.
-
-## Features
-
-- **Text Cleaning**: Strips tweets of unnecessary clutter such as special characters, emojis, and URLs to make the text more digestible for ML models.
-- **Emoji Handling**: Provides tools for working with emojis, allowing for their removal or conversion into textual descriptions.
-- **Language Specific Preprocessing**: Tailored preprocessing functionalities that consider the linguistic peculiarities of tweets, enhancing the quality of the cleaned text.
-- **Dependency Parsing Visualization**: Incorporates visualization tools that enable the display of dependency parses, facilitating linguistic analysis and feature engineering.
+`tidyX` is a Python package designed for cleaning and preprocessing text for machine learning applications, **especially for text written in Spanish and originating from social networks.** This library provides a complete pipeline to remove unwanted characters, normalize text, group similar terms, etc. to facilitate NLP applications.
 
 ## Installation
 
@@ -17,11 +10,28 @@ Install the package using pip:
 pip install tidyX
 ```
 
-Ensure that you have the necessary dependencies, such as `spaCy` and the corresponding language models:
+Make sure you have the necessary dependencies installed. If you plan on lemmatizing, you'll need `spaCy` along with the appropriate language models. For Spanish lemmatization, we recommend downloading the `es_core_web_sm` model:
 
 ```bash
-python -m spacy download en_core_web_sm  # or another language model
+python -m spacy download es_core_web_sm 
 ```
+
+For English lemmatization, we suggest the `en_core_web_sm` model:
+
+```bash
+python -m spacy download en_core_web_sm 
+```
+
+To see a full list of available models for different languages, visit `Spacy's documentation <https://spacy.io/models/>`_.
+
+
+## Features
+
+- **Text Cleaning**: Strips tweets of unnecessary clutter such as special characters, emojis, and URLs to make the text more digestible for ML models.
+- **Emoji Handling**: Provides tools for working with emojis, allowing for their removal or conversion into textual descriptions.
+- **Language Specific Preprocessing**: Tailored preprocessing functionalities that consider the linguistic peculiarities of tweets, enhancing the quality of the cleaned text.
+- **Dependency Parsing Visualization**: Incorporates visualization tools that enable the display of dependency parses, facilitating linguistic analysis and feature engineering.
+
 
 ## Usage
 
