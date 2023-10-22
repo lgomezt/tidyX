@@ -12,7 +12,7 @@ When working with a corpus sourced from social networks, it's common to encounte
    words = np.array(['apple', 'aple', 'apples', 'banana', 'banan', 'bananas', 'cherry', 'cheri', 'cherries'])
 
    # Apply create_bol function to group similar words
-   bol_df = tp.create_bol(lemmas = lemmas)
+   bol_df = tp.create_bol(lemmas = words)
    
    print(bol_df)
 
