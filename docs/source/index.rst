@@ -60,3 +60,8 @@ To see a full list of available models for different languages, visit `Spacy's d
    user_documentation/TextPreprocessor
    user_documentation/TextNormalization
    user_documentation/TextVisualizer
+
+Contributing
+============
+
+Contributions to enhance `tidyX` are welcome! Feel free to open issues for bug reports, feature requests, or submit pull requests in our `github repo <https://github.com/lgomezt/tidyX>`_.  If this package has been helpful, please give us a star :D
