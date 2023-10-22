@@ -1,7 +1,6 @@
+# tidyX
 ![GitHub stars](https://img.shields.io/github/stars/lgomezt/tidyX?style=social)
 ![Downloads](https://pepy.tech/badge/tidyX)
-
-# tidyX
 
 ![Before and After tidyX](https://github.com/lgomezt/tidyX/raw/main/docs/source/tutorials/before_after_tidyX.png)
 
