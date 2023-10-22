@@ -84,4 +84,4 @@ For a more detailed explanation of the customizable steps of the function, visit
 
 ## Contributing
 
-Contributions to enhance `tidyX` are welcome! Feel free to open issues for bug reports, feature requests, or submit pull requests.
+Contributions to enhance `tidyX` are welcome! Feel free to open issues for bug reports, feature requests, or submit pull requests. If this package has been helpful, please give us a star :D
