@@ -537,25 +537,27 @@ class TextPreprocessor:
         
         return bow_df.reset_index(drop = True)
     
-    @staticmethod   
-    def get_most_common_strings(texts: List[Union[str, List[str]]], num_strings: int) -> List[Tuple[str, int]]:
+    @staticmethod  
+    def get_most_common_strings(texts: Union[str, List[str], pd.Series], num_strings: Union[int, None] = None, as_dataframe: bool = False) -> Union[List[Tuple[str, int]], pd.DataFrame]:
         """
         Retrieves the most common strings in a list of texts. 
         
         This method serves primarily to validate preprocessing steps or to
         provide descriptive information about a collection of texts. It can handle
-        both flat lists of strings and lists of lists of strings.
+        both flat lists of strings, lists of lists of strings, and pandas Series.
         
         Args:
-            texts (List[Union[str, List[str]]]): 
-                A list of texts, each text can be a string or a list of strings.
-            num_strings (int): 
-                The number of most common strings to be returned.
+            texts (Union[str, List[str], pd.Series]): 
+                Texts can be a single string, a list of strings, or a pandas Series.
+            num_strings (Union[int, None], optional): 
+                The number of most common strings to be returned. If None, all unique strings will be returned. Defaults to None.
+            as_dataframe (bool, optional):
+                If True, the result will be returned as a DataFrame. Otherwise, it will be a list of tuples. Defaults to False.
         
         Returns:
-            List[Tuple[str, int]]: 
-                A list of tuples where each tuple contains a string and its 
-                occurrence count, representing the most common strings in the given texts.
+            Union[List[Tuple[str, int]], pd.DataFrame]: 
+                Depending on the `as_dataframe` parameter, either a list of tuples or a DataFrame will be returned,
+                where each entry contains a string and its occurrence count.
         
         Example:
             >>> TextPreprocessor.get_most_common_strings(["apple orange", "apple banana"], 1)
@@ -563,13 +565,22 @@ class TextPreprocessor:
             
             >>> TextPreprocessor.get_most_common_strings([["apple", "orange"], ["apple", "banana"]], 1)
             [('apple', 2)]
-        
+            
         Raises:
-            ValueError: If the provided `num_strings` is non-positive or if `texts` is an empty list.
+            ValueError: If `texts` is an empty list or if `num_strings` is non-positive.
         """
         
-        if not texts or num_strings <= 0:
-            raise ValueError("texts must be a non-empty list and num_strings must be a positive integer.")
+        if isinstance(texts, pd.Series):
+            texts = texts.values.tolist()
+        
+        if isinstance(texts, str):
+            texts = [texts]
+        
+        if not texts:
+            raise ValueError("texts must be a non-empty list, string, or pandas Series.")
+        
+        if num_strings is not None and num_strings <= 0:
+            raise ValueError("num_strings must be a positive integer or None.")
         
         word_counts = defaultdict(int)
 
@@ -581,5 +592,11 @@ class TextPreprocessor:
         for text in texts:
             for word in str(text).split():
                 word_counts[word] += 1
+
+        # Get the most common words based on the count specified
+        results = Counter(word_counts).most_common(num_strings)
         
-        return Counter(word_counts).most_common(num_strings)
+        # Return results as DataFrame if requested
+        if as_dataframe:
+            return pd.DataFrame(results, columns=["String", "Count"])
+        return results

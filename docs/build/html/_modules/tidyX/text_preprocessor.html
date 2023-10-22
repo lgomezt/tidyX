@@ -624,25 +624,27 @@
         
         <span class="k">return</span> <span class="n">bow_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span></div>
     
-<div class="viewcode-block" id="TextPreprocessor.get_most_common_strings"><a class="viewcode-back" href="../../user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.get_most_common_strings">[docs]</a>    <span class="nd">@staticmethod</span>   
-    <span class="k">def</span> <span class="nf">get_most_common_strings</span><span class="p">(</span><span class="n">texts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]],</span> <span class="n">num_strings</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<div class="viewcode-block" id="TextPreprocessor.get_most_common_strings"><a class="viewcode-back" href="../../user_documentation/TextPreprocessor.html#tidyX.text_preprocessor.TextPreprocessor.get_most_common_strings">[docs]</a>    <span class="nd">@staticmethod</span>  
+    <span class="k">def</span> <span class="nf">get_most_common_strings</span><span class="p">(</span><span class="n">texts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span> <span class="n">num_strings</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves the most common strings in a list of texts. </span>
 <span class="sd">        </span>
 <span class="sd">        This method serves primarily to validate preprocessing steps or to</span>
 <span class="sd">        provide descriptive information about a collection of texts. It can handle</span>
-<span class="sd">        both flat lists of strings and lists of lists of strings.</span>
+<span class="sd">        both flat lists of strings, lists of lists of strings, and pandas Series.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            texts (List[Union[str, List[str]]]): </span>
-<span class="sd">                A list of texts, each text can be a string or a list of strings.</span>
-<span class="sd">            num_strings (int): </span>
-<span class="sd">                The number of most common strings to be returned.</span>
+<span class="sd">            texts (Union[str, List[str], pd.Series]): </span>
+<span class="sd">                Texts can be a single string, a list of strings, or a pandas Series.</span>
+<span class="sd">            num_strings (Union[int, None], optional): </span>
+<span class="sd">                The number of most common strings to be returned. If None, all unique strings will be returned. Defaults to None.</span>
+<span class="sd">            as_dataframe (bool, optional):</span>
+<span class="sd">                If True, the result will be returned as a DataFrame. Otherwise, it will be a list of tuples. Defaults to False.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            List[Tuple[str, int]]: </span>
-<span class="sd">                A list of tuples where each tuple contains a string and its </span>
-<span class="sd">                occurrence count, representing the most common strings in the given texts.</span>
+<span class="sd">            Union[List[Tuple[str, int]], pd.DataFrame]: </span>
+<span class="sd">                Depending on the `as_dataframe` parameter, either a list of tuples or a DataFrame will be returned,</span>
+<span class="sd">                where each entry contains a string and its occurrence count.</span>
 <span class="sd">        </span>
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; TextPreprocessor.get_most_common_strings([&quot;apple orange&quot;, &quot;apple banana&quot;], 1)</span>
@@ -650,12 +652,22 @@
 <span class="sd">            </span>
 <span class="sd">            &gt;&gt;&gt; TextPreprocessor.get_most_common_strings([[&quot;apple&quot;, &quot;orange&quot;], [&quot;apple&quot;, &quot;banana&quot;]], 1)</span>
 <span class="sd">            [(&#39;apple&#39;, 2)]</span>
-<span class="sd">        </span>
+<span class="sd">            </span>
 <span class="sd">        Raises:</span>
-<span class="sd">            ValueError: If the provided `num_strings` is non-positive or if `texts` is an empty list.</span>
+<span class="sd">            ValueError: If `texts` is an empty list or if `num_strings` is non-positive.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">texts</span> <span class="ow">or</span> <span class="n">num_strings</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;texts must be a non-empty list and num_strings must be a positive integer.&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="n">texts</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">texts</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">texts</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;texts must be a non-empty list, string, or pandas Series.&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">num_strings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">num_strings</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_strings must be a positive integer or None.&quot;</span><span class="p">)</span>
         
         <span class="n">word_counts</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
@@ -667,8 +679,14 @@
         <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
                 <span class="n">word_counts</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Get the most common words based on the count specified</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">word_counts</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">num_strings</span><span class="p">)</span>
         
-        <span class="k">return</span> <span class="n">Counter</span><span class="p">(</span><span class="n">word_counts</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">num_strings</span><span class="p">)</span></div></div>
+        <span class="c1"># Return results as DataFrame if requested</span>
+        <span class="k">if</span> <span class="n">as_dataframe</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;String&quot;</span><span class="p">,</span> <span class="s2">&quot;Count&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">results</span></div></div>
 </pre></div>
 
            </div>
