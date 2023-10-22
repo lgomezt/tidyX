@@ -14,10 +14,10 @@ Install the package using pip:
 pip install tidyX
 ```
 
-Make sure you have the necessary dependencies installed. If you plan on lemmatizing, you'll need `spaCy` along with the appropriate language models. For Spanish lemmatization, we recommend downloading the `es_core_web_sm` model:
+Make sure you have the necessary dependencies installed. If you plan on lemmatizing, you'll need `spaCy` along with the appropriate language models. For Spanish lemmatization, we recommend downloading the `es_core_news_sm` model:
 
 ```bash
-python -m spacy download es_core_web_sm 
+python -m spacy download es_core_news_sm 
 ```
 
 For English lemmatization, we suggest the `en_core_web_sm` model:
