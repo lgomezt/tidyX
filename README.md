@@ -74,7 +74,7 @@ For a more detailed explanation of the customizable steps of the function, visit
 
 - **Stemming and Lemmatizing**: One of the foundational steps in preparing text for NLP applications is bringing words to a common base or root. This library provides both `stemmer()` and `lemmatizer()` functions to perform this task across various languages.
 - **Group similar terms**: When working with a corpus sourced from social networks, it's common to encounter texts with grammatical errors or words that aren't formally included in dictionaries. These irregularities can pose challenges when creating Term Frequency matrices for NLP algorithms. To address this, we developed the [`create_bol()`](https://tidyx.readthedocs.io/en/latest/examples/tutorial.html#create-bol) function, which allows you to create specific bags of terms to cluster related terms.
-- **Remove unwanted elements**: such as special characters, accents, emojis, urls, tweeter mentions, among others.
+- **Remove unwanted elements**: such as special characters, extra spaces, accents, emojis, urls, tweeter mentions, among others.
 - **Dependency Parsing Visualization**: Incorporates visualization tools that enable the display of dependency parses, facilitating linguistic analysis and feature engineering.
 - **Much more!**
 
