@@ -82,6 +82,11 @@ For a more detailed explanation of the customizable steps of the function, visit
 - [**Dependency Parsing Visualization**](https://tidyx.readthedocs.io/en/latest/usage/dependency_parsing_visualization.html): Incorporates visualization tools that enable the display of dependency parses, facilitating linguistic analysis and feature engineering.
 - **Much more!**
 
+## Tutorials
+- [Stemming and Lemmatizing Texts Efficiently](https://tidyx.readthedocs.io/en/latest/tutorials/stemming_and_lemmatizing_efficiently.html)
+- [Word Cloud](https://tidyx.readthedocs.io/en/latest/tutorials/word_cloud.html)
+- [Topic Modelling](https://tidyx.readthedocs.io/en/latest/tutorials/topic_modelling.html)
+
 ## Contributing
 
 Contributions to enhance `tidyX` are welcome! Feel free to open issues for bug reports, feature requests, or submit pull requests. If this package has been helpful, please give us a star :D
