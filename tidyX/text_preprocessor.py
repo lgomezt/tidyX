@@ -335,7 +335,7 @@ class TextPreprocessor:
                                             language=language_stopwords)
         string = TextPreprocessor.remove_extra_spaces(string)
         string = TextPreprocessor.remove_repetitions(string, exceptions=exceptions)
-        string = TextPreprocessor.remove_last_repetition(string)
+        string = TextPreprocessor.remove_last_repetition(string, exceptions=exceptions)
         string = TextPreprocessor.space_between_emojis(string)
 
         return (string, mentions) if extract else string
