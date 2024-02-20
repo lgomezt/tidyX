@@ -285,7 +285,7 @@ class TextPreprocessor:
     @staticmethod
     def preprocess(string: str, delete_emojis: bool = True, extract: bool = False, 
                 exceptions: List[str] = ["r", "l", "n", "c", "a", "e", "o"], allow_numbers: bool = False,
-                remove_stopwords: bool = False, language_stopwords: str = "spanish") -> Union[str, Tuple[str, List[str]]]:
+                remove_stopwords: bool = False, language_stopwords: str = "spanish", allow_repetition: bool = False) -> Union[str, Tuple[str, List[str]]]:
         """
         Preprocesses a string, typically a tweet, by applying a series of cleaning functions. The function performs the following steps:
 
@@ -316,6 +316,8 @@ class TextPreprocessor:
                 If True, stopwords are removed based on the specified language. Default is False.
             language_stopwords (str): 
                 The language for which stopwords should be removed. Defaults to "spanish".
+            allow_repetition (str):
+                If True, will allow repeated characters. Default is False.
 
         Returns:
             str: 
@@ -334,8 +336,9 @@ class TextPreprocessor:
         string = TextPreprocessor.remove_words(string, bag_of_words=None, remove_stopwords=remove_stopwords, 
                                             language=language_stopwords)
         string = TextPreprocessor.remove_extra_spaces(string)
-        string = TextPreprocessor.remove_repetitions(string, exceptions=exceptions)
-        string = TextPreprocessor.remove_last_repetition(string, exceptions=exceptions)
+        if allow_repetition:
+            string = TextPreprocessor.remove_repetitions(string, exceptions=exceptions)
+            string = TextPreprocessor.remove_last_repetition(string, exceptions=exceptions)
         string = TextPreprocessor.space_between_emojis(string)
 
         return (string, mentions) if extract else string
