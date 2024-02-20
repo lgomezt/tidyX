@@ -206,10 +206,10 @@ class TextPreprocessor:
         mentions = []
         # Extract mentions if needed
         if extract:
-            mentions = list(set(re.findall(r"@\w+", string))) # np.unique(re.findall(pattern = "@[^ ]+", string = string))
+            mentions = list(set(re.findall(r"@\w+[:]*", string))) # np.unique(re.findall(pattern = "@[^ ]+", string = string))
         
         # Remove mentions
-        string = re.sub(r"@\w+", "", string) # re.sub("@[^ ]+", "", string)
+        string = re.sub(r"@\w+[:]*", "", string) # re.sub("@[^ ]+", "", string)
         string = TextPreprocessor.remove_extra_spaces(string)
         
         return string, mentions
