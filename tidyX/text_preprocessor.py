@@ -49,7 +49,7 @@ class TextPreprocessor:
         return string
 
     @staticmethod
-    def remove_last_repetition(string: str) -> str:
+    def remove_last_repetition(string: str, exceptions = ["r", "l", "n", "c", "a", "e", "o"]) -> str:
         """
         Removes the repetition of the last character in each word of a given string.
         
@@ -62,13 +62,26 @@ class TextPreprocessor:
         Args:
             string (str): 
                 The text to be processed.
+            exceptions (list, optional): 
+                A list of characters that can be repeated once consecutively without being removed. Defaults to ['r', 'l', 'n', 'c', 'a', 'e', 'o'].
             
         Returns:
             str: 
                 The processed text with the last character of each word de-duplicated.
         """
+
+        if not exceptions: 
+            # Remove all consecutive repetitions
+            string = re.sub(r'(\w)\1+\b', r'\1', string) 
+        else:
+            # Allow one repetition for characters in exceptions list
+            exceptions_pattern = "|".join(re.escape(char) for char in exceptions)
+            string = re.sub(r'({})\1+\b'.format(exceptions_pattern), r'\1\1', string)
+            
+            # Remove all other consecutive repetitions
+            string = re.sub(r'([^{}])\1+\b'.format(re.escape(exceptions_pattern)), r'\1', string)
         
-        return re.sub(r'(\w)\1+\b', r'\1', string) 
+        return string
 
     @staticmethod
     def remove_urls(string: str) -> str:
